@@ -12,11 +12,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class AppUserService implements UserDetailsService {
+
 
     private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
     private final AppUserRepository appUserRepository;
@@ -64,5 +67,14 @@ public class AppUserService implements UserDetailsService {
 
     public int enableAppUser(String email) {
         return appUserRepository.enableAppUser(email);
+    }
+
+    public List<AppUser> getAllAccounts() {
+
+        return appUserRepository.findAll();
+    }
+
+    public Optional<AppUser> getUserByEmail(String email) {
+        return appUserRepository.findByEmail(email);
     }
 }

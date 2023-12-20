@@ -23,10 +23,7 @@ public class ConfirmationToken {
     private LocalDateTime expiredAt;
     private LocalDateTime confirmedAt;
     @ManyToOne
-    @JoinColumn(
-            nullable = false,
-            name = "app_user_id"
-    )
+    @JoinColumn(name = "EMAIL", referencedColumnName = "EMAIL")
     private AppUser appUser;
 
     public ConfirmationToken(String token,

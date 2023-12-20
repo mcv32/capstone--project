@@ -1,5 +1,6 @@
 package com.example.server.Models;
 
+import com.example.server.login.registration.token.ConfirmationToken;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Table(name= "app_user")
@@ -18,24 +20,33 @@ import java.util.Collections;
 @AllArgsConstructor
 public class AppUser implements UserDetails {
 
+
+
     @Id
     private String email;
-    private String fName;
-    private String lName;
+    private String f_name;
+    private String l_name;
     private  String password;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
     private Boolean locked = false;
     private Boolean enabled = false;
-    private String phoneNumber = "";
-
-    public AppUser(String fName,
-                   String lName,
+    private String phone_number = "";
+    @ManyToOne
+    @JoinColumn(
+            nullable = true,
+            name = "financial_account_id"
+    )
+    private FinancialAccount financialAccount;
+    @OneToMany(mappedBy = "appUser")
+    private List<ConfirmationToken> confirmationTokens;
+    public AppUser(String f_name,
+                   String l_name,
                    String email,
                    String password,
                    AppUserRole appUserRole) {
-        this.fName = fName;
-        this.lName = lName;
+        this.f_name = f_name;
+        this.l_name = l_name;
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
@@ -58,13 +69,19 @@ public class AppUser implements UserDetails {
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return phone_number;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhoneNumber(String phone_number) {
+        this.phone_number = phone_number;
     }
 
+    public void setFinancialAccount(FinancialAccount financialAccount){
+        this.financialAccount = financialAccount;
+    }
+    public FinancialAccount getFinancialAccount(){
+        return this.financialAccount;
+    }
     @Override
     public boolean isAccountNonExpired() {
         return true;
