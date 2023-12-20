@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Axios from "axios";
 
 
-function Login(props){
+function LoginForm(props){
      
     const urlLogin = "http://localhost:8080/login";
     const [loginPayload, setLoginPayload] = useState({
@@ -80,4 +80,4 @@ function Login(props){
     );
 }
 
-export default Login;
+export default LoginForm;
