@@ -16,10 +16,9 @@ import java.util.Optional;
 public interface AppUserRepository extends JpaRepository<AppUser, String> {
     Optional<AppUser> findByEmail(String email);
 
-    @Query(value = "INSERT INTO APP_USER (ID, F_NAME, L_NAME, EMAIL, PASSWORD, APP_USER_ROLE, LOCKED, ENABLED) " +
-            "VALUES (:ID, :F_NAME, :L_NAME, :EMAIL, :PASSWORD, :APP_USER_ROLE, :LOCKED, :ENABLED)", nativeQuery = true)
+    @Query(value = "INSERT INTO APP_USER (F_NAME, L_NAME, EMAIL, PASSWORD, APP_USER_ROLE, LOCKED, ENABLED) " +
+            "VALUES (:F_NAME, :L_NAME, :EMAIL, :PASSWORD, :APP_USER_ROLE, :LOCKED, :ENABLED)", nativeQuery = true)
     AppUser createAppUser(
-            @Param("ID") Long id,
             @Param("F_NAME") String fName,
             @Param("L_NAME") String lName,
             @Param("EMAIL") String email,
