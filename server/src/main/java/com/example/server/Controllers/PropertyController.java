@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping(path = "/properties")
 public class PropertyController {
@@ -17,13 +18,29 @@ public class PropertyController {
     }
 
     @GetMapping
-    public List<Property> getAllProperties(){
+    public List<Property> getAllProperties() {
         return propertyService.getAllProperties();
     }
-    @PostMapping
-    public Property getPropertyById(@RequestBody int id){
+
+    @GetMapping("/{id}")
+    public Property getPropertyById(@PathVariable int id) {
         Property property = propertyService.getPropertyById(id);
         return property;
     }
 
+    @PostMapping
+    public Property createProperty(@RequestBody Property property) {
+        return propertyService.createProperty(property);
+    }
+
+    @PutMapping("/{id}")
+    public Property updateProperty(@PathVariable int id, @RequestBody Property updatedProperty) {
+        return propertyService.updateProperty(id, updatedProperty);
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteProperty(@PathVariable int id) {
+        propertyService.deleteProperty(id);
+        return "Property with ID " + id + " deleted successfully.";
+    }
 }

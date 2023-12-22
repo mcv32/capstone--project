@@ -1,26 +1,47 @@
 package com.example.server.Services;
 
 import com.example.server.Models.Ledger;
-import com.example.server.Repositories.LedgerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LedgerService {
 
-    private final LedgerRepository ledgerRepository;
+    private final List<Ledger> ledgerList = new ArrayList<>();
 
-    @Autowired
-    public LedgerService(LedgerRepository ledgerRepository){
-        this.ledgerRepository = ledgerRepository;
-    }
-    public List<Ledger> getAllAccounts() {
-        return ledgerRepository.findAll();
+    public List<Ledger> getAllLedgers() {
+        return ledgerList;
     }
 
     public Ledger getLedgerById(int id) {
-        return ledgerRepository.findById(id);
+        Optional<Ledger> optionalLedger = ledgerList.stream()
+                .filter(ledger -> ledger.getId() == id)
+                .findFirst();
+        return optionalLedger.orElse(null);
+    }
+
+    public Ledger createLedger(Ledger ledger) {
+        int nextId = ledgerList.isEmpty() ? 1 : ledgerList.get(ledgerList.size() - 1).getId() + 1;
+        ledger.setId(nextId);
+        ledgerList.add(ledger);
+        return ledger;
+    }
+
+    public Ledger updateLedger(int id, Ledger updatedLedger) {
+        for (int i = 0; i < ledgerList.size(); i++) {
+            if (ledgerList.get(i).getId() == id) {
+                updatedLedger.setId(id);
+                ledgerList.set(i, updatedLedger);
+                return updatedLedger;
+            }
+        }
+        return null; // Ledger with the given ID not found
+    }
+
+    public void deleteLedger(int id) {
+        ledgerList.removeIf(ledger -> ledger.getId() == id);
     }
 }
