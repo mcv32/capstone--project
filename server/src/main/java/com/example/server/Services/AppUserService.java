@@ -1,5 +1,6 @@
 package com.example.server.Services;
 
+import com.example.server.Exceptions.EmailAlreadyExists;
 import com.example.server.Models.AppUser;
 import com.example.server.Repositories.AppUserRepository;
 import com.example.server.login.registration.token.ConfirmationToken;
@@ -39,7 +40,8 @@ public class AppUserService implements UserDetailsService {
         if (userExists){
             // TODO check if attributes are the same and
             // TODO If email not confirmed, send confirmation email again
-            throw new IllegalStateException("Email already taken");
+//            return "Email already taken";
+            throw new EmailAlreadyExists("Email Already Exists");
         }
 
         String encodedPassword = bCryptPasswordEncoder
