@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path= "/financialAccounts")
@@ -24,8 +25,8 @@ public class FinancialAccountController {
     }
 
     @PostMapping
-    public FinancialAccount getFinancialAccountById(@RequestBody int id){
-        FinancialAccount financialAccount = financialAccountService.getFinancialAccountById(id);
+    public Optional<FinancialAccount> getFinancialAccountById(@RequestBody int id){
+        Optional<FinancialAccount> financialAccount = financialAccountService.getFinancialAccountById(id);
         return financialAccount;
     }
 }

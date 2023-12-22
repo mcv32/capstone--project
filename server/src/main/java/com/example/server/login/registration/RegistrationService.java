@@ -1,7 +1,10 @@
 package com.example.server.login.registration;
 
+import com.example.server.Exceptions.EmailAlreadyRegistered;
+import com.example.server.Exceptions.InvalidEmail;
 import com.example.server.Models.AppUser;
 import com.example.server.Models.AppUserRole;
+import com.example.server.Repositories.AppUserRepository;
 import com.example.server.Services.AppUserService;
 import com.example.server.login.email.EmailSender;
 import com.example.server.login.registration.token.ConfirmationToken;
@@ -16,6 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class RegistrationService {
 
+    private final AppUserRepository appUserRepository;
     private final AppUserService appUserService;
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
@@ -25,7 +29,11 @@ public class RegistrationService {
         boolean isValidEmail = emailValidator.test(request.getEmail());
 
         if (!isValidEmail) {
-            throw new IllegalStateException("email not valid");
+            throw new InvalidEmail("email not valid");
+        }
+        var user = appUserRepository.findByEmail(request.getEmail());
+        if(!user.isEmpty()){
+            throw new EmailAlreadyRegistered("email already registered");
         }
 
         String token = appUserService.signUpUser(

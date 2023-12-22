@@ -1,10 +1,9 @@
 package com.example.server.login.registration;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
+@Data
+@Builder
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode

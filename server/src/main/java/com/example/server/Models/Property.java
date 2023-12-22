@@ -41,4 +41,8 @@ public class Property {
         this.zip = zip;
         this.property_balance = property_balance;
     }
+
+    public void setProperty_id(int property_id) {
+        this.property_id = property_id;
+    }
 }

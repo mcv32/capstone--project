@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Scanner;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -18,7 +18,7 @@ public class FinancialAccountService {
         return financialAccountRepository.findAll();
     }
 
-    public FinancialAccount getFinancialAccountById(int id) {
+    public Optional<FinancialAccount> getFinancialAccountById(int id) {
         return financialAccountRepository.findById(id);
     }
 }

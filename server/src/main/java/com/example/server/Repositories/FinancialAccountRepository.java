@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface FinancialAccountRepository extends JpaRepository<FinancialAccount, Integer> {
-    FinancialAccount findById(int financial_account_id);
+    Optional<FinancialAccount> findById(int financial_account_id);
 }

@@ -18,22 +18,22 @@ public class TransactionTestsService {
 
     public TransactionTests getTransactionsTestsById(int id) {
         Optional<TransactionTests> optionalTransactionTests = transactionTestsList.stream()
-                .filter(transactionTest -> transactionTest.getId() == id)
+                .filter(transactionTest -> transactionTest.getTransaction_id() == id)
                 .findFirst();
         return optionalTransactionTests.orElse(null);
     }
 
     public TransactionTests createTransactionTest(TransactionTests transactionTest) {
-        int nextId = transactionTestsList.isEmpty() ? 1 : transactionTestsList.get(transactionTestsList.size() - 1).getId() + 1;
-        transactionTest.setId(nextId);
+        int nextId = transactionTestsList.isEmpty() ? 1 : transactionTestsList.get(transactionTestsList.size() - 1).getTransaction_id() + 1;
+        transactionTest.setTransaction_id(nextId);
         transactionTestsList.add(transactionTest);
         return transactionTest;
     }
 
     public TransactionTests updateTransactionTest(int id, TransactionTests updatedTransactionTest) {
         for (int i = 0; i < transactionTestsList.size(); i++) {
-            if (transactionTestsList.get(i).getId() == id) {
-                updatedTransactionTest.setId(id);
+            if (transactionTestsList.get(i).getTransaction_id() == id) {
+                updatedTransactionTest.setTransaction_id(id);
                 transactionTestsList.set(i, updatedTransactionTest);
                 return updatedTransactionTest;
             }
@@ -42,6 +42,6 @@ public class TransactionTestsService {
     }
 
     public void deleteTransactionTest(int id) {
-        transactionTestsList.removeIf(transactionTest -> transactionTest.getId() == id);
+        transactionTestsList.removeIf(transactionTest -> transactionTest.getTransaction_id() == id);
     }
 }
