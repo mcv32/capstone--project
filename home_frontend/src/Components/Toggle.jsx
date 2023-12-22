@@ -1,15 +1,11 @@
 import React from "react";
 
-function Toggle(){
-    
-    function handleClick(){
-        console.log("Clicked");
-    }
-    
+function Toggle(props){
+   
     return(
         <div className="toggle">
             <label className="switch">
-                <input id="toggleRegister" type="checkbox" value="true" onClick={handleClick}></input>
+                <input id="toggleRegister" type="checkbox" value="true" onClick={props.onClick}></input>
                 <span className="slider round"></span>
             </label>
         </div>
