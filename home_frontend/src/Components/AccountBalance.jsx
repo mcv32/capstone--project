@@ -12,11 +12,12 @@ function AccountBalance(){
 
     return(
         <div className="accountBalance">
+            <div></div>
             <h2>ACCOUNT BALANCE</h2>
             <p>$250.00</p>
             <h3>Due on 12/23/2023</h3>
             <button onClick={handlePop}>Make Payment</button>
-            <div className={isPopped ? "proppopoverOpen" :"proppopoverClosed"} >
+            <div className={isPopped ? "newPaymentOpen" :"newPaymentClosed"} >
                 <div className="closepopover">
                     <button onClick={handlePop}>X</button>
                 </div>

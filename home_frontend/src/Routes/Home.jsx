@@ -6,7 +6,7 @@ const navigate = useNavigate();
 
     return(
         <section className="bodySection">
-            <h1>Home Page</h1>
+
         </section>
     );
 }

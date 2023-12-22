@@ -5,11 +5,21 @@ function NewPayment(){
         <div className="newPayment">
             <h2>Enter Payment Details</h2>
             <form action="submit">
-                <label htmlFor="PaymentMethod">Payment Method</label>
-                <input type="text" />
+                <div>
+                    {/* <label htmlFor="PaymentMethod">Payment Method</label> */}
+                    <select name="PaymentMethod" id="payMethod">
+                        <option value="Credit/Debit Card">Test Credit/Debit Card</option>
+                        <option value="ACH/eCheck">ACH/eCheck</option>
+                        <option value="Fiserv Credit/Debit Card">Fiserv Credit/Debit Card</option>
+                        <option value="Clover Credit/Debit Card">Clover Credit/Debit Card</option>
+                    </select>
+                </div>
                 
                 <label htmlFor="CardNumber">Card Number</label>
-                <input type="text" />
+                <input id="CardNumber" type="text" />
+
+                <label htmlFor="Account">Account</label>
+                <input id="Account" type="text" />
 
                 <label htmlFor="Expiration Date">Expiration Date</label>
                 <input type="text" />

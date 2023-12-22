@@ -2,7 +2,7 @@ import React from "react";
 
 function Ledger(){
     return(
-        <div className="Accounts">
+        <div className="ledger">
         <h2></h2>
         <table>
             <tr>

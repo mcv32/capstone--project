@@ -1,9 +1,11 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import Axios from "axios";
+import AuthContext from "../Context/AuthProvider";
 
 
 function LoginForm(props){
     const [userIsRegistered, setUserIsRegistered] = useState(false);
+    const { setAuth } = useContext(AuthContext);
     
     function handleClick(event){
         const checkValue = event.target.checked;
@@ -12,9 +14,10 @@ function LoginForm(props){
         } else{
             setUserIsRegistered(checkValue);
         }
+        console.log(userIsRegistered);
     }
      
-    const urlLogin = "http://localhost:8080/login";
+    const urlLogin = "http://localhost:8080/authenticate";
     const [loginPayload, setLoginPayload] = useState({
         email: "",
         password: ""
@@ -29,6 +32,13 @@ function LoginForm(props){
         password: "",
         confirmpass:""
     })
+
+    function resetLoginPayload(){
+        setLoginPayload({
+            email: "",
+            password: ""
+        })
+    }
 
     function resetRegisterPayload(){
         setRegisterPayload({
@@ -48,18 +58,36 @@ function LoginForm(props){
     }
 
     const submit = async (cred) => {
-        if (props.isRegistered === true){
+        if (userIsRegistered === true){
+            try {
+            console.log(loginPayload);
             cred.preventDefault();
-            Axios.post(urlLogin, {
-                username: loginPayload.username,
-                password: loginPayload.password            
+            const response = await Axios.post(urlLogin, {
+                email: loginPayload.email,
+                password: loginPayload.password
             })
-            .then (res => {
-                console.log(res.loginPayload);
-            })
-            .then (res => {
-                window.location.href="http://localhost:8080/";
-            })
+                console.log(response);
+
+                const accessToken = response?.data?.accessToken;
+                const roles = response?.data?.roles;
+                const email = response?.data?.email;
+                const password = response?.data?.password;
+                setSuccess(true);
+                setAuth({email, password, roles, accessToken });
+                resetLoginPayload();
+                // window.location.href="http://localhost:3000/dashboard";
+            
+            }catch (err){
+                if (err.response.status === 400){
+                    // console.log(err.response);
+                    // console.log(err.response.data.errorDesc);
+                    setResMsg(err.response.data.errorDesc);
+                    setTimeout(resetResMsg, 5000);
+                } else {
+                    setResMsg("Unknown Error Occured. Account Not Created. Please Try Again");
+                    setTimeout(resetResMsg, 5000);
+                }
+        }      
 
         } else {
             try {
@@ -76,7 +104,9 @@ function LoginForm(props){
                     setTimeout(resetResMsg, 5000);
             } catch (err) {
                 if (err.response?.status === 400){
-                    setResMsg("Email Taken. Please Select Another Email Address");
+                    // console.log(err.response);
+                    // console.log(err.response.data.errorDesc);
+                    setResMsg(err.response.data.errorDesc);
                     setTimeout(resetResMsg, 5000);
                 } else {
                     setResMsg("Unknown Error Occured. Account Not Created. Please Try Again");
@@ -87,7 +117,7 @@ function LoginForm(props){
     }
 
     function handle(cred){
-        if (props.isRegistered === true){
+        if (userIsRegistered === true){
             const newLoginPayload = {... loginPayload}
             newLoginPayload[cred.target.id] = cred.target.value
             setLoginPayload(newLoginPayload)
@@ -121,7 +151,7 @@ function LoginForm(props){
             </form>
             <div className="toggle">
                 <label className="switch">
-                <input id="toggleRegister" type="checkbox" onClick={handleClick}></input>
+                <input id="toggleRegister" type="checkbox" onClick={handleClick} ></input>
                 <span className="slider round"></span>
                 </label>
                 <span className = "label">Existing User?</span>

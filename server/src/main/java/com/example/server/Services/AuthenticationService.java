@@ -37,6 +37,7 @@ public class AuthenticationService {
 //        return null;
 //    }
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        System.out.println(request);
         var user = repository.findByEmail(request.getEmail()).orElseThrow(() -> new EmailDoesntExist("Email not found"));
 
 //        authenticationManager.authenticate(

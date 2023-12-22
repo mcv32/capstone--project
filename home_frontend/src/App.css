@@ -1,17 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Arapey');
 
 *{
-  /* padding: 0;
-  margin: 0; */
+  padding: 0;
+  margin: 0;
   font-family: 'Arapey';
 
 }
 
 .App {
-  position: relative;
+  position: absolute;
   text-align: center;
   display: flex;
-  height: 100vh;
+  height: auto;
+  min-height: 100%;
   width: 100%;
   flex-direction: column;
   justify-content: space-between;
@@ -20,7 +21,9 @@
 .content {
   position: absolute;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
+  height: auto;
+  min-height: 100%;
   top: 0;
   display: flex;
   flex-direction: column;
@@ -28,10 +31,26 @@
 
 }
 
-.App video {
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  /* background-color: rgba(0,0,0,.4); */
+  background-color: #000000;
+}
+
+.content video {
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
 }
 
 .offscreen {
@@ -52,6 +71,20 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.parallax1{
+    /* The image used */
+    background-image: url("https://s3.amazonaws.com/architecture-org/files/pages/201307-twilight-cruise-089.jpg");
+
+    /* Set a specific height */
+    min-height: 500px;
+  
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .heading {
@@ -325,12 +358,13 @@ input:checked + .slider:before {
 }
 
 .dashboard {
-  background: rgba(255, 255, 255, 0.438);
+  position: relative;
+  background: rgba(224, 5, 5, 0)255);
   display: flex;
   align-items: center;
   justify-content: baseline;
   flex-direction: column;
-  height: 100%;
+  /* height: 100%; */
 }
 .dashHead {
   background-color: rgba(255, 255, 255, 0);
@@ -345,6 +379,7 @@ input:checked + .slider:before {
 .dashboard h1 {
   font-size: 3rem;
   margin: 0px 0px 0px 100px;
+  color: white;
 }
 
 .dashBody {
@@ -359,14 +394,14 @@ input:checked + .slider:before {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 .dashCore {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 .testblock {
@@ -393,7 +428,8 @@ input:checked + .slider:before {
   height: 100%;
   margin: 10px;
   text-align: left;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.685);
+  padding: 20px 0px 0px 0px;
 }
 
 .accountLeft {
@@ -444,7 +480,7 @@ input:checked + .slider:before {
   height: 100%;
   margin: 10px;
   text-align: left;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.685);
 }
 
 .homeIDLeft {
@@ -619,8 +655,8 @@ input:checked + .slider:before {
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
   height: 100%;
   margin: 10px;
-  padding: 0px;
-  background-color: white;
+  padding: 20px 10px 0px 10px;
+  background-color: rgba(255, 255, 255, 0.685);
 }
 
 .tenantServiceTickets table {
@@ -645,9 +681,9 @@ input:checked + .slider:before {
 }
  
 .tenantServiceTickets h2 {
-  color: #174751;
-  text-align: left;
-  margin: 0;
+  color: black;
+  text-align: center;
+  margin: 0px 0px 10px 0px;
 }
 
 .accountBalance {
@@ -657,8 +693,10 @@ input:checked + .slider:before {
   max-width: 30%;
   border-left-style: solid;
   border-left-color: rgba(128, 128, 128, 0.377);
-  margin: 20px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.685);
+  border-radius: 10px;
+  margin: 10px 20px 0px 10px;
+  padding: 20px;
 }
 
 .accountBalance h2 {
@@ -682,19 +720,93 @@ input:checked + .slider:before {
   align-self: center;
   margin: 10px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.212);
+  background: rgb(255, 255, 255);
   border-style: solid;
   border-width: 0.5px;
   border-color: rgba(128, 128, 128, 0.651);
   color: black;
-  
-
 }
 
 .accountBalance button:hover{
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
   color: rgba(128, 128, 128, 0.473);
 }
+
+.ledger {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #17475109;
+  border-radius: 10px;
+  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+  height: 100%;
+  margin: 10px;
+  background-color: rgba(255, 255, 255, 0.884);
+}
+
+.ledger table {
+  margin: 10px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.ledger tr {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  height: 50px;
+}
+
+.ledger tr:hover {
+  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+}
+
+.ledger th {
+  background-color: rgba(128, 128, 128, 0.377);
+  border-style:hidden;
+  border-right-color: rgba(128, 128, 128, 0.377);
+}
+ 
+.ledger h2 {
+  color: #174751;
+  text-align: left;
+  margin: 0px;
+}
+
+.newPaymentClosed {
+  /* background-color: red; */
+  /* display: none; */
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 35%;
+  height: 100%;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  background-color: white;
+  padding: 20px;
+  overflow-x: hidden;
+  transition: 1s cubic-bezier(.36,-0.01,0,.77);
+  box-sizing: border-box;
+}
+
+.newPaymentOpen {
+  /* background-color: red; */
+  /* display: none; */
+  position: fixed;
+  top: 0;
+  right: -100px;
+  width: 35%;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  overflow-x: hidden;
+  transition: 1s cubic-bezier(.36,-0.01,0,.77);
+  box-sizing: border-box;
+  box-shadow: 10px 15px 100px 10px rgba(128, 128, 128, 0.61);
+
+}
+
 
 .Properties {
   display: flex;
@@ -809,7 +921,7 @@ input:checked + .slider:before {
   border-style: solid;
   border-width: 0.5px;
   border-color: rgba(128, 128, 128, 0.651);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: rgba(128, 128, 128, 0.473);
   border-radius: 10px;
 }
@@ -834,6 +946,8 @@ input:checked + .slider:before {
 .newProperty form{
   align-self: baseline;
   margin-left: 70px;
+  display: flex;
+  flex-direction: column;
 }
 
 .newPayment {
@@ -841,6 +955,7 @@ input:checked + .slider:before {
   display: flex;
   flex-direction: column;
   justify-content: left;
+
 }
 
 .newPayment h2{
@@ -850,8 +965,31 @@ input:checked + .slider:before {
 }
 
 .newPayment form{
-  align-self: baseline;
-  margin-left: 70px;
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  align-content: left;
+  flex-direction: column;
+  
+}
+
+.newPayment label{
+  text-align: left;
+  margin: 10px;
+}
+
+.newPayment input{
+  background-color: rgba(255, 255, 255, 0);
+  border-style: solid;
+  border-color: black;
+  justify-self: left;
+  text-align: left;
+}
+
+.newPayment select {
+  margin: 10px;
+  font-size: 1.5rem;
+  align-self: left;
 }
 
 .newPayment button{
@@ -868,7 +1006,7 @@ input:checked + .slider:before {
 }
 
 .newPayment button:hover{
-  background-color: #174751;
+  background-image: linear-gradient(#000000, #5a42a8);
   color: white;
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
 }
@@ -934,7 +1072,7 @@ input:checked + .slider:before {
 
 .aboutHero{
   color: white;
-  background-color: #1747519a;
+  background-color: #ffffff9a;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
