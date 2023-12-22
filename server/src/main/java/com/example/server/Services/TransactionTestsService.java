@@ -1,27 +1,47 @@
 package com.example.server.Services;
 
 import com.example.server.Models.TransactionTests;
-import com.example.server.Repositories.TransactionTestsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransactionTestsService {
 
-    private final TransactionTestsRepository transactionTestsRepository;
+    private final List<TransactionTests> transactionTestsList = new ArrayList<>();
 
-    @Autowired
-    public TransactionTestsService(TransactionTestsRepository transactionTestsRepository){
-        this.transactionTestsRepository = transactionTestsRepository;
-    }
-
-    public List<TransactionTests> getAllTransactionTests(){
-        return transactionTestsRepository.findAll();
+    public List<TransactionTests> getAllTransactionTests() {
+        return transactionTestsList;
     }
 
     public TransactionTests getTransactionsTestsById(int id) {
-        return transactionTestsRepository.findById(id);
+        Optional<TransactionTests> optionalTransactionTests = transactionTestsList.stream()
+                .filter(transactionTest -> transactionTest.getId() == id)
+                .findFirst();
+        return optionalTransactionTests.orElse(null);
+    }
+
+    public TransactionTests createTransactionTest(TransactionTests transactionTest) {
+        int nextId = transactionTestsList.isEmpty() ? 1 : transactionTestsList.get(transactionTestsList.size() - 1).getId() + 1;
+        transactionTest.setId(nextId);
+        transactionTestsList.add(transactionTest);
+        return transactionTest;
+    }
+
+    public TransactionTests updateTransactionTest(int id, TransactionTests updatedTransactionTest) {
+        for (int i = 0; i < transactionTestsList.size(); i++) {
+            if (transactionTestsList.get(i).getId() == id) {
+                updatedTransactionTest.setId(id);
+                transactionTestsList.set(i, updatedTransactionTest);
+                return updatedTransactionTest;
+            }
+        }
+        return null;
+    }
+
+    public void deleteTransactionTest(int id) {
+        transactionTestsList.removeIf(transactionTest -> transactionTest.getId() == id);
     }
 }

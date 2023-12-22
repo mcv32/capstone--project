@@ -3,7 +3,6 @@ package com.example.server.Controllers;
 import com.example.server.Models.TransactionTests;
 import com.example.server.Services.TransactionTestsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,9 +23,25 @@ public class TransactionTestsController {
         return transactionTestsService.getAllTransactionTests();
     }
 
-    @PostMapping
-    public TransactionTests getTransactionTestsById(@RequestBody int id){
+    @GetMapping("/{id}")
+    public TransactionTests getTransactionTestsById(@PathVariable int id){
         TransactionTests transactionTests = transactionTestsService.getTransactionsTestsById(id);
         return transactionTests;
+    }
+
+    @PostMapping
+    public TransactionTests createTransactionTest(@RequestBody TransactionTests transactionTest) {
+        return transactionTestsService.createTransactionTest(transactionTest);
+    }
+
+    @PutMapping("/{id}")
+    public TransactionTests updateTransactionTest(@PathVariable int id, @RequestBody TransactionTests updatedTransactionTest) {
+        return transactionTestsService.updateTransactionTest(id, updatedTransactionTest);
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteTransactionTest(@PathVariable int id) {
+        transactionTestsService.deleteTransactionTest(id);
+        return "TransactionTest with ID " + id + " deleted successfully.";
     }
 }
