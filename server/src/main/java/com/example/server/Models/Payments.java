@@ -37,10 +37,10 @@ public class Payments {
         validACHeChecks.add("856667");
     }
     public String processPayment(PaymentType paymentType, String number, String accountingNumber){
-        if(paymentType.equals(PaymentType.CREDITCARD)){
+        if(paymentType.equals(PaymentType.CREDIT_DEBIT)){
             return validCreditCard(number);
         }
-        else if(paymentType.equals(PaymentType.ACH) || paymentType.equals(PaymentType.ECHECK)){
+        else if(paymentType.equals(PaymentType.ACH_ECHECK)){
             return validACHeCheck(String.valueOf(accountingNumber));
         }
         else

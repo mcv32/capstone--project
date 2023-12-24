@@ -1,4 +1,5 @@
 import './App.css';
+import RequireAuth from './Routes/RequireAuth';
 import {Routes, Route} from 'react-router-dom';
 import Layout from './Layout';
 import Home from './Routes/Home';
@@ -23,9 +24,9 @@ function App() {
         <Route path="unauthorized" element={<Unauthorized />} />
 
         {/* we want to protect these routes */}
-        {/* <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Manager, ROLES.Admin]} />}> */}
+        <Route element={<RequireAuth allowedRoles={['USER', 'MANAGER']}/>}>
           <Route path="dashboard" element={<Dashboard />} />
-        {/* </Route> */}
+        </Route>
 
         {/* catch all */}
         <Route path="*" element={<Missing />} />

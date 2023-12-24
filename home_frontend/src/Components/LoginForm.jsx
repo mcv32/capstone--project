@@ -1,11 +1,16 @@
-import React, {useState, useContext} from "react";
-import Axios from "axios";
-import AuthContext from "../Context/AuthProvider";
+import React, {useState, useRef, useEffect} from "react";
+import useAuth from "../Hooks/useAuth";
+import { useNavigate, useLocation } from "react-router-dom";
 
+import Axios from "axios";
 
 function LoginForm(props){
     const [userIsRegistered, setUserIsRegistered] = useState(false);
-    const { setAuth } = useContext(AuthContext);
+    const { setAuth } = useAuth();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/dashboard";
     
     function handleClick(event){
         const checkValue = event.target.checked;
@@ -68,14 +73,18 @@ function LoginForm(props){
             })
                 console.log(response);
 
-                const accessToken = response?.data?.accessToken;
-                const roles = response?.data?.roles;
-                const email = response?.data?.email;
-                const password = response?.data?.password;
-                setSuccess(true);
+                const accessToken = response?.data?.token;
+                const roles = response?.data?.role;
+                const email = loginPayload.email;
+                const password = loginPayload.password;
+                
+                console.log(email);
+                console.log(password);
+                console.log(roles);
+                console.log(accessToken);
                 setAuth({email, password, roles, accessToken });
                 resetLoginPayload();
-                // window.location.href="http://localhost:3000/dashboard";
+                navigate(from, {replace:true});
             
             }catch (err){
                 if (err.response.status === 400){
@@ -154,7 +163,7 @@ function LoginForm(props){
                 <input id="toggleRegister" type="checkbox" onClick={handleClick} ></input>
                 <span className="slider round"></span>
                 </label>
-                <span className = "label">Existing User?</span>
+                <span className = "label">{userIsRegistered? "New user?" : "Already have an account?"}</span>
             </div>
         </div>
     );

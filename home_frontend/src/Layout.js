@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Heading from "./Components/Heading";
 import Footing from "./Components/Footing";
-import backgroundVideo from "./static/backgroundVideo_crop.mp4";
+import backgroundVideo from "./Static/backgroundVideo_crop.mp4";
 
 const Layout = () => {
     return (

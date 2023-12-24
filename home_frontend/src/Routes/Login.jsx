@@ -8,7 +8,7 @@ function Login(){
     return(
         <section className="bodySection">
             <LoginForm />
-            <Link to="/dashboard">Dev Link to Dashboard</Link>
+            {/* <Link to="/dashboard">Dev Link to Dashboard</Link>/ */}
         </section>
     );
 }

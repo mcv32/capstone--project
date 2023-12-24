@@ -1,7 +1,6 @@
 package com.example.server.Models;
 
 public enum PaymentType {
-    CREDITCARD,
-    ACH,
-    ECHECK
+    CREDIT_DEBIT,
+    ACH_ECHECK
 }
