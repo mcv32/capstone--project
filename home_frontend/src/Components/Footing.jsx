@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Logo from "../Static/CapstoneLogo.png"
+import Logo from "../static/CapstoneLogo.png"
 
 function Footing(){
     return(

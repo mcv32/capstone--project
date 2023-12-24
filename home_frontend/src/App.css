@@ -537,7 +537,7 @@ input:checked + .slider:before {
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
   height: 100%;
   margin: 10px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.685);
 }
 
 
@@ -577,7 +577,7 @@ input:checked + .slider:before {
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
   height: 100%;
   margin: 10px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.685);
 }
 
 .recentPayments table {
@@ -616,7 +616,7 @@ input:checked + .slider:before {
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
   height: 100%;
   margin: 10px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.685);
 }
 
 .openServiceTickets table {
@@ -820,18 +820,13 @@ input:checked + .slider:before {
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
   height: 100%;
   margin: 10px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.884);
 }
 
 .propertiesHeader {
   display: flex;
   justify-content: space-between;
   margin: 10px 10px 0px 10px;
-}
-
-.propertiesHeader button {
-  /* background-image: url("https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg");
-  background-size: contain; */
 }
 
 .Properties table {
@@ -857,7 +852,7 @@ input:checked + .slider:before {
 }
  
 .Properties h2 {
-  color: #174751;
+  color: black;
   text-align: left;
   margin: 0px;
 }
@@ -896,8 +891,11 @@ input:checked + .slider:before {
 }
 
 .openpopover{
+  display: flex;
   height: 40px;
   width: 40px;
+  align-content: center;
+  justify-content: center;
   background: rgba(255, 255, 255, 0.212);
   border-style: solid;
   border-width: 0.5px;
@@ -930,24 +928,186 @@ input:checked + .slider:before {
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
 }
 
+.recordOpen {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  height: 90%;
+  width: 75%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  background-color: white;
+  color: black;
+  border: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px 10px rgba(128, 128, 128, 0.61);
+}
+
+.recordClosed {
+  position: absolute;
+  left: -300%;
+  left: 50%;
+  top: 50%;
+}
+
+.closeRecord button{
+  margin-bottom: 20px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  height: 40px;
+  width: 40px;
+  background: rgba(255, 255, 255, 0.212);
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: rgba(128, 128, 128, 0.651);
+  font-size: 1.2rem;
+  color: rgba(128, 128, 128, 0.473);
+  border-radius: 10px;
+}
+
+.closeRecord button:hover{
+  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+}
 
 .newProperty {
   margin-top: 100px;
   display: flex;
   flex-direction: column;
   justify-content: left;
+  color: black;
+
 }
 
 .newProperty h2{
   margin-bottom: 20px;
-  margin-left: 50px;
+  /* margin-left: 20px; */
+  align-self: baseline;
+  color: black;
 }
 
 .newProperty form{
-  align-self: baseline;
-  margin-left: 70px;
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  align-content: left;
+  flex-direction: column;
+  color: black;
+  
+}
+
+.newProperty label{
+  text-align: left;
+  margin: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.newProperty input{
+  background-color: rgba(255, 255, 255, 0);
+  border-style: solid;
+  border-color: black;
+  align-self: left;
+  text-align: left;
+  color: black;
+}
+
+.newProperty select {
+  margin: 10px;
+  font-size: 1.5rem;
+  align-self: left;
+}
+
+.newProperty button{
+  appearance: none;
+  outline: 0;
+  background-color: white;
+  border: 1;
+  padding: 10px 15px;
+  color: black;
+  border-radius: 10px;
+  width: 250px;
+  height: auto;
+  font-size: 20px;
+  align-self: center;
+}
+
+.newProperty button:hover{
+  background-image: linear-gradient(#000000, #5a42a8);
+  color: white;
+  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+}
+
+.newAccount {
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
+  justify-content: left;
+  color: black;
+
+}
+
+.newAccount h2{
+  margin-bottom: 20px;
+  /* margin-left: 20px; */
+  align-self: baseline;
+  color: black;
+}
+
+.newAccount form{
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  align-content: left;
+  flex-direction: column;
+  color: black;
+  
+}
+
+.newAccount label{
+  text-align: left;
+  margin: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.newAccount input{
+  background-color: rgba(255, 255, 255, 0);
+  border-style: solid;
+  border-color: black;
+  align-self: left;
+  text-align: left;
+  color: black;
+}
+
+.newAccount select {
+  margin: 10px;
+  font-size: 1.5rem;
+  align-self: left;
+}
+
+.newAccount button{
+  appearance: none;
+  outline: 0;
+  background-color: white;
+  border: 1;
+  padding: 10px 15px;
+  color: black;
+  border-radius: 10px;
+  width: 250px;
+  height: auto;
+  font-size: 20px;
+  align-self: center;
+}
+
+.newAccount button:hover{
+  background-image: linear-gradient(#000000, #5a42a8);
+  color: white;
+  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
 }
 
 .newPayment {
@@ -977,6 +1137,8 @@ input:checked + .slider:before {
 .newPayment label{
   text-align: left;
   margin: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .newPayment input{
@@ -1047,7 +1209,7 @@ input:checked + .slider:before {
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
   height: 100%;
   margin: 10px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.884);
 }
 
 .Accounts table {
@@ -1073,7 +1235,7 @@ input:checked + .slider:before {
 }
  
 .Accounts h2 {
-  color: #174751;
+  color: black;
   text-align: left;
   margin: 0px;
 }
