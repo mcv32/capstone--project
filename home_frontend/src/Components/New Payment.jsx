@@ -15,6 +15,8 @@ function NewPayment(){
         CVV: ""
     })
 
+    const [resMsg, setResMsg] = useState();
+
     const submit = async (e) => {
         try {
             console.log(paymentPayload);
@@ -24,18 +26,25 @@ function NewPayment(){
                 number: paymentPayload.number,
                 accountingNumber: paymentPayload.accountingNumber
             })
-                setPaymentPayload({
-                    paymentAmount:"",
-                    paymentType: "CREDIT_DEBIT",
-                    name:"",
-                    number: "",
-                    accountingNumber: "",
-                    routingNumber: "",
-                    exMo: "",
-                    exYr: "",
-                    CVV: ""
-                })
 
+                console.log(response);
+                setResMsg(response?.data);
+
+                if (response?.data === "successful"){
+                    setPaymentPayload({
+                        paymentAmount:"",
+                        paymentType: "CREDIT_DEBIT",
+                        name:"",
+                        number: "",
+                        accountingNumber: "",
+                        routingNumber: "",
+                        exMo: "",
+                        exYr: "",
+                        CVV: ""
+                    })
+    
+                } 
+                
                 setPopover(true);
                 setTimeout(resetPopover, 5000);
             
@@ -44,6 +53,7 @@ function NewPayment(){
                 console.log(err.response.data.errorDesc);
                 if (!err.response){
                     console.log ("No Server Response");
+                    setResMsg("No Server Response")
                 }
                 // if (err.response.status === 400){
                 //     setResMsg(err.response.data.errorDesc);
@@ -135,7 +145,7 @@ function NewPayment(){
                     <button type="submit">Submit Payment</button>
                 </form>
                 <div className={isPopped ? "payPopOpen" : "offscreen"}>
-                    <h1>Payment Successful! Thank you.</h1>
+                    <h1>{resMsg}</h1>
                 </div>
             </div>
     );
