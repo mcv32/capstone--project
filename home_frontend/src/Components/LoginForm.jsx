@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect} from "react";
 import useAuth from "../Hooks/useAuth";
 import { useNavigate, useLocation } from "react-router-dom";
+import { RiUserLine, RiMailLine, RiLockPasswordLine } from 'react-icons/ri';
 
 import Axios from "axios";
 
@@ -139,34 +140,107 @@ function LoginForm(props){
         }
     }
 
-    return(
-        <div className="loginForm">
-            <p className={resMsg ? "resmsg" : "offscreen"} aria-live="assertive">{resMsg}</p>
-            <h3>{userIsRegistered ? "Login" : "Register"}</h3>
-                <form className="form" onSubmit={(cred) => submit(cred)}>
-                {!userIsRegistered && (
-                    <input onChange={(cred) => handle(cred)} value={registerPayload.firstName} id ="firstName" type="text" placeholder="First Name" />
-                )}
-                {!userIsRegistered && (
-                    <input onChange={(cred) => handle(cred)} value={registerPayload.lastName} id ="lastName" type="text" placeholder="Last Name" />
-                )}
-                    <input onChange={(cred) => handle(cred)} value={userIsRegistered ? loginPayload.email : registerPayload.email} id ="email" type="text" placeholder="Email" />
-                    <input onChange={(cred) => handle(cred)} value={userIsRegistered ? loginPayload.password : registerPayload.password} id ="password" type="password" placeholder="Password" />
-                    {!userIsRegistered && (
-                    <input onChange={(cred) => handle(cred)} value={userIsRegistered ? loginPayload.confirmpass : registerPayload.confirmpass} id ="confirmpass" type="password" placeholder="Confirm Password" />
-                )}
+    // return(
+    //     <div className="loginForm">
+    //         <p className={resMsg ? "resmsg" : "offscreen"} aria-live="assertive">{resMsg}</p>
+    //         <h3>{userIsRegistered ? "Login" : "Register"}</h3>
+    //             <form className="form" onSubmit={(cred) => submit(cred)}>
+    //             {!userIsRegistered && (
+    //                 <input onChange={(cred) => handle(cred)} value={registerPayload.firstName} id ="firstName" type="text" placeholder="First Name" />
+    //             )}
+    //             {!userIsRegistered && (
+    //                 <input onChange={(cred) => handle(cred)} value={registerPayload.lastName} id ="lastName" type="text" placeholder="Last Name" />
+    //             )}
+    //                 <input onChange={(cred) => handle(cred)} value={userIsRegistered ? loginPayload.email : registerPayload.email} id ="email" type="text" placeholder="Email" />
+    //                 <input onChange={(cred) => handle(cred)} value={userIsRegistered ? loginPayload.password : registerPayload.password} id ="password" type="password" placeholder="Password" />
+    //                 {!userIsRegistered && (
+    //                 <input onChange={(cred) => handle(cred)} value={userIsRegistered ? loginPayload.confirmpass : registerPayload.confirmpass} id ="confirmpass" type="password" placeholder="Confirm Password" />
+    //             )}
         
-                <button type="submit">{userIsRegistered ? "Login" : "Register"}</button>
-            </form>
-            <div className="toggle">
-                <label className="switch">
-                <input id="toggleRegister" type="checkbox" onClick={handleClick} ></input>
-                <span className="slider round"></span>
-                </label>
-                <span className = "label">{userIsRegistered? "New user?" : "Already have an account?"}</span>
+    //             <button type="submit">{userIsRegistered ? "Login" : "Register"}</button>
+    //         </form>
+    //         <div className="toggle">
+    //             <label className="switch">
+    //             <input id="toggleRegister" type="checkbox" onClick={handleClick} ></input>
+    //             <span className="slider round"></span>
+    //             </label>
+    //             <span className = "label">{userIsRegistered? "New user?" : "Already have an account?"}</span>
+    //         </div>
+    //     </div>
+    // );
+    return (
+        <div className="loginForm">
+          <p className={resMsg ? "resmsg" : "offscreen"} aria-live="assertive">{resMsg}</p>
+          <h3>{userIsRegistered ? "Login" : "Register"}</h3>
+          <form className="form" onSubmit={(cred) => submit(cred)}>
+            {!userIsRegistered && (
+              <div className="input-group">
+                <RiUserLine className="icon" />
+                <input
+                  onChange={(cred) => handle(cred)}
+                  value={registerPayload.firstName}
+                  id="firstName"
+                  type="text"
+                  placeholder="First Name"
+                />
+              </div>
+            )}
+            {!userIsRegistered && (
+              <div className="input-group">
+                <RiUserLine className="icon" />
+                <input
+                  onChange={(cred) => handle(cred)}
+                  value={registerPayload.lastName}
+                  id="lastName"
+                  type="text"
+                  placeholder="Last Name"
+                />
+              </div>
+            )}
+            <div className="input-group">
+              <RiMailLine className="icon" />
+              <input
+                onChange={(cred) => handle(cred)}
+                value={userIsRegistered ? loginPayload.email : registerPayload.email}
+                id="email"
+                type="text"
+                placeholder="Email"
+              />
             </div>
+            <div className="input-group">
+              <RiLockPasswordLine className="icon" />
+              <input
+                onChange={(cred) => handle(cred)}
+                value={userIsRegistered ? loginPayload.password : registerPayload.password}
+                id="password"
+                type="password"
+                placeholder="Password"
+              />
+            </div>
+            {!userIsRegistered && (
+              <div className="input-group">
+                <RiLockPasswordLine className="icon" />
+                <input
+                  onChange={(cred) => handle(cred)}
+                  value={userIsRegistered ? loginPayload.confirmpass : registerPayload.confirmpass}
+                  id="confirmpass"
+                  type="password"
+                  placeholder="Confirm Password"
+                />
+              </div>
+            )}
+      
+            <button type="submit">{userIsRegistered ? "Login" : "Register"}</button>
+          </form>
+          <div className="toggle">
+            <label className="switch">
+              <input id="toggleRegister" type="checkbox" onClick={handleClick}></input>
+              <span className="slider round"></span>
+            </label>
+            <span className="label">{userIsRegistered ? "New user?" : "Already have an account?"}</span>
+          </div>
         </div>
-    );
+      );
 }
 
 export default LoginForm;
