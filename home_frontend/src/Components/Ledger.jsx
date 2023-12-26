@@ -47,7 +47,11 @@ function Ledger(){
                 <button onClick={handlePropPop}>X</button>
             </div>
             <div>
-                <h1 style={{color:"black"}}>Ledger Details View</h1>
+                <p>Type: Credit Card</p>
+                <p>Transaction ID: ###-####</p>
+                <p>Card: **** **** **** **** 1234</p>
+                <p>Date Time Posted: 1/2/2024 13:32 EST</p>
+                <p>Status: Approved</p>
             </div>
         </div> 
     </div>

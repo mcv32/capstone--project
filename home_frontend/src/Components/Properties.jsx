@@ -19,7 +19,7 @@ function Properties(){
         <div className="Properties">
             <div className="propertiesHeader">
                 <h2>PROPERTIES</h2>
-                <button className="openpopover" onClick={handlePropPop}>+</button>
+                <button className="openpopover" onClick={handleNewPop}>+</button>
             </div>
             <table>
                 <tr>

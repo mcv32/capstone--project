@@ -16,6 +16,7 @@
   width: 100%;
   flex-direction: column;
   justify-content: space-between;
+  gap: 0;
 }
 
 .content {
@@ -28,6 +29,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin: 0;
 
 }
 
@@ -85,6 +87,94 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.homeTeam {
+  /* display:grid;
+  place-items: center;
+  min-height: 100vh;     */
+  background: #222222c7;
+  color:gray;
+  text-align: center;
+  font-family: sans-serif;
+  width: 100%;
+}
+
+.homeTeam div {
+  width: 20vw;
+  max-width: 250px;
+  height: 50vh;
+  background-size:auto 100%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  display: inline-block;
+  margin: 0 0.5rem;
+  filter: grayscale(1) opacity(0.5) contrast(200%);
+  transition: 0.5s;
+  transform: skewY(-10deg);
+  z-index: -1;
+}
+
+.homeTeam div:nth-child(2){
+  background-image: url("https://media.licdn.com/dms/image/C4D03AQHBoPIiiV4m2Q/profile-displayphoto-shrink_200_200/0/1572719456904?e=1709164800&v=beta&t=P8FRsmH5U88o4TL17fEht8ip1htPTkoNGJtz1KGo4nM");
+}
+
+.homeTeam div:nth-child(3){
+  background-image: url("https://media.licdn.com/dms/image/D4E03AQFTd373y5ySRQ/profile-displayphoto-shrink_200_200/0/1696988919263?e=1709164800&v=beta&t=g9ExAm1KvkS9bVTLcPwPoZzwY8rf2ABwjUNDSB32s0A");
+}
+
+.homeTeam div:nth-child(4){
+  background-image: url("https://media.licdn.com/dms/image/D4E03AQGJkfVW4z40bw/profile-displayphoto-shrink_200_200/0/1675017852150?e=1709164800&v=beta&t=MgcLjALwIBMTl39Yc_M4Wtb3MQ-rwnPzI8N-jQfo4A4");
+}
+
+.homeTeam div:nth-child(5){
+  background-image: url("https://media.licdn.com/dms/image/D4E03AQHvwuTAsJnM5A/profile-displayphoto-shrink_200_200/0/1679094623040?e=1709164800&v=beta&t=G_Cx9imBJyFAbG3hoPGsF2Pv4f3qP1yJxeCkLiz7-g4");
+}
+
+.homeTeam div:hover{
+  filter: grayscale(0) opacity(1);
+  transform: scale(1.1);
+  /* box-shadow: 0 25px 50px black; */
+  z-index: 8888;
+}
+
+.homeTeam div:nth-child(1)::after,
+.homeTeam div:nth-child(2)::after,
+.homeTeam div:nth-child(3)::after,
+.homeTeam div:nth-child(4)::after,
+.homeTeam div:nth-child(5)::after{
+    content:"Melissa";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 60px;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 3px 3px #555;
+}
+
+.homeTeam div:nth-child(1)::after{
+  content: "MEET THE TEAM";
+  position: absolute;
+  top: 25%;
+  left: 0;
+}
+.homeTeam div:nth-child(2)::after{
+    content: "Ryan"
+}
+
+.homeTeam div:nth-child(3)::after{
+    content: "Marcus"
+}
+
+.homeTeam div:nth-child(4)::after{
+    content: "Cody"
+}
+
+.homeTeam div:nth-child(5)::after{
+    content: "Melissa"
 }
 
 .heading {
@@ -366,6 +456,7 @@ input:checked + .slider:before {
   flex-direction: column;
   /* height: 100%; */
 }
+
 .dashHead {
   background-color: rgba(255, 255, 255, 0);
   width: 100%;
@@ -378,7 +469,6 @@ input:checked + .slider:before {
 
 .dashboard h1 {
   font-size: 3rem;
-  margin: 0px 0px 0px 100px;
   color: white;
 }
 
@@ -394,7 +484,10 @@ input:checked + .slider:before {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* margin-bottom: 10px; */
+  background-color:#1f6fb188;
+  margin-top: -40px;
+  margin-bottom: -20px;
+  border-radius: 10px;
 }
 
 .dashCore {
@@ -467,6 +560,69 @@ input:checked + .slider:before {
   height: 100px;
   width: 100px;
   object-fit:cover;
+}
+
+.accountDetailsOpen {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  height: 80%;
+  width: 40%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  background-color: white;
+  color: black;
+  border: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px 10px rgba(128, 128, 128, 0.61);
+}
+
+.accountDetails img{
+  border-style: solid;
+  border-radius: 100px;
+  height: 100px;
+  width: 100px;
+  object-fit:cover;
+  margin: 20px;
+}
+
+.accountDetails form{
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content:left;
+}
+
+.accountDetails input{
+  color: black;
+  text-align: left;
+  align-self: left;
+  border: solid;
+  border-width: 1px;
+}
+
+.accountDetails button{
+  appearance: none;
+  outline: 0;
+  background-color: white;
+  border: 1;
+  padding: 10px 15px;
+  color: black;
+  border-radius: 3px;
+  width: 250px;
+  height: auto;
+  font-size: 20px;
+  align-self: center;
+}
+
+.accountDetails button:hover{
+  background-image: linear-gradient(#000000, #5a42a8);
+  color: white;
+  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
 }
 
 .homeIDBlock{
@@ -1238,6 +1394,95 @@ input:checked + .slider:before {
   color: black;
   text-align: left;
   margin: 0px;
+}
+
+.billingAccountRecordOpen {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  height: 90%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  background-color: white;
+  color: black;
+  border: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px 10px rgba(128, 128, 128, 0.61);
+}
+
+.billingAccountRecord{
+  width: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-row-gap: 50px;
+  grid-column-gap: 200px;
+}
+
+.billingAccountRecord h1{
+  text-align: left;
+  grid-column: span 2;
+}
+
+.detailsLedger {
+  grid-column: span 2;
+}
+
+.detailsLedgerHeader {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 10px 0px 10px;
+}
+
+.billingAccountRecord img{
+  border-style: solid;
+  border-radius: 100px;
+  height: 100px;
+  width: 100px;
+  object-fit:cover;
+  margin: 20px;
+}
+
+.billingAccountRecord form{
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content:left;
+  margin-top: 10px;
+}
+
+.billingAccountRecord input{
+  color: black;
+  text-align: left;
+  align-self: left;
+  border: solid;
+  border-width: 1px;
+}
+
+.formButtom{
+  appearance: none;
+  outline: 0;
+  background-color: white;
+  border: 1;
+  padding: 10px 15px;
+  color: black;
+  border-radius: 3px;
+  width: 250px;
+  height: auto;
+  font-size: 20px;
+  align-self: center;
+  margin-top: 10px;
+}
+
+.formButtom:hover{
+  background-image: linear-gradient(#000000, #5a42a8);
+  color: white;
+  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
 }
 
 .userDash{

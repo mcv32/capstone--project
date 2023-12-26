@@ -7,6 +7,14 @@ const navigate = useNavigate();
     return(
         <section className="bodySection">
 
+            <div className="homeTeam">
+                <div> </div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
         </section>
     );
 }
