@@ -17,7 +17,7 @@ function Dashboard(){
 
     
     return(
-        auth?.roles != "MANAGER" ?
+        auth?.roles !== "MANAGER" ?
         <section className="dashboard">
             <div className="dashHead">
                 <h1>Welcome Manager</h1>
