@@ -4,6 +4,7 @@
   padding: 0;
   margin: 0;
   font-family: 'Arapey';
+  margin-bottom: 10px;
 
 }
 
@@ -19,6 +20,7 @@
   gap: 0;
 }
 
+
 .content {
   position: absolute;
   width: 100%;
@@ -30,6 +32,7 @@
   flex-direction: column;
   justify-content: space-between;
   margin: 0;
+  
 
 }
 
@@ -577,14 +580,22 @@ input:checked + .slider:before {
   margin-bottom: 0.5rem;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+
 .dashboard {
+  /* background-image: url('./static/dashboard.png'); */
   position: relative;
-  background: rgba(224, 5, 5, 0)255);
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: baseline;
   flex-direction: column;
-  /* height: 100%; */
 }
 
 .dashHead {
@@ -599,7 +610,7 @@ input:checked + .slider:before {
 
 .dashboard h1 {
   font-size: 3rem;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .dashBody {
@@ -614,16 +625,19 @@ input:checked + .slider:before {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color:#1f6fb188;
+  background-color:#80a7facb;
   border-radius: 10px;
+  margin: 5px;
 }
 
 .dashCore {
   display: flex;
+  background-color: rgba(255, 255, 255, 0);
   flex-direction: column;
   justify-content: space-between;
   /* margin-bottom: 10px; */
 }
+
 
 .testblock {
   display: flex;
@@ -631,7 +645,7 @@ input:checked + .slider:before {
   align-items: center;
   border-style: solid;
   border-width: 1px;
-  border-color: #17475109;
+  border-color: #e6dfdae1;
   border-radius: 10px;
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
   height: 100%;
@@ -648,8 +662,8 @@ input:checked + .slider:before {
   border-color: #17475109;
   border-radius: 10px;
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
-  /* height: 100%; */
-  margin: 10px;
+  height: 50%;
+  margin: 5px;
   text-align: left;
   background-color: rgba(255, 255, 255, 0.685);
   padding: 20px 0px 0px 10px;
@@ -1103,46 +1117,85 @@ input:checked + .slider:before {
   border-style: solid;
   border-width: 1px;
   border-color: #17475109;
-  border-radius: 10px;
-  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+  border-radius: 5px 5px 0 0;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
   height: 100%;
-  margin: 10px;
-  background-color: rgba(255, 255, 255, 0.884);
+  margin: 5px 10px 60px;
+  max-height: 300px;
+  background-color: rgba(255, 255, 255, 0.945);
+  
+  
 }
 
 .propertiesHeader {
   display: flex;
   justify-content: space-between;
-  margin: 10px 10px 0px 10px;
+  margin: 0px 10px 0px 10px;
+  
 }
 
 .Properties table {
-  margin: 10px;
+  margin: 0; /* Adjusted margin to 0 */
+  max-height: 100%; /* Change max-height to 100% */
+  height: 100%;
   border-collapse: collapse;
   text-align: left;
+  width: 100%;
+  padding: 10px 30px;
+  
 }
 
 .Properties tr {
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
+  border-bottom: 1px solid rgb(192, 206, 231);
   height: 50px;
+  padding: 10px 30px 10px 30px;
+  text-align: left;
+}
+
+.Properties tr td {
+  text-align: left;
+}
+
+.Properties th,
+.Properties td {
+  padding: 10px 30px;
+}
+
+.Properties tr:nth-of-type(even) {
+  background-color: #d9dcdfb4;
+  
+}
+
+.Properties tr:last-of-type {
+  border-bottom: 5px solid rgba(38, 207, 230, 0.808);
 }
 
 .Properties tr:hover {
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+  font-weight: bold;
+  color: #178b8f6c;
+  cursor: pointer;
 }
 
+/*properties categories titles */
 .Properties th {
-  background-color: rgba(128, 128, 128, 0.377);
-  border-style:hidden;
+  background-color: rgba(47, 188, 223, 0.822);
+  color: rgb(255, 255, 255);
+  border-style: hidden;
   border-right-color: rgba(128, 128, 128, 0.377);
-}
- 
-.Properties h2 {
-  color: black;
   text-align: left;
-  margin: 0px;
+  text-transform: uppercase;
+  font-size: 17px;
+  padding: 10px 0px 10px 30px; /* Adjusted padding */
+ 
 }
+
+.propertiesHeader h2 {
+  color: rgb(255, 255, 255);
+  margin: 10px 0;
+  
+}
+
 
 .proppopoverClosed {
   /* background-color: red; */
@@ -1177,24 +1230,26 @@ input:checked + .slider:before {
 
 }
 
-.openpopover{
+.openpopover {
   display: flex;
+  justify-content: center;
   height: 40px;
   width: 40px;
-  align-content: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.212);
-  border-style: solid;
-  border-width: 0.5px;
-  border-color: rgba(128, 128, 128, 0.651);
+  background: rgba(255, 255, 255, 0.959);
+  border: 3px solid rgb(123, 207, 255);
   font-size: 2rem;
-  color: rgba(128, 128, 128, 0.473);
+  line-height: 30px; 
+  color: rgba(24, 220, 255, 0.925);
   border-radius: 10px;
 }
 
-.openpopover:hover{
-  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+
+
+.openpopover:hover {
+  box-shadow: 2px 2px 1px rgba(165, 162, 162, 0.377);
+  cursor: pointer;
 }
+
 
 .closepopover button{
   margin-bottom: 20px;
@@ -1387,6 +1442,7 @@ input:checked + .slider:before {
   flex-wrap: wrap;
   align-content: center;
   column-gap: 0px;
+  background-color: black;
 }
 
 .propertyDetails input{
@@ -1579,38 +1635,77 @@ input:checked + .slider:before {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  justify-content: start;
   border-style: solid;
   border-width: 1px;
   border-color: #17475109;
-  border-radius: 10px;
-  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+  border-radius: 5px 5px 0 0;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
   height: 100%;
-  margin: 10px;
-  background-color: rgba(255, 255, 255, 0.884);
+  margin: 5px 10px 60px;
+  max-height: 300px;
+  background-color: rgba(255, 255, 255, 0.945);
+}
+
+.AccountsHeader {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 10px 0px 10px;
 }
 
 .Accounts table {
-  margin: 10px;
+  margin: 0; /* Adjusted margin to 0 */
+  max-height: 100%; /* Change max-height to 100% */
+  height: 100%;
   border-collapse: collapse;
   text-align: left;
+  width: 100%;
+  padding: 10px 30px;
 }
 
 .Accounts tr {
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
+  border-bottom: 1px solid rgb(192, 206, 231);
   height: 50px;
+  padding: 10px 30px 10px 30px;
+  text-align: left;
+}
+
+.Accounts tr td {
+  text-align: left;
+}
+
+.Accounts th,
+.Accounts td {
+  padding: 10px 30px;
+}
+
+.Accounts tr:nth-of-type(even) {
+  background-color: #d9dcdfb4;
+}
+
+.Accounts tr:last-of-type {
+  border-bottom: 5px solid rgba(38, 207, 230, 0.808);
 }
 
 .Accounts tr:hover {
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+  font-weight: bold;
+  color: #178b8f6c;
+  cursor: pointer;
 }
 
+/* Accounts Categories Titles */
 .Accounts th {
-  background-color: rgba(128, 128, 128, 0.377);
-  border-style:hidden;
+  background-color: rgba(47, 188, 223, 0.822);
+  color: rgb(255, 255, 255);
+  border-style: hidden;
   border-right-color: rgba(128, 128, 128, 0.377);
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 17px;
+  padding: 10px 0px 10px 30px; /* Adjusted padding */
 }
- 
+
 .Accounts h2 {
   color: black;
   text-align: left;

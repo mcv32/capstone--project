@@ -29,11 +29,12 @@ function Properties(){
     }
     
     return(
+        <div>
+        <div className="propertiesHeader">
+          <h2>PROPERTIES</h2>
+          <button className="openpopover" onClick={handleNewPop}>+</button>
+        </div>
         <div className="Properties">
-            <div className="propertiesHeader">
-                <h2>PROPERTIES</h2>
-                <button className="openpopover" onClick={handleNewPop}>+</button>
-            </div>
             <table>
                 <tr>
                     <th >Status</th>
@@ -112,6 +113,7 @@ function Properties(){
                     </div>
                 </div>
             </div>
+        </div>
     </div>
     );
 }
