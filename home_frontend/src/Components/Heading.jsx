@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import Logo from "../static/CapstoneLogo.png"
+import Logo from "../Static/CapstoneLogo.png"
 import useAuth from "../Hooks/useAuth";
 
 
@@ -44,7 +44,7 @@ function Heading(){
             <NavLink className="Navlink" style={({ isActive }) => ({
                                                                     color: isActive ? 'white' : 'white',
                                                                     textDecoration: isActive ? 'underline' : 'none',
-                                                                })} to="/about">ABOUT</NavLink>
+                                                                })} to="#homeERD">ERD</NavLink>
             <NavLink className="Navlink" style={({ isActive }) => ({
                                                                     color: isActive ? 'white' : 'white',
                                                                     textDecoration: isActive ? 'underline' : 'none',

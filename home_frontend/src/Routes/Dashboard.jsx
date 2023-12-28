@@ -16,6 +16,25 @@ function Dashboard(){
 
     const { auth, setAuth } = useAuth();
 
+    const [dash, setDash] = useState(null);
+
+    useEffect(() => {
+        const fetchDash = async () => {
+        try {
+            const data = await axios.get("", {
+                email: auth?.email,
+                token: auth?.token
+            })
+
+            console.log(response);
+
+        } catch (err) {
+            console.log(err.response);
+
+        }
+        }
+      }, []);
+
     
     return(
         //auth?.roles != "MANAGER" ?
