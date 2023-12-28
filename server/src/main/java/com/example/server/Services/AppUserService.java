@@ -109,22 +109,17 @@ public class AppUserService implements UserDetailsService {
             AppUser appUser = optionalAppUser.get();
             FinancialAccount financialAccount = appUser.getFinancialAccount();
             List<Ledger> ledgers = financialAccount != null ? financialAccount.getLedgers() : Collections.emptyList();
-            List<TransactionTests> transactionTests = Collections.emptyList();
-            if(ledgers.size() > 0){
-                for(int i = 0; i < ledgers.size(); i++){
-                    List<TransactionTests> transactions = ledgerRepository.getTransactionsByLedgerId(ledgers.get(i).getLedger_id());
-                    for(int j = 0; j < transactions.size(); i++){
-                        transactionTests.add(transactions.get(j));
-                    }
-                }
-            }
-            List<Property> properties = Collections.emptyList();
-            if(ledgers.size() > 0){
-                for(int i = 0; i < ledgers.size(); i++){
-                    Property property = ledgerRepository.getPropertyByLedgerId(ledgers.get(i).getLedger_id());
-                    if(!properties.contains(property)){
+            List<TransactionTests> transactionTests = new ArrayList<>();
+            List<Property> properties = new ArrayList<>();
+
+            if (!ledgers.isEmpty()) {
+                for (Ledger ledger : ledgers) {
+                    Property property = ledgerRepository.getPropertyByLedgerId(ledger.getLedger_id());
+                    if (!properties.contains(property)) {
                         properties.add(property);
                     }
+                    List<TransactionTests> transactions = ledgerRepository.getTransactionsByLedgerId(ledger.getLedger_id());
+                    transactionTests.addAll(transactions);
                 }
             }
 
@@ -140,5 +135,6 @@ public class AppUserService implements UserDetailsService {
         }
         return null; // Or throw an exception if the user is not found
     }
+
 
 }

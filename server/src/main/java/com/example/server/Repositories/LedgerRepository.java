@@ -6,20 +6,18 @@ import com.example.server.Models.TransactionTests;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.parameters.P;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
-public interface LedgerRepository extends JpaRepository <Ledger, Integer>{
-    @Query(value = "SELECT * FROM LEDGER WHERE LEDGER_ID = :ID", nativeQuery = true)
-    Ledger findById(
-            @Param("ID") Long id);
+public interface LedgerRepository extends JpaRepository <Ledger, Long>{
+    Optional<Ledger> findById(Long id);
 
     // delete ledger by id
     @Query(value = "DELETE LEDGER WHERE LEDGER_ID = :ID", nativeQuery = true)
@@ -28,7 +26,7 @@ public interface LedgerRepository extends JpaRepository <Ledger, Integer>{
     );
 
     // create new ledger
-    @Query(value = "INSERT INTO LEDGER (AMOUNT, DESCRIPTION, RECURRING, RECURRING_DATE, STATUS, FINANCIAL_ACCOUNT_ID, PROPERTY_ID" +
+    @Query(value = "INSERT INTO LEDGER (AMOUNT, DESCRIPTION, RECURRING, RECURRING_DATE, STATUS, ACCOUNT_ID, PROPERTY_ID" +
             "VALUES (:AMOUNT, :DESCRIPTION, :RECURRING, :RECURRING_DATE, :STATUS, :ACCOUNT_ID, :PROPERTY_ID)", nativeQuery = true)
     Ledger createLedger(
             @Param("AMOUNT") double amount,
@@ -42,7 +40,7 @@ public interface LedgerRepository extends JpaRepository <Ledger, Integer>{
     // update fields changed by user
     @Modifying
     @Query(value = "UPDATE LEDGER SET AMOUNT = :AMOUNT, STATUS = :STATUS, " +
-            "FINANCIAL_ACCOUNT_ID = :ACCOUNT_ID, PROPERTY_ID = :PROPERTY_ID, " +
+            "ACCOUNT_ID = :ACCOUNT_ID, PROPERTY_ID = :PROPERTY_ID, " +
             "DESCRIPTION = :DESCRIPTION, RECURRING = :RECURRING, " +
             "RECURRING_DATE = :RECURRING_DATE WHERE LEDGER_ID = :ID", nativeQuery = true)
     Ledger updateLedger(

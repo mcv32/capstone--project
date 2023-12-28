@@ -52,7 +52,10 @@ public class FinancialAccountService {
     }
 
     public List<AppUser> getAppUsersByFinancialAccountId(Long id) {
-        return financialAccountRepository.findById(id).get().getAppUsers();
+        Optional<FinancialAccount> financialAccount = financialAccountRepository.findById(id);
+        if(financialAccount.isPresent())
+        return financialAccount.get().getAppUsers();
+        return null;
     }
 
     public List<Ledger> getLedgersByFinancialAccountId(Long id) {

@@ -3,6 +3,7 @@ package com.example.server.Controllers;
 import com.example.server.Models.Ledger;
 import com.example.server.Models.Property;
 import com.example.server.Models.TransactionTests;
+import com.example.server.REQUESTS.LedgerRequest;
 import com.example.server.Services.LedgerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +34,8 @@ public class LedgerController {
     }
 
     @PostMapping("/create")
-    public Ledger createLedger(@RequestBody Ledger ledger) {
-        return ledgerService.createLedger(ledger);
+    public Ledger createLedger(@RequestBody LedgerRequest ledgerRequest) {
+        return ledgerService.createLedger(ledgerRequest);
     }
 
     @PutMapping("/update")

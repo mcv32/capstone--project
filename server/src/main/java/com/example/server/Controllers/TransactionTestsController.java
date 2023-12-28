@@ -1,6 +1,7 @@
 package com.example.server.Controllers;
 
 import com.example.server.Models.TransactionTests;
+import com.example.server.REQUESTS.TransactionRequest;
 import com.example.server.Services.TransactionTestsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,14 +31,14 @@ public class TransactionTestsController {
     }
 
     @PostMapping
-    public TransactionTests createTransactionTest(@RequestBody TransactionTests transactionTest) {
-        return transactionTestsService.createTransactionTest(transactionTest);
+    public TransactionTests createTransactionTest(@RequestBody TransactionRequest transactionRequest) {
+        return transactionTestsService.createTransactionTest(transactionRequest);
     }
 
-    @PutMapping("/{id}")
-    public TransactionTests updateTransactionTest(@PathVariable Long id, @RequestBody TransactionTests updatedTransactionTest) {
-        return transactionTestsService.updateTransactionTest(id, updatedTransactionTest);
-    }
+//    @PutMapping("/{id}")
+//    public TransactionTests updateTransactionTest(@PathVariable Long id, @RequestBody TransactionTests updatedTransactionTest) {
+//        return transactionTestsService.updateTransactionTest(id, updatedTransactionTest);
+//    }
 
     @DeleteMapping("/{id}")
     public String deleteTransactionTest(@PathVariable Long id) {

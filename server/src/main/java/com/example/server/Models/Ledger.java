@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "ledger")
 public class Ledger {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ledger_sequence")
@@ -21,19 +22,17 @@ public class Ledger {
     private Long ledger_id;
     private double amount;
     private boolean status;
-    private Long financial_account_id;
-    private Long property_id;
     @ManyToOne
     @JoinColumn(
             nullable = false,
-            name = "account"
+            name = "financial_account_id"
     )
     @JsonBackReference
     private FinancialAccount financialAccount;
     @OneToOne
     @JoinColumn(
             nullable = false,
-            name = "property"
+            name = "property_id"
     )
     private Property property;
     @OneToMany(
@@ -43,17 +42,6 @@ public class Ledger {
     private String description;
     private boolean recurring;
     private LocalDateTime recurringDate;
-
-    public Ledger(double amount, boolean status, Long financial_account_id, Long property_id, List<TransactionTests> transactionTests, String description, boolean recurring, LocalDateTime recurringDate) {
-        this.amount = amount;
-        this.status = status;
-        this.financial_account_id = financial_account_id;
-        this.property_id = property_id;
-        this.transactionTests = transactionTests;
-        this.description = description;
-        this.recurring = recurring;
-        this.recurringDate = recurringDate;
-    }
 
     public Long getLedger_id() {
         return ledger_id;
@@ -71,28 +59,12 @@ public class Ledger {
         this.amount = amount;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    public Long getFinancial_account_id() {
-        return financial_account_id;
-    }
-
-    public void setFinancial_account_id(Long financial_account_id) {
-        this.financial_account_id = financial_account_id;
-    }
-
-    public Long getProperty_id() {
-        return property_id;
-    }
-
-    public void setProperty_id(Long property_id) {
-        this.property_id = property_id;
     }
 
     public FinancialAccount getFinancialAccount() {
@@ -140,6 +112,17 @@ public class Ledger {
     }
 
     public void setRecurringDate(LocalDateTime recurringDate) {
+        this.recurringDate = recurringDate;
+    }
+
+    public Ledger(double amount, boolean status, FinancialAccount financialAccount, Property property, List<TransactionTests> transactionTests, String description, boolean recurring, LocalDateTime recurringDate) {
+        this.amount = amount;
+        this.status = status;
+        this.financialAccount = financialAccount;
+        this.property = property;
+        this.transactionTests = transactionTests;
+        this.description = description;
+        this.recurring = recurring;
         this.recurringDate = recurringDate;
     }
 }

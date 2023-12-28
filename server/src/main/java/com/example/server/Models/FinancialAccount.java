@@ -25,6 +25,11 @@ public class FinancialAccount {
             mappedBy = "financialAccount"
     )
     private List<AppUser> appUsers = new ArrayList<>();
+    @OneToMany(
+            mappedBy = "financialAccount"
+    )
+    private List<Ledger> ledgers;
+
 
     public List<Ledger> getLedgers() {
         return ledgers;
@@ -33,11 +38,6 @@ public class FinancialAccount {
     public void setLedgers(List<Ledger> ledgers) {
         this.ledgers = ledgers;
     }
-
-    @OneToMany(
-            mappedBy = "financialAccount"
-    )
-    private List<Ledger> ledgers;
 
     public Long getFinancial_account_id() {
         return financial_account_id;

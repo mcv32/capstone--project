@@ -20,37 +20,24 @@ public class TransactionTests {
     @SequenceGenerator(name = "transactions_seq", sequenceName = "TRANSACTIONS_TESTS_SEQUENCE", allocationSize = 1)
     private Long transaction_id;
     private double amount;
-    private Long financial_account_id;
-    private Long ledger_id;
-    @ManyToOne
-    @JoinColumn(
-            nullable = false,
-            name = "financial_account"
-    )
-    @JsonBackReference
-    private FinancialAccount financialAccount;
-    @ManyToOne
-    @JoinColumn(
-            nullable = false,
-            name = "ledger"
-    )
-    @JsonBackReference
-    private Ledger ledger;
+    private Long account_id;
     @Enumerated(EnumType.STRING)
     private PaymentType paymentType;
     private String cardNumber;
     private LocalDateTime time;
     private boolean status;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ledger_id")
+    private Ledger ledger;
 
-    public TransactionTests(Long transaction_id, double amount, Long financial_account_id, Long ledger_id, PaymentType paymentType, String cardNumber, LocalDateTime time, boolean status) {
-        this.transaction_id = transaction_id;
+    public TransactionTests(double amount, Long account_id, PaymentType paymentType, String cardNumber, LocalDateTime time, boolean status, Ledger ledger) {
         this.amount = amount;
-        this.financial_account_id = financial_account_id;
-        this.ledger_id = ledger_id;
+        this.account_id = account_id;
         this.paymentType = paymentType;
         this.cardNumber = cardNumber;
         this.time = time;
         this.status = status;
+        this.ledger = ledger;
     }
 
     public Long getTransaction_id() {
@@ -69,36 +56,12 @@ public class TransactionTests {
         this.amount = amount;
     }
 
-    public Long getFinancial_account_id() {
-        return financial_account_id;
+    public Long getAccount_id() {
+        return account_id;
     }
 
-    public void setFinancial_account_id(Long financial_account_id) {
-        this.financial_account_id = financial_account_id;
-    }
-
-    public Long getLedger_id() {
-        return ledger_id;
-    }
-
-    public void setLedger_id(Long ledger_id) {
-        this.ledger_id = ledger_id;
-    }
-
-    public FinancialAccount getFinancialAccount() {
-        return financialAccount;
-    }
-
-    public void setFinancialAccount(FinancialAccount financialAccount) {
-        this.financialAccount = financialAccount;
-    }
-
-    public Ledger getLedger() {
-        return ledger;
-    }
-
-    public void setLedger(Ledger ledger) {
-        this.ledger = ledger;
+    public void setAccount_id(Long account_id) {
+        this.account_id = account_id;
     }
 
     public PaymentType getPaymentType() {
@@ -131,5 +94,13 @@ public class TransactionTests {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Ledger getLedger() {
+        return ledger;
+    }
+
+    public void setLedger(Ledger ledger) {
+        this.ledger = ledger;
     }
 }
