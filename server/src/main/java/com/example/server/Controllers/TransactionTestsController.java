@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path= "/transactionTests")
+@RequestMapping(path= "/transactions")
 public class TransactionTestsController {
 
     private final TransactionTestsService transactionTestsService;
@@ -30,7 +30,7 @@ public class TransactionTestsController {
         return transactionTests;
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public TransactionTests createTransactionTest(@RequestBody TransactionRequest transactionRequest) {
         return transactionTestsService.createTransactionTest(transactionRequest);
     }

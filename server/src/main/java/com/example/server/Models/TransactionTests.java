@@ -28,6 +28,7 @@ public class TransactionTests {
     private boolean status;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ledger_id")
+    @JsonBackReference
     private Ledger ledger;
 
     public TransactionTests(double amount, Long account_id, PaymentType paymentType, String cardNumber, LocalDateTime time, boolean status, Ledger ledger) {

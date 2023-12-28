@@ -1,8 +1,10 @@
 package com.example.server.Services;
 
+import com.example.server.Models.FinancialAccount;
 import com.example.server.Models.Ledger;
 import com.example.server.Models.TransactionTests;
 import com.example.server.REQUESTS.TransactionRequest;
+import com.example.server.Repositories.FinancialAccountRepository;
 import com.example.server.Repositories.LedgerRepository;
 import com.example.server.Repositories.TransactionTestsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +18,13 @@ public class TransactionTestsService {
     @Autowired
     private final TransactionTestsRepository transactionTestsRepository;
     private final LedgerRepository ledgerRepository;
+    private final FinancialAccountRepository financialAccountRepository;
 
     @Autowired
-    public TransactionTestsService(TransactionTestsRepository transactionTestsRepository, LedgerRepository ledgerRepository) {
+    public TransactionTestsService(TransactionTestsRepository transactionTestsRepository, LedgerRepository ledgerRepository, FinancialAccountRepository financialAccountRepository) {
         this.transactionTestsRepository = transactionTestsRepository;
         this.ledgerRepository = ledgerRepository;
+        this.financialAccountRepository = financialAccountRepository;
     }
 
 
@@ -36,21 +40,34 @@ public class TransactionTestsService {
         Optional<Ledger> ledgerOptional = ledgerRepository.findById(ledgerId);
 
         if (ledgerOptional.isPresent()) {
-            Ledger ledger = ledgerOptional.get();
-            double amount = ledger.getAmount() - transactionRequest.getAmount();
-            // Create a new TransactionTests instance
-            TransactionTests transaction = new TransactionTests();
-            transaction.setAmount(transactionRequest.getAmount());
-            transaction.setAccount_id(transactionRequest.getFinancial_account_id());
-            transaction.setPaymentType(transactionRequest.getPaymentType());
-            transaction.setCardNumber(transactionRequest.getCardNumber());
-            transaction.setTime(transactionRequest.getTime());
-            transaction.setStatus(transactionRequest.isStatus());
-            transaction.setLedger(ledger); // Associate Ledger with TransactionTests
 
-            // Save TransactionTests entity
-            transactionTestsRepository.save(transaction);
-            return transaction;
+            Optional<FinancialAccount> financialAccount = financialAccountRepository.findById(transactionRequest.getFinancial_account_id());
+            if(financialAccount.isPresent()){
+
+                // change ledger balance
+                Ledger ledger = ledgerOptional.get();
+                double amount = ledger.getAmount() - transactionRequest.getAmount();
+                ledger.setAmount(amount);
+
+                // change financial account balance
+                FinancialAccount fa = financialAccount.get();
+                double fin_amt = fa.getAccount_balance() - transactionRequest.getAmount();
+                fa.setAccount_balance(fin_amt);
+
+                // Create a new TransactionTests instance
+                TransactionTests transaction = new TransactionTests();
+                transaction.setAmount(transactionRequest.getAmount());
+                transaction.setAccount_id(transactionRequest.getFinancial_account_id());
+                transaction.setPaymentType(transactionRequest.getPaymentType());
+                transaction.setCardNumber(transactionRequest.getCardNumber());
+                transaction.setTime(transactionRequest.getTime());
+                transaction.setStatus(transactionRequest.isStatus());
+                transaction.setLedger(ledger); // Associate Ledger with TransactionTests
+
+                // Save TransactionTests entity
+                transactionTestsRepository.save(transaction);
+                return transaction;
+            }
         }
         return null;
     }
