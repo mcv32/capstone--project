@@ -18,13 +18,13 @@ public class TransactionTestsController {
         this.transactionTestsService = transactionTestsService;
     }
 
-    @GetMapping
-    public List<TransactionTests> getAllTransactionTests(){
-        return transactionTestsService.getAllTransactionTests();
-    }
+//    @GetMapping
+//    public List<TransactionTests> getAllTransactionTests(){
+//        return transactionTestsService();
+//    }
 
     @GetMapping("/{id}")
-    public TransactionTests getTransactionTestsById(@PathVariable int id){
+    public TransactionTests getTransactionTestsById(@PathVariable Long id){
         TransactionTests transactionTests = transactionTestsService.getTransactionsTestsById(id);
         return transactionTests;
     }
@@ -35,12 +35,12 @@ public class TransactionTestsController {
     }
 
     @PutMapping("/{id}")
-    public TransactionTests updateTransactionTest(@PathVariable int id, @RequestBody TransactionTests updatedTransactionTest) {
+    public TransactionTests updateTransactionTest(@PathVariable Long id, @RequestBody TransactionTests updatedTransactionTest) {
         return transactionTestsService.updateTransactionTest(id, updatedTransactionTest);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteTransactionTest(@PathVariable int id) {
+    public String deleteTransactionTest(@PathVariable Long id) {
         transactionTestsService.deleteTransactionTest(id);
         return "TransactionTest with ID " + id + " deleted successfully.";
     }

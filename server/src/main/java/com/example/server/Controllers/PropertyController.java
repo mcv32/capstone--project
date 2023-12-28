@@ -23,7 +23,7 @@ public class PropertyController {
     }
 
     @GetMapping("/{id}")
-    public Property getPropertyById(@PathVariable int id) {
+    public Property getPropertyById(@PathVariable Long id) {
         Property property = propertyService.getPropertyById(id);
         return property;
     }
@@ -34,12 +34,12 @@ public class PropertyController {
     }
 
     @PutMapping("/{id}")
-    public Property updateProperty(@PathVariable int id, @RequestBody Property updatedProperty) {
+    public Property updateProperty(@PathVariable Long id, @RequestBody Property updatedProperty) {
         return propertyService.updateProperty(id, updatedProperty);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteProperty(@PathVariable int id) {
+    public String deleteProperty(@PathVariable Long id) {
         propertyService.deleteProperty(id);
         return "Property with ID " + id + " deleted successfully.";
     }

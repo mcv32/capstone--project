@@ -1,8 +1,9 @@
 package com.example.server.Services;
 
+import com.example.server.DTO.AppUserDto;
 import com.example.server.Exceptions.EmailAlreadyExists;
-import com.example.server.Models.AppUser;
-import com.example.server.Repositories.AppUserRepository;
+import com.example.server.Models.*;
+import com.example.server.Repositories.*;
 import com.example.server.login.registration.token.ConfirmationToken;
 import com.example.server.login.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
@@ -15,9 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -25,7 +24,13 @@ public class AppUserService implements UserDetailsService {
 
 
     private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
+    @Autowired
     private final AppUserRepository appUserRepository;
+    @Autowired
+    private final FinancialAccountRepository financialAccountRepository;
+    private final LedgerRepository ledgerRepository;
+    private final TransactionTestsRepository transactionTestsRepository;
+    private final PropertyRepository propertyRepository;
     private final ConfirmationTokenService confirmationTokenService;
     @Autowired
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -75,11 +80,65 @@ public class AppUserService implements UserDetailsService {
     }
 
     public List<AppUser> getAllAccounts() {
-
         return appUserRepository.findAll();
     }
 
+    public Optional<AppUser> updateFinAcctId(Long id, String email){
+        appUserRepository.updateFinAcctId(id, email);
+        return appUserRepository.findByEmail(email);
+    }
+
+    public AppUser updateAppUser(String email, AppUser appUser){
+        return appUserRepository.updateAppUser(appUser.getF_name(), appUser.getL_name(), appUser.getPhone_number(), appUser.getEmail(), email);
+    }
     public Optional<AppUser> getUserByEmail(String email) {
         return appUserRepository.findByEmail(email);
     }
+
+    public void updateUserRole(String role, String email){
+        appUserRepository.updateUserRole(role, email);
+    }
+
+    public void deleteUser(String email) {
+        appUserRepository.deleteUser(email);
+    }
+
+    public AppUserDto getAppUserDetailsByEmail(String email) {
+        Optional<AppUser> optionalAppUser = appUserRepository.findByEmail(email);
+        if (optionalAppUser.isPresent()) {
+            AppUser appUser = optionalAppUser.get();
+            FinancialAccount financialAccount = appUser.getFinancialAccount();
+            List<Ledger> ledgers = financialAccount != null ? financialAccount.getLedgers() : Collections.emptyList();
+            List<TransactionTests> transactionTests = Collections.emptyList();
+            if(ledgers.size() > 0){
+                for(int i = 0; i < ledgers.size(); i++){
+                    List<TransactionTests> transactions = ledgerRepository.getTransactionsByLedgerId(ledgers.get(i).getLedger_id());
+                    for(int j = 0; j < transactions.size(); i++){
+                        transactionTests.add(transactions.get(j));
+                    }
+                }
+            }
+            List<Property> properties = Collections.emptyList();
+            if(ledgers.size() > 0){
+                for(int i = 0; i < ledgers.size(); i++){
+                    Property property = ledgerRepository.getPropertyByLedgerId(ledgers.get(i).getLedger_id());
+                    if(!properties.contains(property)){
+                        properties.add(property);
+                    }
+                }
+            }
+
+            AppUserDto userDetailsDTO = new AppUserDto();
+            userDetailsDTO.setAppUser(appUser);
+            userDetailsDTO.setFinancialAccount(financialAccount);
+            userDetailsDTO.setLedgers(ledgers);
+            userDetailsDTO.setTransactions(transactionTests);
+            userDetailsDTO.setProperties(properties);
+            // Set other fields in the DTO
+
+            return userDetailsDTO;
+        }
+        return null; // Or throw an exception if the user is not found
+    }
+
 }

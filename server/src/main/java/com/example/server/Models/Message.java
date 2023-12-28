@@ -21,7 +21,7 @@ public class Message {
             strategy = GenerationType.SEQUENCE,
             generator = "message_sequence"
     )
-    private int message_id;
+    private Long message_id;
     @ManyToOne
     @JoinColumn(
             nullable = false,
@@ -35,7 +35,7 @@ public class Message {
     )
     private Property property;
 
-    public Message(int message_id, AppUser appUser, Property property) {
+    public Message(Long message_id, AppUser appUser, Property property) {
         this.message_id = message_id;
         this.appUser = appUser;
         this.property = property;

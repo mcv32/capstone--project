@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Getter
+@Setter
 @ToString
 public class AuthenticationRequest {
     private String email;

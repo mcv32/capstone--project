@@ -29,7 +29,7 @@ public class  WebSecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v*/registration/**", "/authenticate", "/payments").permitAll()
+                        .requestMatchers("/api/v*/registration/**", "/authenticate", "/payments", "/users").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

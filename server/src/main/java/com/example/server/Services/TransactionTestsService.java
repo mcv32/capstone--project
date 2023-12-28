@@ -1,47 +1,56 @@
 package com.example.server.Services;
 
+import com.example.server.Models.Ledger;
 import com.example.server.Models.TransactionTests;
+import com.example.server.Repositories.LedgerRepository;
+import com.example.server.Repositories.TransactionTestsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TransactionTestsService {
 
-    private final List<TransactionTests> transactionTestsList = new ArrayList<>();
+    @Autowired
+    private final TransactionTestsRepository transactionTestsRepository;
+    private final LedgerRepository ledgerRepository;
 
-    public List<TransactionTests> getAllTransactionTests() {
-        return transactionTestsList;
+    @Autowired
+    public TransactionTestsService(TransactionTestsRepository transactionTestsRepository, LedgerRepository ledgerRepository) {
+        this.transactionTestsRepository = transactionTestsRepository;
+        this.ledgerRepository = ledgerRepository;
     }
 
-    public TransactionTests getTransactionsTestsById(int id) {
-        Optional<TransactionTests> optionalTransactionTests = transactionTestsList.stream()
-                .filter(transactionTest -> transactionTest.getTransaction_id() == id)
-                .findFirst();
-        return optionalTransactionTests.orElse(null);
+
+    public TransactionTests getTransactionsTestsById(Long id) {
+        return transactionTestsRepository.findById(id);
     }
 
     public TransactionTests createTransactionTest(TransactionTests transactionTest) {
-        int nextId = transactionTestsList.isEmpty() ? 1 : transactionTestsList.get(transactionTestsList.size() - 1).getTransaction_id() + 1;
-        transactionTest.setTransaction_id(nextId);
-        transactionTestsList.add(transactionTest);
-        return transactionTest;
+        Ledger ledger = ledgerRepository.findById(transactionTest.getLedger_id());
+
+        double amount = ledger.getAmount() - transactionTest.getAmount();
+        ledgerRepository.updateLedgerAmount(amount,
+                transactionTest.getLedger_id());
+        TransactionTests transaction = transactionTestsRepository.createTransaction(transactionTest.getAmount(),
+                transactionTest.getFinancial_account_id(),
+                transactionTest.getLedger_id(),
+                transactionTest.getPaymentType(),
+                transactionTest.getCardNumber(),
+                transactionTest.getTime(),
+                transactionTest.isStatus());
+        ledger.getTransactionTests().add(transaction);
+        transaction.setLedger(ledger);
+        return transaction;
     }
 
-    public TransactionTests updateTransactionTest(int id, TransactionTests updatedTransactionTest) {
-        for (int i = 0; i < transactionTestsList.size(); i++) {
-            if (transactionTestsList.get(i).getTransaction_id() == id) {
-                updatedTransactionTest.setTransaction_id(id);
-                transactionTestsList.set(i, updatedTransactionTest);
-                return updatedTransactionTest;
-            }
-        }
-        return null;
+    public TransactionTests updateTransactionTest(Long id, TransactionTests updatedTransactionTest) {
+        return transactionTestsRepository.updateTransaction(id,
+                updatedTransactionTest.getAmount(),
+                updatedTransactionTest.getFinancial_account_id(),
+                updatedTransactionTest.getLedger_id());
     }
 
-    public void deleteTransactionTest(int id) {
-        transactionTestsList.removeIf(transactionTest -> transactionTest.getTransaction_id() == id);
+    public void deleteTransactionTest(Long id) {
+        transactionTestsRepository.deleteTransaction(id);
     }
 }

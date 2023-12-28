@@ -5,10 +5,11 @@ import com.example.server.Models.AppUser;
 import com.example.server.Services.AppUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.example.server.DTO.AppUserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -27,10 +28,32 @@ public class AppUserController {
         return appUserService.getAllAccounts();
     }
 
-    @PostMapping
-    public ResponseEntity<Optional<AppUser>> getUserByEmail(@RequestBody String email){
-        Optional<AppUser> user = appUserService.getUserByEmail(email);
-        return ResponseEntity.ok(user);
+    @PostMapping("/details")
+    public ResponseEntity<AppUserDto> getUserDetailsByEmail(@RequestBody Map<String, String> requestBody) {
+        String email = requestBody.get("email");
+        AppUserDto userDetails = appUserService.getAppUserDetailsByEmail(email);
+        if (userDetails != null) {
+            return ResponseEntity.ok(userDetails);
+        } else {
+            return ResponseEntity.notFound().build(); // Or handle appropriately
+        }
+    }
+
+    @PostMapping("/update/")
+    public AppUser updateUser(@RequestBody AppUser appUser){
+        return appUserService.updateAppUser(appUser.getEmail(), appUser);
+    }
+
+    @PostMapping("/update/role")
+    public String updateUserRole(@RequestBody Map<String, String > requestBody){
+        appUserService.updateUserRole(requestBody.get("role"), requestBody.get("email"));
+        return "Updated user role successfully";
+    }
+
+    @DeleteMapping("/delete/")
+    public String deleteUser(@RequestBody Map<String, String > requestBody){
+        appUserService.deleteUser(requestBody.get("email"));
+        return "User deleted successfully";
     }
 
 

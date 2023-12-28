@@ -1,46 +1,41 @@
 package com.example.server.Services;
 
 import com.example.server.Models.Property;
+import com.example.server.Repositories.PropertyRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PropertyService {
-    private final List<Property> properties = new ArrayList<>();
+    @Autowired
+    private final PropertyRepository propertyRepository;
 
-    public List<Property> getAllProperties() {
-        return properties;
+    @Autowired
+    public PropertyService(PropertyRepository propertyRepository) {
+        this.propertyRepository = propertyRepository;
     }
 
-    public Property getPropertyById(int id) {
-        Optional<Property> optionalProperty = properties.stream()
-                .filter(property -> property.getProperty_id() == id)
-                .findFirst();
-        return optionalProperty.orElse(null);
+
+    public List<Property> getAllProperties() {
+        return propertyRepository.findAll();
+    }
+
+    public Property getPropertyById(Long id) {
+        return propertyRepository.findById(id);
     }
 
     public Property createProperty(Property property) {
-        int nextId = properties.isEmpty() ? 1 : properties.get(properties.size() - 1).getProperty_id() + 1;
-        property.setProperty_id(nextId);
-        properties.add(property);
-        return property;
+        return propertyRepository.findById(property.getProperty_id());
     }
 
-    public Property updateProperty(int id, Property updatedProperty) {
-        for (int i = 0; i < properties.size(); i++) {
-            if (properties.get(i).getProperty_id() == id) {
-                updatedProperty.setProperty_id(id);
-                properties.set(i, updatedProperty);
-                return updatedProperty;
-            }
-        }
-        return null;
+    public Property updateProperty(Long id, Property updatedProperty) {
+        return propertyRepository.findById(id);
     }
 
-    public void deleteProperty(int id) {
-        properties.removeIf(property -> property.getProperty_id() == id);
+    public void deleteProperty(Long id) {
+        propertyRepository.findById(id);
     }
 }

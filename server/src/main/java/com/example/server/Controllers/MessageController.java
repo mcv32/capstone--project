@@ -18,14 +18,14 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    @GetMapping
-    public List<Message> getAllMessages(){
-        return messageService.getAllMessages();
-    }
-
-    @PostMapping
-    public Message getMessageById(@RequestBody int id){
-        Message message = messageService.getMessageById(id);
-        return message;
-    }
+//    @GetMapping
+//    public List<Message> getAllMessages(){
+//        return messageService.getAllMessages();
+//    }
+//
+//    @PostMapping
+//    public Message getMessageById(@RequestBody Long id){
+//        Message message = messageService.getMessageById(id);
+//        return message;
+//    }
 }

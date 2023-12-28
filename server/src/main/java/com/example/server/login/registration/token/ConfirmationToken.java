@@ -1,6 +1,7 @@
 package com.example.server.login.registration.token;
 
 import com.example.server.Models.AppUser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class ConfirmationToken {
     private LocalDateTime confirmedAt;
     @ManyToOne
     @JoinColumn(name = "EMAIL", referencedColumnName = "EMAIL")
+    @JsonBackReference
     private AppUser appUser;
 
     public ConfirmationToken(String token,

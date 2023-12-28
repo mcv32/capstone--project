@@ -1,6 +1,7 @@
 package com.example.server.Models;
 
 import com.example.server.login.registration.token.ConfirmationToken;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,6 +26,7 @@ public class AppUser implements UserDetails {
 
 
     @Id
+    @Column(name = "EMAIL")
     private String email;
     private String f_name;
     private String l_name;
@@ -39,6 +41,7 @@ public class AppUser implements UserDetails {
             nullable = true,
             name = "financial_account_id"
     )
+    @JsonBackReference
     private FinancialAccount financialAccount;
     @OneToMany(mappedBy = "appUser")
     private List<ConfirmationToken> confirmationTokens;

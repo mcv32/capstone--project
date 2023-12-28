@@ -18,12 +18,12 @@ public class MessageService {
         this.messageRepository = messageRepository;
     }
 
-    public List<Message> getAllMessages(){
-        return messageRepository.findAll();
-    }
-
-    public Message getMessageById(int id){
-        return messageRepository.findById(id);
-    }
+//    public List<Message> getAllMessages(){
+//        return messageRepository.findAll();
+//    }
+//
+//    public Message getMessageById(Long id){
+//        return messageRepository.findById(id);
+//    }
 
 }
