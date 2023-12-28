@@ -42,7 +42,7 @@ function Ledger(){
                 <td>Loyalty Customer Credit</td>
             </tr>
         </table>
-        <div className={propPopped ? "recordOpen" :"offscreen"} >
+        <div className={propPopped ? "transactionRecordOpen" :"offscreen"} >
             <div className="closeRecord">
                 <button onClick={handlePropPop}>X</button>
             </div>

@@ -44,7 +44,7 @@ function Heading(){
             <NavLink className="Navlink" style={({ isActive }) => ({
                                                                     color: isActive ? 'white' : 'white',
                                                                     textDecoration: isActive ? 'underline' : 'none',
-                                                                })} to="/about">ABOUT</NavLink>
+                                                                })} to="#homeERD">ERD</NavLink>
             <NavLink className="Navlink" style={({ isActive }) => ({
                                                                     color: isActive ? 'white' : 'white',
                                                                     textDecoration: isActive ? 'underline' : 'none',
