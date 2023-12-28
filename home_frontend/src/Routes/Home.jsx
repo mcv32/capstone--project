@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import ImageMagnifier from "../Components/ImageMagnifier";
 import HomeERD from "../Static/Home_ERD_v2.png"
+import Spline from '@splinetool/react-spline';
 
 function Home() {
     const navigate = useNavigate();
@@ -33,7 +34,7 @@ function Home() {
                 </div>
 
                 <div className="media-element homeTechStack">
-                    <h1>Display Tech Stack</h1>
+                    <Spline scene="https://prod.spline.design/jTj8tnjowJhFSwVa/scene.splinecode" />
                 </div>
 
                 <div className="media-element homeDemo2">

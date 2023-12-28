@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { NavLink, Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 
-function AccountID(){
+function AccountID({...userData}){
 
     const { auth, setAuth } = useAuth();
     const [propPopped, setPropPopover] = useState(false);
@@ -10,6 +10,8 @@ function AccountID(){
     function handlePropPop(){
             setPropPopover(!propPopped);
     }
+
+    const fullName = userData.f_name + " " + userData.l_name;
     
     return(
         auth?.roles === "MANAGER" ?
@@ -20,10 +22,10 @@ function AccountID(){
             </div>
             <div className="accountRight">
                 <h2>MANAGER</h2>
-                <h3>Cody Phelan</h3>
+                <h3>{fullName}</h3>
                 <p>Contact Information</p>
-                <p>908-685-1182</p>
-                <p>cody@fiserv.com</p>
+                <p>{userData.phoneNumber}</p>
+                <p>{userData.email}</p>
             </div>
             <div className={propPopped ? "accountDetailsOpen" :"offscreen"} >
                 <div className="closeRecord">
@@ -55,9 +57,9 @@ function AccountID(){
                 <Link onClick={handlePropPop}>Edit Account</Link>
             </div>
             <div className="accountRight">
-                <h2>Cody Phelan</h2>
-                <p>908-685-1182</p>
-                <p>cody@fiserv.com</p>
+                <h2>{fullName}</h2>
+                <p>{userData.phoneNumber}</p>
+                <p>{userData.email}</p>
             </div>
             <div className={propPopped ? "accountDetailsOpen" :"offscreen"} >
                 <div className="closeRecord">

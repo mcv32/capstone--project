@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:3000/"}, allowedHeaders = {"Authorization"})
 @RequestMapping(path= "/users")
 public class AppUserController {
 
@@ -28,6 +29,7 @@ public class AppUserController {
         return appUserService.getAllAccounts();
     }
 
+    @CrossOrigin(origins = {"http://localhost:3000/"}, allowedHeaders = {"Authorization"})
     @PostMapping("/details")
     public ResponseEntity<AppUserDto> getUserDetailsByEmail(@RequestBody Map<String, String> requestBody) {
         String email = requestBody.get("email");

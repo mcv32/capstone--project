@@ -26,12 +26,18 @@ public class  WebSecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     @Autowired
     private CorsConfigurationSource corsConfigurationSource;
+
+
+
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v*/registration/**", "/authenticate", "/payments", "/users", "/ledgers/create").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
