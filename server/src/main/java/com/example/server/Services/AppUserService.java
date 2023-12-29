@@ -107,25 +107,35 @@ public class AppUserService implements UserDetailsService {
         Optional<AppUser> optionalAppUser = appUserRepository.findByEmail(email);
         if (optionalAppUser.isPresent()) {
             AppUser appUser = optionalAppUser.get();
-            FinancialAccount financialAccount = appUser.getFinancialAccount();
-            List<Ledger> ledgers = financialAccount != null ? financialAccount.getLedgers() : Collections.emptyList();
+//            FinancialAccount financialAccount = appUser.getFinancialAccount();
+//            List<Ledger> ledgers = financialAccount != null ? financialAccount.getLedgers() : Collections.emptyList();
+//            List<TransactionTests> transactionTests = new ArrayList<>();
+//            List<Property> properties = new ArrayList<>();
+//
+//            if (!ledgers.isEmpty()) {
+//                for (Ledger ledger : ledgers) {
+//                    Property property = ledgerRepository.getPropertyByLedgerId(ledger.getLedger_id());
+//                    if (!properties.contains(property)) {
+//                        properties.add(property);
+//                    }
+//                    List<TransactionTests> transactions = ledgerRepository.getTransactionsByLedgerId(ledger.getLedger_id());
+//                    transactionTests.addAll(transactions);
+//                }
+//            }
+            FinancialAccount financialAccount1 = appUser.getFinancialAccount();
+            List<Ledger> ledgers = financialAccount1.getLedgers();
             List<TransactionTests> transactionTests = new ArrayList<>();
-            List<Property> properties = new ArrayList<>();
-
-            if (!ledgers.isEmpty()) {
-                for (Ledger ledger : ledgers) {
-                    Property property = ledgerRepository.getPropertyByLedgerId(ledger.getLedger_id());
-                    if (!properties.contains(property)) {
-                        properties.add(property);
-                    }
-                    List<TransactionTests> transactions = ledgerRepository.getTransactionsByLedgerId(ledger.getLedger_id());
-                    transactionTests.addAll(transactions);
+            for(int i = 0; i < ledgers.size(); i++){
+                List<TransactionTests> transactions = ledgers.get(i).getTransactionTests();
+                for(int j = 0; j < transactions.size(); j++){
+                    transactionTests.add(transactions.get(j));
                 }
             }
-
+            List<Property> properties = new ArrayList<>();
+            properties.add(ledgers.get(0).getProperty());
             AppUserDto userDetailsDTO = new AppUserDto();
             userDetailsDTO.setAppUser(appUser);
-            userDetailsDTO.setFinancialAccount(financialAccount);
+            userDetailsDTO.setFinancialAccount(financialAccount1);
             userDetailsDTO.setLedgers(ledgers);
             userDetailsDTO.setTransactions(transactionTests);
             userDetailsDTO.setProperties(properties);

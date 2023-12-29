@@ -15,7 +15,6 @@ public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "property_seq")
     @SequenceGenerator(name = "property_seq", sequenceName = "PROPERTY_SEQUENCE", allocationSize = 1)
-    @Column(name = "property_id")
     private Long property_id;
     private String name;
     private String address_street;

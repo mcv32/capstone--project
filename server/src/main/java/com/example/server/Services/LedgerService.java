@@ -52,6 +52,7 @@ public class LedgerService {
             System.out.println(ledgerRequest);
             Optional<Property> property = propertyRepository.findById(ledgerRequest.getProperty_id());
             if(property.isPresent()){
+                fa.setAccount_balance(fa.getAccount_balance() + ledgerRequest.getAmount());
                 newLedger.setProperty(property.get());
                 newLedger.setFinancialAccount(fa);
                 newLedger.setRecurring(ledgerRequest.isRecurring());
