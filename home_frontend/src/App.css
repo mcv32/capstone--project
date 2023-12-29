@@ -330,11 +330,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2rem;
+  /* gap: 2rem; */
+  top: 50px;
   padding: 0 1rem;
+  /* z-index: 1000; */
   /* width: 100%; */
-  
-
+  backdrop-filter:blur(3px);
 }
 
 .sticky {
@@ -521,7 +522,6 @@ form button:hover{
 }
 
 
-
 /* The switch - the box around the slider */
 .switch {
   position: relative;
@@ -549,15 +549,16 @@ form button:hover{
   background-color: #ccc;
   -webkit-transition: .4s;
   transition: .4s;
+  height: 26px;
 }
 
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
+  height: 25px;
   width: 26px;
-  left: 4px;
-  bottom: 4px;
+  left: 1px;
+  bottom: 1px;
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
@@ -572,6 +573,7 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
+  left: calc(100% - 26px - 26px);
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -656,7 +658,7 @@ html, body {
 .dashHead {
   background-color: rgba(255, 255, 255, 0);
   width: 100%;
-  margin: 00px 0px 0px 0px;
+  margin: -10px 0px 0px 0px;
   padding: 20px 0px 50px 0px;
   display: flex;
   justify-content: space-between;
@@ -666,6 +668,27 @@ html, body {
 .dashboard h1 {
   font-size: 3rem;
   color: rgb(255, 255, 255);
+  padding: 0px 0px 0px 7% ;
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+.dashboard h1::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 40%;
+  width: 50%;
+  height: 4px; 
+  background-color:rgb(255, 255, 255); 
+}
+
+/* Media query for screens with a maximum width of 768px */
+@media (max-width: 768px) {
+  .dashColumn {
+    margin: 5px 0 100px 0; /* Adjust margin for smaller screens */
+  }
 }
 
 .dashBody {
@@ -674,15 +697,20 @@ html, body {
   grid-template-columns: 1fr 2fr;
   width: 100%;
   height: 100%;
+  margin-top: -30px;
 }
 
 .dashColumn{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color:#80a7facb;
   border-radius: 10px;
-  margin: 5px;
+  margin: 5px 0 200px ; /* top right bottom left */
+  height: 100%;
+  width: 96%;
+  max-width: 615px;
+  flex: 1;
+  position: relative;
 }
 
 .dashCore {
@@ -707,7 +735,36 @@ html, body {
   margin: 10px;
 }
 
-.accountBlock{
+/* column color block */
+body {
+  margin: 0; 
+  background-image: url('./static/backgroundVideo_crop.mp4'); /* Replace with the path to your background image */
+  background-size: cover; /* Ensure the background image covers the entire viewport */
+  background-position: center; /* Center the background image */
+  position: relative; /* Required for z-index */
+  margin-top: -10px;
+}
+
+body::before {
+  content: ""; 
+  position: fixed; 
+  top: 0;
+  left: 0;
+  height: 100vh; 
+  width: 33%; 
+  background: linear-gradient(rgba(0, 0, 0, 0.829), rgba(47, 188, 223, 0.884)); 
+  z-index: 0; 
+  box-shadow: 0px 0px 20px 7px rgba(0, 0, 0, 0.747);
+}
+
+@media (max-width: 768px) {
+  .dashColumn, dashboard h1::after, .dashboard h1 {
+    margin: 5px 0 100px 0; /* Adjust margin for smaller screens */
+  }
+}
+
+.accountBlock {
+  position: relative;
   display: flex;
   gap: 2rem;
   justify-content: left;
@@ -716,51 +773,63 @@ html, body {
   border-width: 1px;
   border-color: #17475109;
   border-radius: 10px;
-  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
-  height: 50%;
-  margin: 5px;
+  box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.253);
+  margin: 10px 10px 10px 30px;
   text-align: left;
-  background-color: rgba(255, 255, 255, 0.685);
+  background-color: rgba(255, 255, 255, 0.945);
   padding: 20px 0px 0px 10px;
+  border: 4px solid rgba(47, 188, 223, 0.822);
+  border-radius: 10px;
+}
+
+.accountBlock::before {
+  content: "";
+  position: absolute; /* Change to absolute */
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 28%; /* Full width of the container */
+  background: linear-gradient(rgba(47, 188, 223, 0.822), rgba(255, 255, 255, 0.945));
+  z-index: 0; 
+  border-radius: 0px 10px;
 }
 
 .accountLeft {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .accountRight {
   display: flex;
-  justify-self: center;
   flex-direction: column;
-  justify-content:start;
+  justify-content: start;
   align-items: baseline;
+  margin-right: 20px;
+  width: 100%;
+}
+
+.accountRight h2,
+.accountRight h3,
+.accountRight p {
+  margin: 0;
+  padding: 0 30px;
 }
 
 .accountRight h2 {
-  margin: 0px 0px;
-  padding: 0px 0px;
+  font-size: 37px;
 }
 
-.accountRight h3 {
-  margin: 0px 0px;
-  padding: 0px 0px;
-}
-
-.accountRight p {
-  margin: 0px 0px;
-  padding: 0px 0px;
-}
-
-
-.accountBlock img{
+.accountBlock img {
   border-style: solid;
   border-radius: 100px;
   height: 100px;
   width: 100px;
-  object-fit:cover;
+  object-fit: cover;
 }
+
 
 .accountDetailsOpen {
   position: fixed;
@@ -882,123 +951,210 @@ html, body {
   align-self: center;
 }
 
+.columnHeader h2 { /*also for recentpayments/ost/oa */
+  color: rgb(255, 255, 255);
+  margin: 1px 0 0 30px;
+  text-shadow:0px 0px 20px rgb(0, 0, 0);
+  font-size: 35px;
+  text-align: left;
+}
+
+
 .overdueAccounts {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  border-style: solid;
-  border-width: 1px;
   border-color: #17475109;
-  border-radius: 10px;
-  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+  border-radius: 5px 5px 0 0;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
   height: 100%;
-  margin: 10px;
-  background-color: rgba(255, 255, 255, 0.685);
+  margin: 5px 20px 60px 20px;
+  max-height: 300px;
+  background-color: rgb(255, 255, 255);
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
 
-
 .overdueAccounts table {
-  margin: 10px;
+  margin: 0;
+  max-height: 100%;
+  height: 100%;
   border-collapse: collapse;
+  text-align: left;
+  width: 100%;
+  padding: 0;
+}
+
+/* .overdueAccounts:hover {
+  transform: scaleY(1.1);
+
+} */
+
+.overdueAccounts tr {
+  border-bottom: 1px solid rgba(223, 47, 47, 0.89);
+  height: 20px;
+  padding: 10px 30px 10px 30px;
   text-align: left;
 }
 
-.overdueAccounts tr {
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
+.overdueAccounts tr td {
+  text-align: left;
+  padding: 10px 30px;
+}
+
+.overdueAccounts tr:nth-of-type(even) {
+  background-color: #d9dcdfb4;
+}
+
+.overdueAccounts tr:last-of-type {
+  border-bottom: 5px solid rgba(223, 47, 47, 0.89);
 }
 
 .overdueAccounts tr:hover {
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+  font-weight: bold;
+  color: #c213136c;
+  cursor: pointer;
 }
 
+/* overdueAccounts categories titles */
 .overdueAccounts th {
-  background-color: rgba(128, 128, 128, 0.377);
-  border-style:hidden;
+  background-color: rgba(223, 47, 47, 0.822);
+  color: rgb(255, 255, 255);
+  border-style: hidden;
   border-right-color: rgba(128, 128, 128, 0.377);
-}
- 
-.overdueAccounts h2 {
-  color: rgba(255, 0, 0, 0.671);
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 17px;
+  padding: 10px 30px;
+  line-height: 10px;
 }
 
 .recentPayments {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  border-style: solid;
-  border-width: 1px;
   border-color: #17475109;
-  border-radius: 10px;
-  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
   height: 100%;
-  margin: 10px;
-  background-color: rgba(255, 255, 255, 0.685);
+  margin: 10px 10px 10px 30px;
+  background-color: rgba(255, 255, 255, 0.904);
 }
 
 .recentPayments table {
-  margin: 10px;
+  margin: 0;
+  max-height: 100%;
+  height: 100%;
   border-collapse: collapse;
   text-align: left;
+  width: 100%;
+  padding: 0;
 }
 
 .recentPayments tr {
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
+  border-bottom: 1px solid rgba(47, 188, 223, 0.822);
+  height: 20px;
+  padding: 10px 30px 10px 30px;
+  text-align: left;
+}
+
+.recentPayments tr td {
+  text-align: left;
+  padding: 10px 30px;
+}
+
+.recentPayments tr:nth-of-type(even) {
+  background-color: #d9dcdfb4;
+}
+
+.recentPayments tr:last-of-type {
+  border-bottom: 5px solid rgba(47, 188, 223, 0.822);
 }
 
 .recentPayments tr:hover {
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+  font-weight: bold;
+  color: #178b8f6c;
+  cursor: pointer;
 }
 
 .recentPayments th {
-  background-color: rgba(128, 128, 128, 0.377);
-  border-style:hidden;
+  background-color: rgba(47, 188, 223, 0.822);
+  color: rgb(255, 255, 255);
+  border-style: hidden;
   border-right-color: rgba(128, 128, 128, 0.377);
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 17px;
+  padding: 10px 30px;
+  line-height: 10px;
 }
  
-.recentPayments h2 {
-  color: #174751;
-}
-
 .openServiceTickets {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  border-style: solid;
-  border-width: 1px;
   border-color: #17475109;
-  border-radius: 10px;
-  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
   height: 100%;
-  margin: 10px;
-  background-color: rgba(255, 255, 255, 0.685);
+  margin: 10px 10px 10px 30px;
+  background-color: rgba(255, 255, 255, 0.904);
 }
 
 .openServiceTickets table {
-  margin: 10px;
+  margin: 0;
+  max-height: 100%;
+  height: 100%;
   border-collapse: collapse;
   text-align: left;
+  width: 100%;
+  padding: 0;
 }
 
 .openServiceTickets tr {
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
+  border-bottom: 1px solid rgba(47, 188, 223, 0.822);
+  height: 20px;
+  padding: 10px 30px 10px 30px;
+  text-align: left;
+}
+
+.openServiceTickets tr td {
+  text-align: left;
+  padding: 10px 30px;
+}
+
+.openServiceTickets tr:nth-of-type(even) {
+  background-color: #d9dcdfb4;
+}
+
+.openServiceTickets tr:last-of-type {
+  border-bottom: 5px solid rgba(47, 188, 223, 0.822);
 }
 
 .openServiceTickets tr:hover {
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+  font-weight: bold;
+  color: #178b8f6c;
+  cursor: pointer;
 }
 
 .openServiceTickets th {
-  background-color: rgba(128, 128, 128, 0.377);
-  border-style:hidden;
+  background-color: rgba(47, 188, 223, 0.822);
+  color: rgb(255, 255, 255);
+  border-style: hidden;
   border-right-color: rgba(128, 128, 128, 0.377);
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 17px;
+  padding: 10px 30px;
+  line-height: 10px;
 }
+
  
-.openServiceTickets h2 {
-  color: #174751;
-}
 
 .tenantServiceTickets {
   display: flex;
@@ -1169,17 +1325,14 @@ html, body {
   justify-content: center;
   flex-direction: column;
   justify-content: start;
-  border-style: solid;
-  border-width: 1px;
   border-color: #17475109;
   border-radius: 5px 5px 0 0;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
   height: 100%;
-  margin: 5px 10px 60px;
+  margin: 5px 20px 60px 20px;
   max-height: 300px;
-  background-color: rgba(255, 255, 255, 0.945);
-  
-  
+  background-color: rgb(255, 255, 255);
+  overflow:hidden;
 }
 
 .propertiesHeader {
@@ -1196,25 +1349,28 @@ html, body {
   border-collapse: collapse;
   text-align: left;
   width: 100%;
-  padding: 10px 30px;
+  padding: 0;
   
 }
 
 .Properties tr {
   border-bottom: 1px solid rgb(192, 206, 231);
-  height: 50px;
+  height: 20px;
   padding: 10px 30px 10px 30px;
   text-align: left;
 }
 
 .Properties tr td {
   text-align: left;
-}
-
-.Properties th,
-.Properties td {
   padding: 10px 30px;
 }
+
+/* .Properties th,
+.Properties td {
+  padding: 10px 30px;
+} */
+
+
 
 .Properties tr:nth-of-type(even) {
   background-color: #d9dcdfb4;
@@ -1222,7 +1378,7 @@ html, body {
 }
 
 .Properties tr:last-of-type {
-  border-bottom: 5px solid rgba(38, 207, 230, 0.808);
+  border-bottom: 5px solid rgba(47, 188, 223, 0.822);
 }
 
 .Properties tr:hover {
@@ -1241,14 +1397,16 @@ html, body {
   text-align: left;
   text-transform: uppercase;
   font-size: 17px;
-  padding: 10px 0px 10px 30px; /* Adjusted padding */
+  padding: 10px 30px; /* Adjusted padding */
+  line-height: 10px;
  
 }
 
-.propertiesHeader h2 {
+.propertiesHeader h2 { /*also accountsHeader */
   color: rgb(255, 255, 255);
-  margin: 10px 0;
-  
+  margin: 10px 15px;
+  text-shadow:0px 0px 20px rgb(0, 0, 0);
+  font-size: 35px;
 }
 
 
@@ -1273,7 +1431,7 @@ html, body {
   /* display: none; */
   position: fixed;
   top: 0;
-  right: -100px;
+
   width: 35%;
   height: 100%;
   background-color: rgb(255, 255, 255);
@@ -1291,11 +1449,12 @@ html, body {
   height: 40px;
   width: 40px;
   background: rgba(255, 255, 255, 0.959);
-  border: 3px solid rgb(123, 207, 255);
+  border: 3px solid rgba(47, 188, 223, 0.822);
   font-size: 2rem;
   line-height: 30px; 
-  color: rgba(24, 220, 255, 0.925);
+  color: rgba(47, 188, 223, 0.822);
   border-radius: 10px;
+  transform: translateX(-15px);
 }
 
 
@@ -1691,46 +1850,41 @@ html, body {
   justify-content: center;
   flex-direction: column;
   justify-content: start;
-  border-style: solid;
-  border-width: 1px;
   border-color: #17475109;
   border-radius: 5px 5px 0 0;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
   height: 100%;
-  margin: 5px 10px 60px;
+  margin: 5px 20px 180px 20px; /* 3rd one vertically moves accounts table */
   max-height: 300px;
-  background-color: rgba(255, 255, 255, 0.945);
+  background-color: rgb(255, 255, 255);
+  overflow: hidden;
 }
 
 .AccountsHeader {
   display: flex;
   justify-content: space-between;
-  margin: 0px 10px 0px 10px;
+  margin: 5px 10px 0px 10px;
 }
 
 .Accounts table {
-  margin: 0; /* Adjusted margin to 0 */
-  max-height: 100%; /* Change max-height to 100% */
+  margin: 0;
+  max-height: 100%;
   height: 100%;
   border-collapse: collapse;
   text-align: left;
   width: 100%;
-  padding: 10px 30px;
+  padding: 0;
 }
 
 .Accounts tr {
   border-bottom: 1px solid rgb(192, 206, 231);
-  height: 50px;
+  height: 20px;
   padding: 10px 30px 10px 30px;
   text-align: left;
 }
 
 .Accounts tr td {
   text-align: left;
-}
-
-.Accounts th,
-.Accounts td {
   padding: 10px 30px;
 }
 
@@ -1739,7 +1893,7 @@ html, body {
 }
 
 .Accounts tr:last-of-type {
-  border-bottom: 5px solid rgba(38, 207, 230, 0.808);
+  border-bottom: 5px solid rgba(47, 188, 223, 0.822);
 }
 
 .Accounts tr:hover {
@@ -1758,14 +1912,10 @@ html, body {
   text-align: left;
   text-transform: uppercase;
   font-size: 17px;
-  padding: 10px 0px 10px 30px; /* Adjusted padding */
+  padding: 10px 30px; /* Adjusted padding */
+  line-height: 10px;
 }
 
-.Accounts h2 {
-  color: black;
-  text-align: left;
-  margin: 0px;
-}
 
 .billingAccountRecordOpen {
   position: fixed;

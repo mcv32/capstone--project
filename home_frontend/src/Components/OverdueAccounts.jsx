@@ -29,8 +29,11 @@ function OverdueAccounts(){
     }
 
     return(
+        <div>
+        <div className="columnHeader">
+          <h2>OVERDUE ACCOUNTS</h2>
+        </div>
         <div className="overdueAccounts">
-            <h2>OVERDUE ACCOUNTS</h2>
             <table>
                 <tr>
                     <th>Past Due Date</th>
@@ -70,6 +73,7 @@ function OverdueAccounts(){
             <DetailsLedger/>                 
             </div> 
             </div> 
+        </div>
         </div>
     );
 }

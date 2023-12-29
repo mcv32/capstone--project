@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import ImageMagnifier from "../Components/ImageMagnifier";
-import HomeERD from "../Static/Home_ERD_v2.png"
+import HomeERD from "../static/Home_ERD_v2.png"
 import Spline from '@splinetool/react-spline';
 
 function Home() {
@@ -34,7 +34,7 @@ function Home() {
                 </div>
 
                 <div className="media-element homeTechStack">
-                    <Spline scene="https://prod.spline.design/jTj8tnjowJhFSwVa/scene.splinecode" />
+                    {/* <Spline scene="https://prod.spline.design/jTj8tnjowJhFSwVa/scene.splinecode" /> */}
                 </div>
 
                 <div className="media-element homeDemo2">

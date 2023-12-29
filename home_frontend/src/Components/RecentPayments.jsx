@@ -10,8 +10,11 @@ function RecentPayments(){
     }
 
     return(
+        <div>
+        <div className="columnHeader">
+          <h2>RECENT PAYMENTS</h2>
+        </div>
         <div className="recentPayments">
-            <h2>RECENT PAYMENTS</h2>
             <table>
                 <tr>
                     <th>Posted Date</th>
@@ -41,6 +44,7 @@ function RecentPayments(){
                 <p>Status: Approved</p>
             </div>
             </div> 
+        </div>
         </div>
     );
 }
