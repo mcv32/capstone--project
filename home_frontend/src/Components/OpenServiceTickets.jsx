@@ -3,7 +3,7 @@ import React from "react";
 function OpenServiceTickets(){
     return(
         <div className="openServiceTickets">
-            <h2>OPEN SERVICE TICKETS</h2>
+            <h2>OPEN SERVICE TICKETS</h2>   
             <table>
                 <tr>
                     <th>Request Date</th>

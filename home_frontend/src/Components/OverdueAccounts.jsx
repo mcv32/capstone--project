@@ -30,7 +30,7 @@ function OverdueAccounts(){
 
     return(
         <div className="overdueAccounts">
-            <h2>OVERDUE ACCOUNTS</h2>
+          <h2>OVERDUE ACCOUNTS</h2>
             <table>
                 <tr>
                     <th>Past Due Date</th>

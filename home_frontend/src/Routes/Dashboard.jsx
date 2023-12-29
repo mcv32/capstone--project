@@ -40,19 +40,30 @@ function Dashboard(){
                 }
                 );
 
-                console.log(response);
+                console.log("Response Data Load", {...response.data});
                 setResponse({...response.data});
-                console.log("Response Data Load", {...responseData});
-                setUserData({...responseData.appUser});
-                console.log("Set User Data: ", {userData});
-                setUserFinAcct({...responseData.financialAccount});
-                console.log("Set User Financial Account", {userFinAcct});
-                setUserLedgers({...responseData.ledgers});
-                console.log("Set User Ledgers", {...userLedgers});
-                setUserLedgers({...response.data.properties});
-                console.log("Set User Properties", {...userProperties});
+                console.log("Set Reponse Data", responseData);
+                
+                console.log("Response User Data: ", {...response.data.appUser});
+                setUserData({...response.data.appUser});
+                console.log("Set User Data", userData);
+
+                
+                console.log("Response Financial Account", {...response.data.financialAccount});
+                setUserFinAcct({...response.data.financialAccount});
+                console.log("Set Financial Account", userFinAcct);
+                
+                console.log("Response Ledgers", {...response.data.ledgers})
+                setUserLedgers({...response.data.ledgers});
+                console.log("Set User Ledgers", userLedgers);
+                
+                console.log("Response Properties", {...response.data.properties});
+                setUserProperties({...response.data.properties});
+                console.log("Set User Properties", userProperties);
+                
+                console.log("Response Transactions", {...response.data.transactions});
                 setUserTransactions({...response.data.transactions});
-                console.log("Set User Transactions", {...userTransactions});
+                console.log("Set User Transactions", userTransactions);
                 
 
             } catch (err) {
@@ -79,7 +90,7 @@ function Dashboard(){
                     <OpenServiceTickets/>
                 </div>
                 <div className= "dashCore">
-                    <Properties {...userProperties}/>
+                    {/* <Properties {...userProperties}/> */}
                     <Accounts/>
                 </div>
             </div>
@@ -92,13 +103,13 @@ function Dashboard(){
                 <div className="dashColumn">
                 <h1>Welcome Home</h1>
                 <AccountID {...userData}/>
-                <HomeIDcard {...userProperties}/>
+                {/* <HomeIDcard {...userProperties}/> */}
                 <TennantServiceTickets/>
 
                 </div>
                 <div className="dashCore">
-                    <AccountBalance {...userFinAcct}/>
-                    {/* <Ledger {...userLedgers}/> */}
+                    {/* <AccountBalance {...userFinAcct}/> */}
+                    <Ledger {...userLedgers}/>
 
                 </div>
             </div>

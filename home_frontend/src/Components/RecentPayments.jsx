@@ -11,7 +11,7 @@ function RecentPayments(){
 
     return(
         <div className="recentPayments">
-            <h2>RECENT PAYMENTS</h2>
+          <h2>RECENT PAYMENTS</h2>
             <table>
                 <tr>
                     <th>Posted Date</th>

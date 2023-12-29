@@ -8,6 +8,13 @@ function Ledger({...userLedgers}){
             setPropPopover(!propPopped);
     }
 
+    console.log({userLedgers});
+
+    // {...userLedgers.ledger_id}
+    //                 {...userLedgers.amount}
+    //                 {userLedgers.description}
+    //                 {...userLedgers.property.name}
+    
     function createLedger(){
 
     }
@@ -24,15 +31,15 @@ function Ledger({...userLedgers}){
                 </tr>
             </thead>
             <tbody>
-                {
-                userLedgers.map((userLedgers,key) =>
-                <tr key={key} onClick={handlePropPop}>
-                    <td>{userLedgers.amount}</td>
-                    <td>{userLedgers.datePosted}</td>
-                    <td>{userLedgers.Item}</td>
+                {/* {
+                userLedgers.map(({userLedgers}, key) =>
+                <tr key={...userLedgers.ledger_id} onClick={handlePropPop}>
+                    <td>{...userLedgers.amount}</td>
+                    <td>{userLedgers.description}</td>
+                    <td>{...userLedgers.property.name}</td>
                 </tr>
                 )
-                }
+                } */}
             </tbody>
         </table>
         <div className={propPopped ? "transactionRecordOpen" :"offscreen"} >
