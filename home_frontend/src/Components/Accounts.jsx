@@ -25,7 +25,7 @@ function Accounts(){
     }
 
     return (
-        <div style={{ marginTop: '5px' }}>
+        <div style={{ marginTop: '30px' }}>
           <div className="propertiesHeader">
             <h2>ACCOUNTS</h2>
             <button className="openpopover" onClick={handleNewAcctPop}>+</button>

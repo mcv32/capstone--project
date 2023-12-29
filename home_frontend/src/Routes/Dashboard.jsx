@@ -10,13 +10,59 @@ import HomeIDcard from "../Components/HomeIDcard";
 import AccountBalance from "../Components/AccountBalance";
 import Ledger from "../Components/Ledger";
 import useAuth from "../Hooks/useAuth";
-// import dashboardImage from '../static/dashboard.png';
 import axios from "axios";
 
 
 function Dashboard(){
 
     const { auth, setAuth } = useAuth();
+
+    const [dash, setDash] = useState(null);
+
+    const [responseData, setResponse] = useState();
+    const [userData, setUserData] = useState();
+    const [userFinAcct, setUserFinAcct] = useState();
+    const [userLedgers, setUserLedgers] = useState([]);
+    const [userProperties, setUserProperties] = useState([]);
+    const [userTransactions, setUserTransactions] = useState([]);
+
+    useEffect(() => {
+        const fetchDash = async () => {
+            try {
+                const response = await axios.post("http://localhost:8080/users/details",
+                {
+                    email: auth?.email
+                },
+                { headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + auth?.accessToken
+                    } 
+                }
+                );
+
+                console.log(response);
+                setResponse({...response.data});
+                console.log("Response Data Load", {...responseData});
+                setUserData({...responseData.appUser});
+                console.log("Set User Data: ", {userData});
+                setUserFinAcct({...responseData.financialAccount});
+                console.log("Set User Financial Account", {userFinAcct});
+                setUserLedgers({...responseData.ledgers});
+                console.log("Set User Ledgers", {...userLedgers});
+                setUserLedgers({...response.data.properties});
+                console.log("Set User Properties", {...userProperties});
+                setUserTransactions({...response.data.transactions});
+                console.log("Set User Transactions", {...userTransactions});
+                
+
+            } catch (err) {
+                console.log(err.response);
+
+            }
+        }
+
+        fetchDash();
+      }, []);
 
     
     return(
@@ -27,13 +73,13 @@ function Dashboard(){
             </div>
             <div className="dashBody">
                 <div className="dashColumn">
-                    <AccountID />
+                    <AccountID {...userData}/>
                     <OverdueAccounts/>
                     <RecentPayments/>
                     <OpenServiceTickets/>
                 </div>
                 <div className= "dashCore">
-                    <Properties/>
+                    <Properties {...userProperties}/>
                     <Accounts/>
                 </div>
             </div>
@@ -45,14 +91,14 @@ function Dashboard(){
     //         <div className="dashBody">
     //             <div className="dashColumn">
     //             <h1>Welcome Home</h1>
-    //             <AccountID />
-    //             <HomeIDcard />
+    //             <AccountID {...userData}/>
+    //             <HomeIDcard {...userProperties}/>
     //             <TennantServiceTickets/>
 
     //             </div>
     //             <div className="dashCore">
-    //                 <AccountBalance />
-    //                 <Ledger />
+    //                 <AccountBalance {...userFinAcct}/>
+    //                 {/* <Ledger {...userLedgers}/> */}
 
     //             </div>
     //         </div>
