@@ -19,11 +19,12 @@ function Dashboard(){
 
     const [dash, setDash] = useState(null);
 
+    const [responseData, setResponse] = useState();
     const [userData, setUserData] = useState();
     const [userFinAcct, setUserFinAcct] = useState();
-    const [userLedgers, setUserLedgers] = useState();
-    const [userProperties, setUserProperties] = useState();
-    const [userTransactions, setUserTransactions] = useState();
+    const [userLedgers, setUserLedgers] = useState([]);
+    const [userProperties, setUserProperties] = useState([]);
+    const [userTransactions, setUserTransactions] = useState([]);
 
     useEffect(() => {
         const fetchDash = async () => {
@@ -40,11 +41,13 @@ function Dashboard(){
                 );
 
                 console.log(response);
-                setUserData({...response.data.appUser});
-                console.log("Set User Data: ", {...userData});
-                setUserFinAcct({...response.data.financialAccount});
-                console.log("Set User Financial Account", {...userFinAcct});
-                setUserLedgers({...response.data.ledgers});
+                setResponse({...response.data});
+                console.log("Response Data Load", {...responseData});
+                setUserData({...responseData.appUser});
+                console.log("Set User Data: ", {userData});
+                setUserFinAcct({...responseData.financialAccount});
+                console.log("Set User Financial Account", {userFinAcct});
+                setUserLedgers({...responseData.ledgers});
                 console.log("Set User Ledgers", {...userLedgers});
                 setUserLedgers({...response.data.properties});
                 console.log("Set User Properties", {...userProperties});
@@ -95,7 +98,7 @@ function Dashboard(){
                 </div>
                 <div className="dashCore">
                     <AccountBalance {...userFinAcct}/>
-                    <Ledger {...userLedgers}/>
+                    {/* <Ledger {...userLedgers}/> */}
 
                 </div>
             </div>
