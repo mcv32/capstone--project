@@ -26,6 +26,13 @@ function Dashboard(){
     const [userProperties, setUserProperties] = useState([]);
     const [userTransactions, setUserTransactions] = useState([]);
 
+    const [refresh, setRefresh] = useState(true);
+
+    function refreshData(){
+        setRefresh(!refresh);
+        console.log(refresh);
+    }
+
     useEffect(() => {
         const fetchDash = async () => {
             try {
@@ -40,30 +47,31 @@ function Dashboard(){
                 }
                 );
 
-                console.log("Response Data Load", {...response.data});
+                // console.log("Response Data Load", {...response.data});
                 setResponse({...response.data});
                 console.log("Set Reponse Data", responseData);
                 
-                console.log("Response User Data: ", {...response.data.appUser});
+                // console.log("Response User Data: ", {...response.data.appUser});
                 setUserData({...response.data.appUser});
                 console.log("Set User Data", userData);
 
                 
-                console.log("Response Financial Account", {...response.data.financialAccount});
+                // console.log("Response Financial Account", {...response.data.financialAccount});
                 setUserFinAcct({...response.data.financialAccount});
-                console.log("Set Financial Account", userFinAcct);
+                // console.log("Set Financial Account", userFinAcct);
                 
-                console.log("Response Ledgers", {...response.data.ledgers})
+                // console.log("Response Ledgers", [...response.data.ledgers]);
                 setUserLedgers({...response.data.ledgers});
-                console.log("Set User Ledgers", userLedgers);
+                // console.log("Set User Ledgers", userLedgers);
+                // console.log("Set User Ledgers", userLedgers[0]);
                 
-                console.log("Response Properties", {...response.data.properties});
+                // console.log("Response Properties", {...response.data.properties});
                 setUserProperties({...response.data.properties});
-                console.log("Set User Properties", userProperties);
+                // console.log("Set User Properties", userProperties);
                 
-                console.log("Response Transactions", {...response.data.transactions});
+                // console.log("Response Transactions", {...response.data.transactions});
                 setUserTransactions({...response.data.transactions});
-                console.log("Set User Transactions", userTransactions);
+                // console.log("Set User Transactions", userTransactions);
                 
 
             } catch (err) {
@@ -73,14 +81,14 @@ function Dashboard(){
         }
 
         fetchDash();
-      }, []);
+      }, [refresh]);
 
     
     return(
         auth?.roles === "MANAGER" ?
         <section className="dashboard">
             <div className="dashHead">
-                <h1>Welcome Manager</h1>
+                <h1>Welcome {userData?.f_name}</h1>
             </div>
             <div className="dashBody">
                 <div className="dashColumn">
@@ -90,7 +98,7 @@ function Dashboard(){
                     <OpenServiceTickets/>
                 </div>
                 <div className= "dashCore">
-                    {/* <Properties {...userProperties}/> */}
+                    <Properties/>
                     <Accounts/>
                 </div>
             </div>
@@ -101,15 +109,16 @@ function Dashboard(){
         </div> */}
             <div className="dashBody">
                 <div className="dashColumn">
-                <h1>Welcome Home</h1>
+                <h1>Welcome Home, {userData?.f_name}</h1>
+                <button onClick={refreshData}>refresh</button>
                 <AccountID {...userData}/>
-                {/* <HomeIDcard {...userProperties}/> */}
+                <HomeIDcard properties = {userProperties}/>
                 <TennantServiceTickets/>
 
                 </div>
                 <div className="dashCore">
-                    {/* <AccountBalance {...userFinAcct}/> */}
-                    <Ledger {...userLedgers}/>
+                    <AccountBalance {...userFinAcct}/>
+                    <Ledger ledgers={userLedgers}/> 
 
                 </div>
             </div>

@@ -11,21 +11,21 @@ function Home() {
             <section className="bodySection snaps-inline">
                 {/* <div className="media-scroller snaps-inline">
                 </div> */}
-                <div className="media-element homeHero">
+                <div className="media-element homeHero" id="homeHero">
                     <h1>This is our Hero Section</h1>
                 </div>
 
-                <div className="media-element homeDemo1">
+                <div className="media-element homeDemo1" id="homeDemo1">
                     <h1>This is for our first Demo</h1>
                 </div>
 
-                <div className="media-element homeFeatures">
+                <div className="media-element homeFeatures" id="homeFeatures">
                     <h1>Diagram of Features</h1>
                 </div>
 
                 {/* <div className="media-element">
                 </div> */}
-                <div className="homeTeam">
+                <div className="homeTeam" id="homeTeam">
                     <div> </div>
                     <div></div>
                     <div></div>
@@ -33,11 +33,11 @@ function Home() {
                     <div></div>
                 </div>
 
-                <div className="media-element homeTechStack">
+                <div className="media-element homeTechStack" id="homeTechStack">
                     {/* <Spline scene="https://prod.spline.design/jTj8tnjowJhFSwVa/scene.splinecode" /> */}
                 </div>
 
-                <div className="media-element homeDemo2">
+                <div className="media-element homeDemo2" id="homeDemo2">
                     <h1>This is for our second Demo</h1>
                 </div>
 
@@ -46,7 +46,7 @@ function Home() {
                     <ImageMagnifier imgUrl={HomeERD} />
                 </div>
 
-                <div className="media-element homeDemo3">
+                <div className="media-element homeDemo3" id="homeDemo3">
                     <h1>This is for our third Demo</h1>
                 </div>
 

@@ -10,7 +10,6 @@ import Unauthorized from './Routes/Unauthorized';
 import Dashboard from './Routes/Dashboard';
 import Missing from './Routes/Missing';
 
-
 function App() {
 
   return (

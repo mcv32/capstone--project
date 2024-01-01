@@ -1630,11 +1630,13 @@ body::before {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
+  color: black;
 }
 
 .propertyDetails h1{
   margin: 10px;
   text-align: left;
+  color: black;
 }
 
 .propertyDetails img{
@@ -1962,7 +1964,7 @@ body::before {
   
 }
 
-.detailsLedger {
+.billingAccountLedger {
   grid-column: span 2;
   align-content: baseline;
   vertical-align: top;

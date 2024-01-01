@@ -79,10 +79,10 @@ function LoginForm(props){
                 const email = loginPayload.email;
                 const password = loginPayload.password;
                 
-                console.log(email);
-                console.log(password);
-                console.log(roles);
-                console.log(accessToken);
+                // console.log(email);
+                // console.log(password);
+                // console.log(roles);
+                // console.log(accessToken);
                 setAuth({email, password, roles, accessToken });
                 resetLoginPayload();
                 navigate(from, {replace:true});
@@ -131,12 +131,12 @@ function LoginForm(props){
             const newLoginPayload = {... loginPayload}
             newLoginPayload[cred.target.id] = cred.target.value
             setLoginPayload(newLoginPayload)
-            console.log(newLoginPayload)
+            // console.log(newLoginPayload)
         } else {
             const newRegisterPayload = {... registerPayload}
             newRegisterPayload[cred.target.id] = cred.target.value
             setRegisterPayload(newRegisterPayload)
-            console.log(newRegisterPayload)
+            // console.log(newRegisterPayload)
         }
     }
 
