@@ -2,6 +2,8 @@ package com.example.server.Controllers;
 
 import com.example.server.Models.PaymentType;
 import com.example.server.Models.Payments;
+import com.example.server.Models.TransactionTests;
+import com.example.server.REQUESTS.PaymentRequest;
 import com.example.server.Services.PaymentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,7 @@ public class PaymentsController {
     }
 
     @PostMapping
-    public String processPayment(@RequestBody Payments payments){
-        return paymentsService.processPayment(payments.getPaymentType(), payments.getNumber(), String.valueOf(Optional.ofNullable(payments.getAccountingNumber())));
+    public TransactionTests processPayment(@RequestBody PaymentRequest paymentRequest){
+        return paymentsService.processPayment(paymentRequest);
     }
 }

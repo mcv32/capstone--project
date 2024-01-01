@@ -4,6 +4,7 @@ import com.example.server.Models.Property;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -38,14 +39,16 @@ public interface PropertyRepository extends JpaRepository <Property, Long> {
 
     @Modifying
     @Query(value = "UPDATE PROPERTY SET NAME = :NAME, ADDRESS_STREET = :ADDRESS_STREET, ADDRESS_LINE_2 = :ADDRESS_LINE_2, " +
-            "CITY = :CITY, STATE = :STATE, ZIP = :ZIP, PROPERTY_BALANCE = :PROPERTY_BALANCE", nativeQuery = true)
-    Property updateProperty(
+            "CITY = :CITY, STATE = :STATE, ZIP = :ZIP, STATUS = :STATUS, PROPERTY_BALANCE = :PROPERTY_BALANCE WHERE PROPERTY_ID = :ID", nativeQuery = true)
+    int updateProperty(
+            @Param("ID") Long id,
             @Param("NAME") String name,
             @Param("ADDRESS_STREET") String address,
             @Param("ADDRESS_LINE_2") String address2,
             @Param("CITY") String city,
             @Param("STATE") String state,
             @Param("ZIP") String zip,
+            @Param("STATUS") String status,
             @Param("PROPERTY_BALANCE") double amount
     );
 }

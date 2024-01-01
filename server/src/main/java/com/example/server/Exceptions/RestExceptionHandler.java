@@ -1,4 +1,4 @@
-package com.example.server.Controllers;
+package com.example.server.Exceptions;
 
 import com.example.server.Exceptions.*;
 import com.example.server.Models.ApiError;
@@ -24,7 +24,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(value= EmailDoesntExist.class)
     public ResponseEntity<ApiError> handleEmailDoesntExistException(){
-        ApiError error = new ApiError(400, "Email Doesnt Exist", new Date());
+        ApiError error = new ApiError(400, "Email Doesn't Exist", new Date());
         return new ResponseEntity<ApiError>(error, HttpStatus.BAD_REQUEST);
     }
 
@@ -44,4 +44,11 @@ public class RestExceptionHandler {
         ApiError error = new ApiError(400, "Invalid email", new Date());
         return new ResponseEntity<ApiError>(error, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(value = PaymentInfoInvalid.class)
+    public ResponseEntity<ApiError> handleInvalidPaymentInfo(){
+        ApiError error = new ApiError(400, "Unsuccessful payment: invalid payment info", new Date());
+        return new ResponseEntity<ApiError>(error, HttpStatus.BAD_REQUEST);
+    }
+
 }

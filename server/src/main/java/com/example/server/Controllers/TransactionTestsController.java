@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path= "/transactions")
@@ -19,14 +20,10 @@ public class TransactionTestsController {
         this.transactionTestsService = transactionTestsService;
     }
 
-//    @GetMapping
-//    public List<TransactionTests> getAllTransactionTests(){
-//        return transactionTestsService();
-//    }
 
-    @GetMapping("/{id}")
-    public TransactionTests getTransactionTestsById(@PathVariable Long id){
-        TransactionTests transactionTests = transactionTestsService.getTransactionsTestsById(id);
+    @GetMapping("/getTransaction")
+    public TransactionTests getTransactionTestsById(@RequestBody Map<String, Long> requestBody){
+        TransactionTests transactionTests = transactionTestsService.getTransactionsTestsById(requestBody.get("id"));
         return transactionTests;
     }
 
@@ -40,9 +37,9 @@ public class TransactionTestsController {
 //        return transactionTestsService.updateTransactionTest(id, updatedTransactionTest);
 //    }
 
-    @DeleteMapping("/{id}")
-    public String deleteTransactionTest(@PathVariable Long id) {
-        transactionTestsService.deleteTransactionTest(id);
-        return "TransactionTest with ID " + id + " deleted successfully.";
+    @DeleteMapping("/delete")
+    public String deleteTransactionTest(@RequestBody Map<String, Long> requestBody) {
+        transactionTestsService.deleteTransactionTest(requestBody.get("id"));
+        return "TransactionTest with ID " + requestBody.get("id") + " deleted successfully.";
     }
 }

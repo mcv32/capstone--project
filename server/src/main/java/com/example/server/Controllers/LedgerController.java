@@ -39,8 +39,8 @@ public class LedgerController {
     }
 
     @PutMapping("/update")
-    public Ledger updateLedger(@RequestBody Ledger updatedLedger) {
-        return ledgerService.updateLedger(updatedLedger.getLedger_id(), updatedLedger);
+    public Ledger updateLedger(@RequestBody Map<String, String> requestBody) {
+        return ledgerService.updateLedger(requestBody);
     }
 
     @DeleteMapping("/delete")
@@ -49,24 +49,26 @@ public class LedgerController {
         return "Ledger with ID " + requestBody.get("id") + " deleted successfully.";
     }
 
-    @PostMapping("/payments/{id}")
-    public Ledger updateLedgerAmount(@PathVariable Long id, @RequestBody double amount){
-        return ledgerService.updateLedgerAmount(id, amount);
+    @PostMapping("/payments/")
+    public Ledger updateLedgerAmount(@RequestBody Map<String, String> requestBody){
+        return ledgerService.updateLedgerAmount(Long.valueOf(requestBody.get("ledger_id")).longValue(),
+                Double.parseDouble(requestBody.get("amount")));
     }
 
-    @PostMapping("/update/{id}")
-    public Ledger updateLedgerProperty(@PathVariable Long id){
-        return ledgerService.updateLedgerProperty(id);
+    @PostMapping("/update/property")
+    public Ledger updateLedgerProperty(@RequestBody Map<String, Long> requestBody){
+        return ledgerService.updateLedgerProperty(Long.valueOf(requestBody.get("ledger_id")).longValue(),
+                Long.valueOf(requestBody.get("property_id")).longValue());
     }
 
-    @PostMapping("/transactions/{id}")
-    public List<TransactionTests> getTransactionsByLedgerId(@PathVariable Long id){
-        return ledgerService.getTransactionsByLedgerId(id);
+    @PostMapping("/transactions")
+    public List<TransactionTests> getTransactionsByLedgerId(@RequestBody Map<String, Long> requestBody){
+        return ledgerService.getTransactionsByLedgerId(requestBody.get("id"));
     }
 
-    @PostMapping("/property/{id}")
-    public Property getPropertyByLedgerId(@PathVariable Long id){
-        return ledgerService.getPropertyByLedgerId(id);
+    @PostMapping("/property")
+    public Property getPropertyByLedgerId(@RequestBody Map<String, Long> requestBody){
+        return ledgerService.getPropertyByLedgerId(requestBody.get("id"));
     }
 
     @GetMapping("/overdue")

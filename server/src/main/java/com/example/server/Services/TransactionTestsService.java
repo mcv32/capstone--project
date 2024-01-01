@@ -2,6 +2,7 @@ package com.example.server.Services;
 
 import com.example.server.Models.FinancialAccount;
 import com.example.server.Models.Ledger;
+import com.example.server.Models.Property;
 import com.example.server.Models.TransactionTests;
 import com.example.server.REQUESTS.TransactionRequest;
 import com.example.server.Repositories.FinancialAccountRepository;
@@ -30,20 +31,25 @@ public class TransactionTestsService {
 
 
     public TransactionTests getTransactionsTestsById(Long id) {
-        return transactionTestsRepository.findById(id);
+        Optional<TransactionTests> transaction = transactionTestsRepository.findById(id);
+        if(transaction.isPresent())
+            return transaction.get();
+        return null;
     }
 
     public TransactionTests createTransactionTest(TransactionRequest transactionRequest) {
+        Optional<FinancialAccount> financialAccount = financialAccountRepository.findById(transactionRequest.getFinancial_account_id());
 
-        Long ledgerId = transactionRequest.getLedger_id(); // Extract ledger_id from the request body
 
-        // Fetch Ledger based on the received ledgerId
-        Optional<Ledger> ledgerOptional = ledgerRepository.findById(ledgerId);
 
-        if (ledgerOptional.isPresent()) {
-
-            Optional<FinancialAccount> financialAccount = financialAccountRepository.findById(transactionRequest.getFinancial_account_id());
             if(financialAccount.isPresent()){
+                FinancialAccount fa = financialAccount.get();
+                Long ledgerId = transactionRequest.getLedger_id(); // Extract ledger_id from the request body
+
+                // Fetch Ledger based on the received ledgerId
+                Optional<Ledger> ledgerOptional = ledgerRepository.findById(ledgerId);
+
+                if (ledgerOptional.isPresent()) {
 
                 // change ledger balance
                 Ledger ledger = ledgerOptional.get();
@@ -51,9 +57,12 @@ public class TransactionTestsService {
                 ledger.setAmount(amount);
 
                 // change financial account balance
-                FinancialAccount fa = financialAccount.get();
                 double fin_amt = fa.getAccount_balance() - transactionRequest.getAmount();
                 fa.setAccount_balance(fin_amt);
+
+                //change property balance
+                Property property = ledger.getProperty();
+                property.setProperty_balance(property.getProperty_balance() - transactionRequest.getAmount());
 
                 // Create a new TransactionTests instance
                 TransactionTests transaction = new TransactionTests();

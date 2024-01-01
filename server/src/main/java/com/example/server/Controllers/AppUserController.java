@@ -24,11 +24,13 @@ public class AppUserController {
         this.appUserService = appUserService;
     }
 
+    // get all app users
     @GetMapping
     public List<AppUser> getAllAccounts() {
         return appUserService.getAllAccounts();
     }
 
+    // get user details for tenant dashboard
     @CrossOrigin(origins = {"http://localhost:3000/"}, allowedHeaders = {"Authorization"})
     @PostMapping("/details")
     public ResponseEntity<AppUserDto> getUserDetailsByEmail(@RequestBody Map<String, String> requestBody) {
@@ -41,18 +43,21 @@ public class AppUserController {
         }
     }
 
-    @PostMapping("/update/")
-    public AppUser updateUser(@RequestBody AppUser appUser){
-        return appUserService.updateAppUser(appUser.getEmail(), appUser);
+    // update user email, first name, last name, and phone number
+    @PostMapping("/update")
+    public AppUser updateUser(@RequestBody Map<String, String> requestBody){
+        return appUserService.updateAppUser(requestBody.get("old_email"), requestBody.get("new_email"),
+                requestBody.get("firstName"), requestBody.get("lastName"), requestBody.get("phoneNumber"));
     }
 
+    // update user role specifically
     @PostMapping("/update/role")
-    public String updateUserRole(@RequestBody Map<String, String > requestBody){
-        appUserService.updateUserRole(requestBody.get("role"), requestBody.get("email"));
-        return "Updated user role successfully";
+    public AppUser updateUserRole(@RequestBody Map<String, String > requestBody){
+        return appUserService.updateUserRole(requestBody.get("role"), requestBody.get("email"));
     }
 
-    @DeleteMapping("/delete/")
+    // delete user
+    @DeleteMapping("/delete")
     public String deleteUser(@RequestBody Map<String, String > requestBody){
         appUserService.deleteUser(requestBody.get("email"));
         return "User deleted successfully";

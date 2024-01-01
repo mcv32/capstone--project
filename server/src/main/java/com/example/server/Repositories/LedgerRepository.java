@@ -40,10 +40,10 @@ public interface LedgerRepository extends JpaRepository <Ledger, Long>{
     // update fields changed by user
     @Modifying
     @Query(value = "UPDATE LEDGER SET AMOUNT = :AMOUNT, STATUS = :STATUS, " +
-            "ACCOUNT_ID = :ACCOUNT_ID, PROPERTY_ID = :PROPERTY_ID, " +
+            "FINANCIAL_ACCOUNT_ID = :ACCOUNT_ID, PROPERTY_ID = :PROPERTY_ID, " +
             "DESCRIPTION = :DESCRIPTION, RECURRING = :RECURRING, " +
             "RECURRING_DATE = :RECURRING_DATE WHERE LEDGER_ID = :ID", nativeQuery = true)
-    Ledger updateLedger(
+    int updateLedger(
             @Param("ID") Long id,
             @Param("AMOUNT") double amount,
             @Param("STATUS") boolean status,
@@ -57,7 +57,7 @@ public interface LedgerRepository extends JpaRepository <Ledger, Long>{
     // update the amount of the ledger
     @Modifying
     @Query(value = "UPDATE LEDGER SET AMOUNT = :AMOUNT WHERE LEDGER_ID = :ID", nativeQuery = true)
-    Ledger updateLedgerAmount(
+    int updateLedgerAmount(
             @Param("AMOUNT") double amount,
             @Param("ID") Long id
     );
@@ -65,7 +65,7 @@ public interface LedgerRepository extends JpaRepository <Ledger, Long>{
     // update the property associated with the ledger
     @Modifying
     @Query(value = "UPDATE LEDGER SET PROPERTY_ID = :PROPERTY_ID WHERE LEDGER_ID = :ID", nativeQuery = true)
-    Ledger updateLedgerProperty(
+    int updateLedgerProperty(
             @Param("PROPERTY_ID") Long property_id,
             @Param("ID") Long id
     );
@@ -83,10 +83,10 @@ public interface LedgerRepository extends JpaRepository <Ledger, Long>{
             @Param("ID") Long id
     );
 
-    @Query(value = "SELECT * FROM LEDGER WHERE AMOUNT > 0 AND RECURRING_DATE < LOCALDATE.NOW()", nativeQuery = true)
+    @Query(value = "SELECT * FROM LEDGER WHERE AMOUNT > 0 AND RECURRING_DATE < CURRENT_TIMESTAMP", nativeQuery = true)
     List<Ledger> getOverDueLedgers(
     );
 
-    @Query(value = "SELECT * FROM LEDGER WHERE AMOUNT > 0 AND RECURRING_DATE > LOCALDATE.NOW()", nativeQuery = true)
+    @Query(value = "SELECT * FROM LEDGER WHERE AMOUNT > 0 AND RECURRING_DATE > CURRENT_TIMESTAMP", nativeQuery = true)
     List<Ledger> getOpenServiceTickets();
 }

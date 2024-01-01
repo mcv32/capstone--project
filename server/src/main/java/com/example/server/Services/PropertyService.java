@@ -46,8 +46,18 @@ public class PropertyService {
         return newProperty;
     }
 
-    public Property updateProperty(Long id, Property updatedProperty) {
+    public Property updateProperty(Long id, String name, String address_street, String address_line_2, String state, String city, String zip, String status, double property_balance) {
 
+            propertyRepository.updateProperty(id, name, address_street, address_line_2, state, city, zip, status, property_balance);
+//            p.setName(name);
+//            p.setAddress_street(address_street);
+//            p.setAddress_line_2(address_line_2);
+//            p.setState(state);
+//            p.setCity(city);
+//            p.setZip(zip);
+//            p.setStatus(status);
+//            p.setProperty_balance(property_balance);
+//            propertyRepository.save(p);
         Optional<Property> property = propertyRepository.findById(id);
         if(property.isPresent()){
             Property p = property.get();
@@ -57,6 +67,6 @@ public class PropertyService {
     }
 
     public void deleteProperty(Long id) {
-        propertyRepository.findById(id);
+        propertyRepository.deleteById(id);
     }
 }

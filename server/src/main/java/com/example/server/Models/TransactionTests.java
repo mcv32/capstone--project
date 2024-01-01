@@ -2,12 +2,11 @@ package com.example.server.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Data
 @Getter
 @Setter
 @NoArgsConstructor

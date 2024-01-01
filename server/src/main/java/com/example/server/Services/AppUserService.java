@@ -26,11 +26,6 @@ public class AppUserService implements UserDetailsService {
     private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
     @Autowired
     private final AppUserRepository appUserRepository;
-    @Autowired
-    private final FinancialAccountRepository financialAccountRepository;
-    private final LedgerRepository ledgerRepository;
-    private final TransactionTestsRepository transactionTestsRepository;
-    private final PropertyRepository propertyRepository;
     private final ConfirmationTokenService confirmationTokenService;
     @Autowired
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -88,15 +83,26 @@ public class AppUserService implements UserDetailsService {
         return appUserRepository.findByEmail(email);
     }
 
-    public AppUser updateAppUser(String email, AppUser appUser){
-        return appUserRepository.updateAppUser(appUser.getF_name(), appUser.getL_name(), appUser.getPhone_number(), appUser.getEmail(), email);
+    public AppUser updateAppUser(String old_email, String new_email, String firstName, String lastName, String phoneNumber){
+        appUserRepository.updateAppUser(firstName, lastName, phoneNumber, new_email, old_email);
+        Optional<AppUser> appUser = appUserRepository.findByEmail(new_email);
+        if(appUser.isPresent()){
+            return appUser.get();
+        }
+        return null;
     }
     public Optional<AppUser> getUserByEmail(String email) {
         return appUserRepository.findByEmail(email);
     }
 
-    public void updateUserRole(String role, String email){
+    public AppUser updateUserRole(String role, String email){
+
         appUserRepository.updateUserRole(role, email);
+        Optional<AppUser> appUser = appUserRepository.findByEmail(email);
+        if(appUser.isPresent()){
+            return appUser.get();
+        }
+        return null;
     }
 
     public void deleteUser(String email) {
@@ -125,20 +131,25 @@ public class AppUserService implements UserDetailsService {
             FinancialAccount financialAccount1 = appUser.getFinancialAccount();
             List<Ledger> ledgers = financialAccount1.getLedgers();
             List<TransactionTests> transactionTests = new ArrayList<>();
-            for(int i = 0; i < ledgers.size(); i++){
-                List<TransactionTests> transactions = ledgers.get(i).getTransactionTests();
-                for(int j = 0; j < transactions.size(); j++){
-                    transactionTests.add(transactions.get(j));
-                }
-            }
-            List<Property> properties = new ArrayList<>();
-            properties.add(ledgers.get(0).getProperty());
             AppUserDto userDetailsDTO = new AppUserDto();
+            List<Property> properties = new ArrayList<>();
+            if(ledgers.isEmpty()){
+                userDetailsDTO.setProperties(null);
+            }else {
+                for(int i = 0; i < ledgers.size(); i++){
+                    List<TransactionTests> transactions = ledgers.get(i).getTransactionTests();
+                    for(int j = 0; j < transactions.size(); j++){
+                        transactionTests.add(transactions.get(j));
+                    }
+                }
+                properties.add(ledgers.get(0).getProperty());
+                userDetailsDTO.setProperties(properties);
+            };
             userDetailsDTO.setAppUser(appUser);
             userDetailsDTO.setFinancialAccount(financialAccount1);
             userDetailsDTO.setLedgers(ledgers);
             userDetailsDTO.setTransactions(transactionTests);
-            userDetailsDTO.setProperties(properties);
+
             // Set other fields in the DTO
 
             return userDetailsDTO;

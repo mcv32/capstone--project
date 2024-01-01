@@ -41,7 +41,7 @@ public interface FinancialAccountRepository extends JpaRepository<FinancialAccou
     // update financial account
     @Modifying
     @Query(value = "UPDATE FINANCIAL_ACCOUNT SET ACCOUNT_BALANCE = :ACCOUNT_BALANCE, EMAIL = :EMAIL WHERE FINANCIAL_ACCOUNT_ID = :id", nativeQuery = true)
-    FinancialAccount updateFinancialAccount(
+    int updateFinancialAccount(
             @Param("ACCOUNT_BALANCE")double accountBalance,
             @Param("EMAIL") String email,
             @Param("id") Long id);

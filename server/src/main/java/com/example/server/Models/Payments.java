@@ -39,7 +39,7 @@ public class Payments {
             return validCreditCard(number, validCards);
         }
         else if(paymentType.equals(PaymentType.ACH_ECHECK)){
-            return validACHeCheck(String.valueOf(accountingNumber), validACHeChecks);
+            return validACHeCheck(accountingNumber, validACHeChecks);
         }
         else
             return "unsuccessful";

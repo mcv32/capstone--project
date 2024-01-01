@@ -27,14 +27,20 @@ public class FinancialAccountController {
         Optional<FinancialAccount> financialAccount = financialAccountService.getFinancialAccountById( requestBody.get("id"));
         return ResponseEntity.ok(financialAccount);
     }
+
     @PostMapping("/create")
     public FinancialAccount createFinancialAccount(@RequestBody FinancialAccount financialAccount){
         return financialAccountService.createAccount(financialAccount);
     }
 
+    @PutMapping("/addAnotherUser")
+    public FinancialAccount addAnotherUser(@RequestBody Map<String, String > requestBody){
+        return financialAccountService.addAnotherUser(requestBody);
+    }
+
     @PutMapping("/update")
-    public FinancialAccount updateFinancialAccount(@RequestBody FinancialAccount updatedFinancialAccount){
-        return financialAccountService.updateFinancialAccount(updatedFinancialAccount.getFinancial_account_id(), updatedFinancialAccount);
+    public FinancialAccount updateFinancialAccount(@RequestBody Map<String, String> requestBody){
+        return financialAccountService.updateFinancialAccount(requestBody);
     }
 
     @DeleteMapping("/delete")
@@ -43,11 +49,13 @@ public class FinancialAccountController {
         return "Financial Account with ID: " + requestBody.get("id") + " deleted successfully.";
     }
 
+    // get app users tied to a financial account id
     @PostMapping("/appUsers")
     public List<AppUser> getAppUsersByFinancialAccountId(@RequestBody Map<String, Long> requestBody){
         return financialAccountService.getAppUsersByFinancialAccountId(requestBody.get("id"));
     }
 
+    // get ledgers from financial account id
     @PostMapping("/ledgers")
     public List<Ledger> getLedgersByFinancialAccountId(@RequestBody Map<String, Long> requestBody){
         return financialAccountService.getLedgersByFinancialAccountId(requestBody.get("id"));
