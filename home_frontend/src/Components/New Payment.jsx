@@ -4,7 +4,7 @@ import Axios from "axios";
 function NewPayment(){
     const urlPay = "http://localhost:8080/payments";
     const [paymentPayload, setPaymentPayload] = useState({
-        paymentAmount:"",
+        paymentAmount:0,
         paymentType: "CREDIT_DEBIT",
         name:"",
         number: "",
@@ -32,7 +32,7 @@ function NewPayment(){
 
                 if (response?.data === "successful"){
                     setPaymentPayload({
-                        paymentAmount:"",
+                        paymentAmount:0,
                         paymentType: "CREDIT_DEBIT",
                         name:"",
                         number: "",

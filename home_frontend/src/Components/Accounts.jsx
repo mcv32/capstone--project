@@ -13,7 +13,7 @@ function Accounts(){
     const [viewAccount, setViewAccount] = useState([]);
 
     useEffect(() => {
-        console.log("view account state", viewAccount);
+        console.log("view account state", viewAccount.financial_account_id);
     }, [viewAccount]);
 
     let config = {
@@ -49,7 +49,7 @@ function Accounts(){
     const [isAcctPop, setAcctPop] = useState(false);
     const [isDetailsPop, setDetailsPop] = useState(false);
 
-    function handleNewAcctPop(){
+    function handleNewAcctPop() {
         setNewAcctPop(!isNewAcctPop);
     }
 
@@ -63,7 +63,7 @@ function Accounts(){
     }
 
     return (
-        <div style={{ marginTop: '30px' }}>
+        <div>
           <div className="propertiesHeader">
             <h2>ACCOUNTS</h2>
             <button className="openpopover" onClick={handleNewAcctPop}>+</button>
@@ -83,15 +83,15 @@ function Accounts(){
                 {Object.keys(accountData).map((i) => (
                     <tr key = {i} onClick={() => handleAcctPop(accountData[i])}>
                         <td>Status TBD</td>
-                        <td>{accountData[i]?.appUsers[0].f_name}</td>
-                        <td>{accountData[i]?.appUsers[0].l_name}</td>
-                        <td>{accountData[i]?.appUsers[0].email}</td>
+                        <td>{accountData[i]?.appUsers[0]?.f_name}</td>
+                        <td>{accountData[i]?.appUsers[0]?.l_name}</td>
+                        <td>{accountData[i]?.appUsers[0]?.email}</td>
                         <td>${accountData[i]?.account_balance.toFixed(2)}</td>
                     </tr>
                 ))} 
                 </tbody>
             </table>
-            <div className={isNewAcctPop ? "proppopoverOpen" : "proppopoverClosed"}>
+            <div className={isNewAcctPop ? "rightPopoverOpen" : "rightPopoverClosed"}>
                 <div className="closepopover">
                     <button onClick={handleNewAcctPop}>X</button>
                 </div>
@@ -117,7 +117,7 @@ function Accounts(){
                 </form>
                 <div className="billingAccountLedger">
                     {Object.keys(viewAccount).length > 0 &&
-                        (<Ledger ledgers={viewAccount.ledgers}/>)
+                        (<Ledger account_id={viewAccount.financial_account_id} ledgers={viewAccount.ledgers}/>)
                     }
                 </div>
                 </div>

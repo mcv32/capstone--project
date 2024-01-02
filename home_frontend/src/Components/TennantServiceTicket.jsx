@@ -2,8 +2,11 @@ import React from "react";
 
 function TennantServiceTickets(){
     return(
-        <div className="tenantServiceTickets">
+        <div> 
+        <div className="columnHeader">
             <h2>MY SERVICE TICKETS</h2>
+        </div>
+        <div className="openServiceTickets">
             <table>
                 <tr>
                     <th>Request Date</th>
@@ -21,6 +24,7 @@ function TennantServiceTickets(){
                     <td>Pending</td>
                 </tr>
             </table>
+        </div>
         </div>
     );
 }

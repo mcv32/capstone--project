@@ -144,7 +144,7 @@ function Properties(){
                 ))} 
                 </tbody>
             </table>
-            <div className={newPopped ? "proppopoverOpen" :"proppopoverClosed"} >
+            <div className={newPopped ? "rightPopoverOpen" :"rightPopoverClosed"} >
                 <div className="closepopover">
                     <button onClick={handleNewPop}>X</button>
                 </div>
@@ -199,6 +199,7 @@ function Properties(){
                                 value={viewProperty.zip}/>
                             </div>
                             <button >Save Property Details</button>
+                            <button>Save</button>
                         </form>
                     <h1>Missing ledger returns on /properties get request</h1>
                     {/* <Ledger/> */}
