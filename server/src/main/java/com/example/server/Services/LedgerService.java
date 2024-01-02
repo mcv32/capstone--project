@@ -197,7 +197,8 @@ public class LedgerService {
         List<Ledger> allLedgers = ledgerRepository.findAll();
         List<Ledger> overdueLedgers = new ArrayList<>();
         for(int i = 0; i < allLedgers.size(); i++){
-            if(allLedgers.get(i).getTime().isBefore(LocalDateTime.now()) && allLedgers.get(i).getAmount() > 0){
+            FinancialAccount financialAccount = allLedgers.get(i).getFinancialAccount();
+            if(financialAccount.getDue_date().isBefore(LocalDateTime.now()) && allLedgers.get(i).getAmount() > 0){
                 overdueLedgers.add(allLedgers.get(i));
             }
         }
