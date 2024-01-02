@@ -2,8 +2,11 @@ import React from "react";
 
 function OpenServiceTickets(){
     return(
-        <div className="openServiceTickets">
-            <h2>OPEN SERVICE TICKETS</h2>   
+        <div>
+        <div className="columnHeader">
+          <h2>OPEN SERVICE TICKETS</h2>
+        </div>
+        <div className="openServiceTickets"> 
             <table>
                 <tr>
                     <th>Request Date</th>
@@ -22,6 +25,7 @@ function OpenServiceTickets(){
                 </tr>
             </table>
         </div>
+    </div>
     );
 }
 

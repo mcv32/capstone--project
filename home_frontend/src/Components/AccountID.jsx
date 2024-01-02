@@ -100,6 +100,7 @@ function AccountID({...userData}){
                             onChange={(e) => handleInput(e)}
                             value={userDetailsPayload.lastName}/>
                         <label >Email</label>
+
                         <input 
                             id="email" type="email" 
                             onChange={(e) => handleInput(e)}
@@ -114,6 +115,7 @@ function AccountID({...userData}){
                 </div>
             </div>
         </div>
+        // ryan's commented code
         // :
         // <div className="accountBlock">
         //     <div className="accountLeft">
@@ -149,6 +151,63 @@ function AccountID({...userData}){
         //     </div>
         // </div>
         
+
+// melissa's code
+        //                 <input type="email" name="" id="" value="cody@fiserv.com" placeholder="cody@fiserv.com"/>
+        //                 <button>Save Personal Details</button>
+        //             </form>
+        //         </div>
+        //     </div>
+        // </div>
+        // :
+        // <div className="accountBlock">
+        //     <div className="accountLeft">
+        //         <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"/>
+        //         <Link onClick={handlePropPop}>Edit Account</Link>
+        //     </div>
+        //     <div className="accountRight">
+        //         <h2>{fullName}</h2>
+        //         <p>{userData.phoneNumber}</p>
+        //         <p>{userData.email}</p>
+        //     </div>
+        //     <div className={propPopped ? "accountDetailsOpen" :"offscreen"} >
+        //         <div className="closeRecord">
+        //             <button onClick={handlePropPop}>X</button>
+        //         </div>
+        //         <div className="accountDetails" style={{ textAlign: "center" }}>
+        //             <h1 style={{ color: "black", paddingTop: "60px" }}>Edit Account Details</h1>
+        //             <div className="formContainer">
+        //                 <form typeof="submit">
+        //                 <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" alt="Avatar" />
+        //                 <div className="labelInputContainer">
+        //                 <div className="labelInputPair">
+        //                     <label>Avatar URL</label>
+        //                     <input type="url" name="" id="" value="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" placeholder="Enter Avatar URL" />
+        //                 </div>
+        //                 <div className="labelInputPair">
+        //                     <label>First Name</label>
+        //                     <input type="text" name="" id="" value="Cody" placeholder="Enter First Name" />
+        //                 </div>
+        //                 <div className="labelInputPair">
+        //                     <label>Last Name</label>
+        //                     <input type="text" name="" id="" value="Phelan" placeholder="Enter Last Name" />
+        //                 </div>
+        //                 <div className="labelInputPair">
+        //                     <label>Phone Number</label>
+        //                     <input type="tel" name="" id="" value="908-685-1182" placeholder="Enter Phone Number" />
+        //                 </div>
+        //                 <div className="labelInputPair">
+        //                     <label>Email</label>
+        //                     <input type="email" name="" id="" value="cody@fiserv.com" placeholder="Enter Email" />
+        //                 </div>
+        //                 </div>
+        //                 <button>Save</button>
+        //                 </form>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </div>
+
     );
 }
 

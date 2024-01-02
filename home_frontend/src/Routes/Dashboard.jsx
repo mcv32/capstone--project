@@ -11,10 +11,11 @@ import AccountBalance from "../Components/AccountBalance";
 import Ledger from "../Components/Ledger";
 import useAuth from "../Hooks/useAuth";
 import axios from "axios";
+import { useLocation } from 'react-router-dom';
 
 
 function Dashboard(){
-
+    const location = useLocation();
     const { auth, setAuth } = useAuth();
 
     const [dash, setDash] = useState(null);
@@ -90,6 +91,16 @@ function Dashboard(){
             <div className="dashHead">
                 <h1>Welcome {userData?.f_name}</h1>
                 <button onClick={refreshData}>refresh</button>
+{/* Melissa's Code */}
+      {/* return (
+        <section className={`dashboard ${location.pathname === '/dashboard' ? 'active' : ''} ${auth?.roles === "MANAGER" ? 'manager' : 'user'}`}>
+            <div className="dashHead">
+                {auth?.roles != "MANAGER" ? (
+                    <h1>Welcome Manager</h1>
+                ) : (
+                    <h1>Welcome Home, {userData?.f_name}</h1>
+                )} */}
+
             </div>
             <div className="dashBody">
                 <div className="dashColumn">
@@ -130,7 +141,43 @@ function Dashboard(){
     //             </div>
     //     </div>
     // </section>
+
+    //Melissa's Code
+        //             {auth?.roles != "MANAGER" ? (
+        //                 <>
+        //                     <OverdueAccounts/>
+        //                     <RecentPayments/>
+        //                     <OpenServiceTickets/>
+        //                 </>
+        //             ) : (
+        //                 <TennantServiceTickets/>
+        //             )}
+        //         </div>
+        //         <div className="dashCore">
+        //             {auth?.roles != "MANAGER" ? (
+        //                 <>
+        //                     <Properties {...userProperties}/>
+        //                     <Accounts/>
+        //                 </>
+        //             ) : (
+        //                 <>
+        //                     <AccountBalance {...userFinAcct}/>
+        //                     <Ledger ledgers={userLedgers}/>
+        //                 </>
+        //             )}
+        //         </div>
+        //     </div>
+        //     {auth?.roles === "USER" && (
+        //         <div className="userDash">
+        //             <div className="userDashItem4">
+        //             </div>
+        //             <div className="userDashItem5">
+        //             </div>
+        //         </div>
+        //     )}
+        // </section>
     );
+    
 }
 
 export default Dashboard;

@@ -144,6 +144,10 @@ function Ledger(props){
       }, []);
 
     return(
+        <div>
+        <div className="propertiesHeader">
+            <h2>LEDGERS</h2>
+        </div>
         <div className="ledger">
         {auth?.roles === "ADMIN" || auth?.roles === "MANAGER" || auth?.roles === "USER" && 
             <div className="detailsLedgerHeader">
@@ -243,6 +247,7 @@ function Ledger(props){
                 <p>Status: Approved</p>
             </div>
         </div> 
+    </div>
     </div>
     );
 }

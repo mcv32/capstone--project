@@ -10,8 +10,11 @@ function RecentPayments(){
     }
 
     return(
-        <div className="recentPayments">
+        <div>
+        <div className="columnHeader">
           <h2>RECENT PAYMENTS</h2>
+        </div>
+        <div className="recentPayments">
             <table>
                 <tr>
                     <th>Posted Date</th>
@@ -34,14 +37,15 @@ function RecentPayments(){
                 <button onClick={handleTransactionPop}>X</button>
             </div>
             <div>
-                <p>Type: Credit Card</p>
-                <p>Transaction ID: ###-####</p>
-                <p>Card: **** **** **** **** 1234</p>
-                <p>Date Time Posted: 1/2/2024 13:32 EST</p>
-                <p>Status: Approved</p>
+            <p><strong>Type:</strong> Credit Card</p>
+            <p><strong>Transaction ID:</strong> ###-####</p>
+            <p><strong>Card:</strong> **** **** **** **** 1234</p>
+            <p><strong>Date Time Posted:</strong> 1/2/2024 13:32 EST</p>
+            <p><strong>Status:</strong> Approved</p>
             </div>
             </div> 
         </div>
+    </div> 
     );
 }
 

@@ -94,22 +94,23 @@ function NewProperty(){
     return(
         <div className="newProperty">
             <h2>Enter New Property Details</h2>
-            <form action="submit" onSubmit={(e) => submit(e)}>
-                <label>Property Name</label>
-                <input onChange={(e) => handle(e)} value={newPropertyPayload.name} id="name" type="text"  />
+            <form action="submit">
+                <label htmlFor="PropertyName">Property Name</label>
+                <input type="text" />
                 
-                <label>Street Address</label>
-                <input onChange={(e) => handle(e)} value={newPropertyPayload.address_street} id="address_street" type="text"   />
-                <input onChange={(e) => handle(e)} value={newPropertyPayload.address_line_2} id="address_line_2" type="text"   />
+                <label htmlFor="StreetAddress">Street Address</label>
+                <input type="text" />
+                <input type="text" />
 
-                <label>City</label>
-                <input onChange={(e) => handle(e)} value={newPropertyPayload.city} id="city" type="text"/>
+    <div class="labelInputPair">
+      <label>State</label>
+      <input onChange={(e) => handle(e)} value={newPropertyPayload.state} id="state" type="text"/>
+    </div>
 
-                <label>State</label>
-                <input onChange={(e) => handle(e)} value={newPropertyPayload.state} id="state" type="text"/>
-
-                <label>Postal Code</label>
-                <input onChange={(e) => handle(e)} value={newPropertyPayload.zip} id="zip" type="text"/>
+    <div class="labelInputPair">
+      <label>Postal Code</label>
+      <input onChange={(e) => handle(e)} value={newPropertyPayload.zip} id="zip" type="text"/>
+    </div>
 
                 <label>Status</label>
                 <select onChange={(e) => handle(e)} value={newPropertyPayload.status} id="status" type="text"  >
@@ -117,9 +118,11 @@ function NewProperty(){
                     <option value="VACANT">VACANT</option>
                 </select>
 
-                <button>Add New Property</button>
-            </form>
-        </div>
+    <button>Add New Property</button>
+  </form>
+</div>
+
+
     );
 }
 

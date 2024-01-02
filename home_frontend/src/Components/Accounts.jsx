@@ -49,7 +49,7 @@ function Accounts(){
     const [isAcctPop, setAcctPop] = useState(false);
     const [isDetailsPop, setDetailsPop] = useState(false);
 
-    function handleNewAcctPop(){
+    function handleNewAcctPop() {
         setNewAcctPop(!isNewAcctPop);
     }
 
@@ -63,7 +63,7 @@ function Accounts(){
     }
 
     return (
-        <div style={{ marginTop: '30px' }}>
+        <div>
           <div className="propertiesHeader">
             <h2>ACCOUNTS</h2>
             <button className="openpopover" onClick={handleNewAcctPop}>+</button>

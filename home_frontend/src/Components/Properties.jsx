@@ -199,6 +199,7 @@ function Properties(){
                                 value={viewProperty.zip}/>
                             </div>
                             <button >Save Property Details</button>
+                            <button>Save</button>
                         </form>
                     <h1>Missing ledger returns on /properties get request</h1>
                     {/* <Ledger/> */}

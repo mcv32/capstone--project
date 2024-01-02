@@ -75,11 +75,14 @@ function NewAccount(){
         <div className="newAccount">
             <h2>Enter New Account Details</h2>
             <form action="submit" onSubmit={(e) => submit(e)}>
-                <label >Primary Account Holder Email</label>
-                <input onChange={(e) => handle(e)} value={newAccountPayload.email} id="email" type="email" />
-                
-                <label >Initial Balance</label>
-                <input onChange={(e) => handle(e)} value={newAccountPayload.account_balance} id="account_balance" type="text"/>
+                <div class="labelInputPair">
+                    <label >Primary Account Holder Email</label>
+                    <input onChange={(e) => handle(e)} value={newAccountPayload.email} id="email" type="email" />                    
+                </div>
+                <div class="labelInputPair">                    
+                    <label >Initial Balance</label>
+                    <input onChange={(e) => handle(e)} value={newAccountPayload.account_balance} id="account_balance" type="text"/>
+                </div>
 
                 <button>Create New Account</button>
             </form>
