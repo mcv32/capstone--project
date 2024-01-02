@@ -31,7 +31,7 @@ function NewPayment(props){
         data : {
             amount: paymentPayload.paymentAmount,
             financial_account_id: props.finAcct_id,
-            property_id: props.ledgers[props.ledgers.length - 1]?.property.property_id,
+            property_id: props.ledgers !== null && props?.ledgers !== undefined ? props.ledgers[props?.ledgers.length > 0 ? props.ledgers.length - 1 : 0]?.property.property_id : "",
             paymentType: paymentPayload.paymentType,
             number: paymentPayload.number,
             accountingNumber: paymentPayload.accountingNumber,

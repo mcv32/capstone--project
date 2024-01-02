@@ -19,9 +19,21 @@ function Home() {
                     <h1>This is for our first Demo</h1>
                 </div>
 
-                <div className="media-element homeFeatures" id="homeFeatures">
+                <div className="homeFeatures">
+            <div className="boxDiagram">
+                    <div className="box">Improved Security</div>
+                    <div className="box">Tenant / Dashboard Portal</div>
+                    <div className="box">Messaging Service</div>
+                    <div className="box">User Registration and Authentication</div>
+                    <div className="box">Transaction Processing</div>
+
+            </div>
+            </div>
+               
+               
+                {/* <div className="media-element homeFeatures" id="homeFeatures">
                     <h1>Diagram of Features</h1>
-                </div>
+                </div> */}
 
                 {/* <div className="media-element">
                 </div> */}
@@ -34,7 +46,7 @@ function Home() {
                 </div>
 
                 <div className="media-element homeTechStack" id="homeTechStack">
-                    {/* <Spline scene="https://prod.spline.design/jTj8tnjowJhFSwVa/scene.splinecode" /> */}
+                    <Spline scene="https://prod.spline.design/jTj8tnjowJhFSwVa/scene.splinecode" />
                 </div>
 
                 <div className="media-element homeDemo2" id="homeDemo2">

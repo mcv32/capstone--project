@@ -55,8 +55,8 @@ function Ledger(props){
         try {
             e.preventDefault();
             const response = await axios.request(config)
-
-                console.log(response);         
+                console.log("New Ledger Config", config);    
+                console.log("New Ledger Response", response);         
                 setResMsg("Ledger Succesfully Added");
                 setNewLedgerPayload({
                     ledgerType:"CHARGE",

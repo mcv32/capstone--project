@@ -8,6 +8,13 @@ function AccountID({...userData}){
     const { auth, setAuth } = useAuth();
     const fullName = userData?.f_name + " " + userData?.l_name;
     const [isPopped, setIsPopped] = useState(false); 
+    const [userDetailsPayload, setUserDetailsPayload] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        telephone: ""
+
+    });
 
     function handlePop(){
         setIsPopped(!isPopped);
@@ -15,22 +22,15 @@ function AccountID({...userData}){
             firstName: userData?.f_name,
             lastName: userData?.l_name,
             email: userData?.email,
-            telephone: userData?.phoneNumber
+            telephone: userData?.phone_number
         });
     }
-
-    const [userDetailsPayload, setUserDetailsPayload] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        telephone: ""
-    });
 
     function handleInput(e){
         const newUserDetailsPayload = {... userDetailsPayload};
         newUserDetailsPayload[e.target.id] = e.target.value;
         setUserDetailsPayload(newUserDetailsPayload);
-        // console.log(newUserDetailsPayload);
+        console.log(newUserDetailsPayload);
     }
 
     let userConfig = {
@@ -45,13 +45,13 @@ function AccountID({...userData}){
             lastName: userDetailsPayload.lastName,
             old_email: userData?.email,
             new_email: userDetailsPayload.email,
-            phoneNumber: userDetailsPayload.telephone
+            phone_number: userDetailsPayload.telephone
         }
       };
 
     const saveDetails = async (form) => {
             try {
-                // console.log(loginPayload);
+                console.log(userConfig);
                 form.preventDefault();
                 const response = await Axios.request(userConfig)
                 
@@ -99,9 +99,10 @@ function AccountID({...userData}){
                 <div className="accountDetails">
                     <h1 style={{color:"black"}}>Personal Account Details</h1>
                     <form typeof="submit">
-                        <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"/>
-                        <label >Avatar URL</label>
-                        <input type="url" name="" id="" value="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" placeholder="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"/>
+                    <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" alt="avatar" />
+                    <label className="labelInputPair">Avatar URL</label>
+                    <input type="url" name="" id="" value="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" placeholder="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" />
+
                         <label >First Name</label>
                         <input 
                             id="firstName" type="text" 
@@ -120,10 +121,10 @@ function AccountID({...userData}){
                             value={userDetailsPayload.email}/>
                         <label >Phone Number</label>
                         <input 
-                            id="phoneNumber" type="tel" 
+                            id="telephone" type="tel" 
                             onChange={(e) => handleInput(e)}
-                            value={userDetailsPayload.phoneNumber}/>
-                        <button onClick={saveDetails}>Save Personal Details</button>
+                            value={userDetailsPayload.telephone}/>
+                        <button onClick={saveDetails}>Save</button>
                     </form>
                 </div>
             </div>

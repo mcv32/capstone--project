@@ -82,7 +82,7 @@ function Accounts(){
                 <tbody>
                 {Object.keys(accountData).map((i) => (
                     <tr key = {i} onClick={() => handleAcctPop(accountData[i])}>
-                        <td>Status TBD</td>
+                        <td>{accountData[i]?.status}</td>
                         <td>{accountData[i]?.appUsers[0]?.f_name}</td>
                         <td>{accountData[i]?.appUsers[0]?.l_name}</td>
                         <td>{accountData[i]?.appUsers[0]?.email}</td>
