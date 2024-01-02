@@ -25,7 +25,7 @@ public class TransactionTests {
     private String cardNumber;
     private LocalDateTime time;
     private boolean status;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "ledger_id")
     @JsonBackReference
     private Ledger ledger;

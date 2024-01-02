@@ -21,10 +21,9 @@ public class Property {
     private String state;
     private String zip;
     private String status;
-    private double property_balance;
+    private double property_profit_and_loss;
 
-    public Property(Long property_id, String name, String address_street, String address_line_2, String city, String state, String zip, String status, double property_balance) {
-        this.property_id = property_id;
+    public Property(String name, String address_street, String address_line_2, String city, String state, String zip, String status, double property_profit_and_loss) {
         this.name = name;
         this.address_street = address_street;
         this.address_line_2 = address_line_2;
@@ -32,7 +31,7 @@ public class Property {
         this.state = state;
         this.zip = zip;
         this.status = status;
-        this.property_balance = property_balance;
+        this.property_profit_and_loss = property_profit_and_loss;
     }
 
     public Long getProperty_id() {
@@ -99,11 +98,11 @@ public class Property {
         this.status = status;
     }
 
-    public double getProperty_balance() {
-        return property_balance;
+    public double getProperty_profit_and_loss() {
+        return property_profit_and_loss;
     }
 
-    public void setProperty_balance(double property_balance) {
-        this.property_balance = property_balance;
+    public void setProperty_profit_and_loss(double property_profit_and_loss) {
+        this.property_profit_and_loss = property_profit_and_loss;
     }
 }

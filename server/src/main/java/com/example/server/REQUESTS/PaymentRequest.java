@@ -14,6 +14,6 @@ public class PaymentRequest {
     private String number;
     private String accountingNumber;
     private Long financial_account_id;
-    private Long ledger_id;
+    private Long property_id;
 
 }

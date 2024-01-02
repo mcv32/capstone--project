@@ -25,7 +25,7 @@ public interface PropertyRepository extends JpaRepository <Property, Long> {
             @Param("ID") Long id
     );
 
-    @Query(value = "INSERT INTO PROPERTY (NAME, ADDRESS_STREET, ADDRESS_LINE_2, CITY, STATE, ZIP, PROPERTY_BALANCE)" +
+    @Query(value = "INSERT INTO PROPERTY (NAME, ADDRESS_STREET, ADDRESS_LINE_2, CITY, STATE, ZIP, PROPERTY_PROFIT_AND_LOSS)" +
             "VALUES( :NAME, :ADDRESS_STREET, :ADDRESS_LINE_2, :CITY, :STATE, :ZIP, :PROPERTY_BALANCE)", nativeQuery = true)
     Property createProperty(
             @Param("NAME") String name,
@@ -39,7 +39,8 @@ public interface PropertyRepository extends JpaRepository <Property, Long> {
 
     @Modifying
     @Query(value = "UPDATE PROPERTY SET NAME = :NAME, ADDRESS_STREET = :ADDRESS_STREET, ADDRESS_LINE_2 = :ADDRESS_LINE_2, " +
-            "CITY = :CITY, STATE = :STATE, ZIP = :ZIP, STATUS = :STATUS, PROPERTY_BALANCE = :PROPERTY_BALANCE WHERE PROPERTY_ID = :ID", nativeQuery = true)
+            "CITY = :CITY, STATE = :STATE, ZIP = :ZIP, STATUS = :STATUS, " +
+            "PROPERTY_PROFIT_AND_LOSS = :PROPERTY_BALANCE WHERE PROPERTY_ID = :ID", nativeQuery = true)
     int updateProperty(
             @Param("ID") Long id,
             @Param("NAME") String name,

@@ -62,7 +62,7 @@ public class LedgerController {
     }
 
     @PostMapping("/transactions")
-    public List<TransactionTests> getTransactionsByLedgerId(@RequestBody Map<String, Long> requestBody){
+    public TransactionTests getTransactionByLedgerId(@RequestBody Map<String, Long> requestBody){
         return ledgerService.getTransactionsByLedgerId(requestBody.get("id"));
     }
 

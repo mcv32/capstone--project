@@ -1,5 +1,6 @@
 package com.example.server.REQUESTS;
 
+import com.example.server.Models.LedgerType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,6 @@ public class LedgerRequest {
     private String description;
     private Long financial_account_id;
     private Long property_id;
-    private boolean recurring;
-    private LocalDateTime recurring_date;
-    private boolean status;
+    private LocalDateTime time;
+    private String ledgerType;
 }

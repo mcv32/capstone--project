@@ -1,6 +1,7 @@
 package com.example.server.Repositories;
 
 import com.example.server.Models.Ledger;
+import com.example.server.Models.LedgerType;
 import com.example.server.Models.Property;
 import com.example.server.Models.TransactionTests;
 import org.springframework.data.jpa.repository.Modifying;
@@ -39,19 +40,18 @@ public interface LedgerRepository extends JpaRepository <Ledger, Long>{
 
     // update fields changed by user
     @Modifying
-    @Query(value = "UPDATE LEDGER SET AMOUNT = :AMOUNT, STATUS = :STATUS, " +
+    @Query(value = "UPDATE LEDGER SET AMOUNT = :AMOUNT, " +
             "FINANCIAL_ACCOUNT_ID = :ACCOUNT_ID, PROPERTY_ID = :PROPERTY_ID, " +
-            "DESCRIPTION = :DESCRIPTION, RECURRING = :RECURRING, " +
-            "RECURRING_DATE = :RECURRING_DATE WHERE LEDGER_ID = :ID", nativeQuery = true)
+            "DESCRIPTION = :DESCRIPTION, " +
+            "TIME = :TIME, LEDGER_TYPE = :LEDGER_TYPE WHERE LEDGER_ID = :ID", nativeQuery = true)
     int updateLedger(
             @Param("ID") Long id,
             @Param("AMOUNT") double amount,
-            @Param("STATUS") boolean status,
             @Param("ACCOUNT_ID") Long financialAccountId,
             @Param("PROPERTY_ID") Long propertyId,
             @Param("DESCRIPTION") String description,
-            @Param("RECURRING") boolean recurring,
-            @Param("RECURRING_DATE") LocalDateTime recurringDate);
+            @Param("TIME") LocalDateTime time,
+            @Param("LEDGER_TYPE")String ledgerType);
 
 
     // update the amount of the ledger

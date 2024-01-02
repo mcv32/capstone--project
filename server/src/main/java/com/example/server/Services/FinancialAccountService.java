@@ -10,6 +10,8 @@ import net.snowflake.client.jdbc.internal.org.checkerframework.checker.units.qua
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -30,18 +32,29 @@ public class FinancialAccountService {
     public Optional<FinancialAccount> getFinancialAccountById(Long id) {
         return financialAccountRepository.findById(id);
     }
-
     public FinancialAccount createAccount(FinancialAccount financialAccount) {
         Optional<AppUser> appUser = appUserRepository.findByEmail(financialAccount.getEmail());
-        FinancialAccount newFinancialAccount = financialAccountRepository.save(financialAccount);
+        FinancialAccount newFinancialAccount = new FinancialAccount();
         if(appUser.isPresent()) {
+
+            //set financial account details
+            newFinancialAccount.setEmail(financialAccount.getEmail());
+            newFinancialAccount.setAccount_balance(financialAccount.getAccount_balance());
+            newFinancialAccount.setStatus(financialAccount.getStatus());
+            newFinancialAccount.setDue_date(
+                    LocalDateTime.of(
+                    LocalDateTime.now().getYear(),
+                    Month.of(LocalDateTime.now().getMonth().getValue() + 1),
+                    LocalDateTime.now().getDayOfMonth(), 0, 0));
+
             AppUser existingAppUser = appUser.get();
             newFinancialAccount.getAppUsers().add(existingAppUser);
             appUserRepository.updateFinAcctId(newFinancialAccount.getFinancial_account_id(), financialAccount.getEmail());
             appUserRepository.save(existingAppUser);
+            financialAccountRepository.save(newFinancialAccount);
+            return newFinancialAccount;
         }
-        financialAccountRepository.save(newFinancialAccount);
-        System.out.println("here " + newFinancialAccount);
+        newFinancialAccount.setEmail(financialAccount.getEmail());
         return newFinancialAccount;
     }
 

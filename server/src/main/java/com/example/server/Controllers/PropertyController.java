@@ -44,7 +44,7 @@ public class PropertyController {
                 requestBody.get("city"),
                 requestBody.get("zip"),
                 requestBody.get("status"),
-                Double.parseDouble(requestBody.get("property_balance"))
+                Double.parseDouble(requestBody.get("property_profit_and_loss"))
         );
     }
 

@@ -28,7 +28,7 @@ public class TransactionTestsController {
     }
 
     @PostMapping("/create")
-    public TransactionTests createTransactionTest(@RequestBody TransactionRequest transactionRequest) {
+    public String createTransactionTest(@RequestBody TransactionRequest transactionRequest) {
         return transactionTestsService.createTransactionTest(transactionRequest);
     }
 

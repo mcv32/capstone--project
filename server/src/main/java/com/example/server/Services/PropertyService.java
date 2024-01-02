@@ -34,7 +34,7 @@ public class PropertyService {
 
     public Property createProperty(Property property) {
         Property newProperty = new Property();
-        newProperty.setProperty_balance(property.getProperty_balance());
+        newProperty.setProperty_profit_and_loss(property.getProperty_profit_and_loss());
         newProperty.setCity(property.getCity());
         newProperty.setName(property.getName());
         newProperty.setZip(property.getZip());
@@ -46,9 +46,9 @@ public class PropertyService {
         return newProperty;
     }
 
-    public Property updateProperty(Long id, String name, String address_street, String address_line_2, String state, String city, String zip, String status, double property_balance) {
+    public Property updateProperty(Long id, String name, String address_street, String address_line_2, String state, String city, String zip, String status, double property_profit_and_loss) {
 
-            propertyRepository.updateProperty(id, name, address_street, address_line_2, state, city, zip, status, property_balance);
+            propertyRepository.updateProperty(id, name, address_street, address_line_2, state, city, zip, status, property_profit_and_loss);
 //            p.setName(name);
 //            p.setAddress_street(address_street);
 //            p.setAddress_line_2(address_line_2);

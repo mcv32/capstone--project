@@ -27,7 +27,7 @@ public class PaymentsService {
         this.transactionTestsService = transactionTestsService;
     }
 
-    public TransactionTests processPayment(PaymentRequest paymentRequest){
+    public String processPayment(PaymentRequest paymentRequest){
         Payments payments = new Payments(paymentRequest.getPaymentType(),
                 paymentRequest.getNumber(),
                 paymentRequest.getAccountingNumber()
@@ -35,21 +35,22 @@ public class PaymentsService {
 
         String success = payments.processPayment(payments.getPaymentType(), payments.getNumber(), payments.getAccountingNumber());
         System.out.println(success);
+        if(success.equals("unsuccessful")){
+            throw new PaymentInfoInvalid("Unsuccessful payment: Invalid Info");
+
+        }
+
         TransactionRequest transactionRequest = new TransactionRequest(
                 paymentRequest.getAmount(),
                 paymentRequest.getFinancial_account_id(),
-                paymentRequest.getLedger_id(),
+                paymentRequest.getProperty_id(),
                 paymentRequest.getPaymentType(),
                 paymentRequest.getNumber(),
                 LocalDateTime.now(),
                 true
         );
-        if(success.equals("unsuccessful")){
-            throw new PaymentInfoInvalid("Unsuccessful payment: Invalid Info");
+        return transactionTestsService.createTransactionTest(transactionRequest);
 
-        }
-        TransactionTests transactionTests = transactionTestsService.createTransactionTest(transactionRequest);
-        return transactionTests;
     }
 
 }

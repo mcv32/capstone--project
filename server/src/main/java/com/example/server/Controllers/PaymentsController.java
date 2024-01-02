@@ -22,7 +22,7 @@ public class PaymentsController {
     }
 
     @PostMapping
-    public TransactionTests processPayment(@RequestBody PaymentRequest paymentRequest){
+    public String processPayment(@RequestBody PaymentRequest paymentRequest){
         return paymentsService.processPayment(paymentRequest);
     }
 }

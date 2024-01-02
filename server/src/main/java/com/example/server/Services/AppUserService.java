@@ -113,38 +113,39 @@ public class AppUserService implements UserDetailsService {
         Optional<AppUser> optionalAppUser = appUserRepository.findByEmail(email);
         if (optionalAppUser.isPresent()) {
             AppUser appUser = optionalAppUser.get();
-//            FinancialAccount financialAccount = appUser.getFinancialAccount();
-//            List<Ledger> ledgers = financialAccount != null ? financialAccount.getLedgers() : Collections.emptyList();
-//            List<TransactionTests> transactionTests = new ArrayList<>();
-//            List<Property> properties = new ArrayList<>();
-//
-//            if (!ledgers.isEmpty()) {
-//                for (Ledger ledger : ledgers) {
-//                    Property property = ledgerRepository.getPropertyByLedgerId(ledger.getLedger_id());
-//                    if (!properties.contains(property)) {
-//                        properties.add(property);
-//                    }
-//                    List<TransactionTests> transactions = ledgerRepository.getTransactionsByLedgerId(ledger.getLedger_id());
-//                    transactionTests.addAll(transactions);
-//                }
-//            }
+
+            AppUserDto userDetailsDTO = new AppUserDto();
             FinancialAccount financialAccount1 = appUser.getFinancialAccount();
+
+            if(financialAccount1 == null){
+                // if no financial account associated with app user set all other dto fields to null and return dto
+                userDetailsDTO.setAppUser(appUser);
+                userDetailsDTO.setFinancialAccount(null);
+                userDetailsDTO.setProperties(null);
+                userDetailsDTO.setLedgers(null);
+                userDetailsDTO.setTransactions(null);
+                return userDetailsDTO;
+            }
+
             List<Ledger> ledgers = financialAccount1.getLedgers();
             List<TransactionTests> transactionTests = new ArrayList<>();
-            AppUserDto userDetailsDTO = new AppUserDto();
             List<Property> properties = new ArrayList<>();
+
             if(ledgers.isEmpty()){
+                // if ledger is null there is no property tied to the account
                 userDetailsDTO.setProperties(null);
             }else {
+                // get all transactions if there are ledgers
                 for(int i = 0; i < ledgers.size(); i++){
-                    List<TransactionTests> transactions = ledgers.get(i).getTransactionTests();
-                    for(int j = 0; j < transactions.size(); j++){
-                        transactionTests.add(transactions.get(j));
+                    TransactionTests transaction = ledgers.get(i).getTransactionTests();
+                    if(transaction!= null){
+                        transactionTests.add(transaction);
                     }
+
                 }
                 properties.add(ledgers.get(0).getProperty());
                 userDetailsDTO.setProperties(properties);
-            };
+            }
             userDetailsDTO.setAppUser(appUser);
             userDetailsDTO.setFinancialAccount(financialAccount1);
             userDetailsDTO.setLedgers(ledgers);

@@ -34,13 +34,23 @@ public class Ledger {
             name = "property_id"
     )
     private Property property;
-    @OneToMany(
-            mappedBy = "ledger"
+    @OneToOne(
+            mappedBy = "ledger", optional = true
     )
-    private List<TransactionTests> transactionTests = new ArrayList<>();
+    private TransactionTests transactionTests;
     private String description;
-    private boolean recurring;
-    private LocalDateTime recurringDate;
+    private LocalDateTime time;
+    private LedgerType ledgerType;
+
+    public Ledger(double amount, boolean status, FinancialAccount financialAccount, Property property, String description, LocalDateTime time, LedgerType ledgerType) {
+        this.amount = amount;
+        this.status = status;
+        this.financialAccount = financialAccount;
+        this.property = property;
+        this.description = description;
+        this.time = time;
+        this.ledgerType = ledgerType;
+    }
 
     public Long getLedger_id() {
         return ledger_id;
@@ -58,7 +68,7 @@ public class Ledger {
         this.amount = amount;
     }
 
-    public boolean getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
@@ -82,11 +92,11 @@ public class Ledger {
         this.property = property;
     }
 
-    public List<TransactionTests> getTransactionTests() {
+    public TransactionTests getTransactionTests() {
         return transactionTests;
     }
 
-    public void setTransactionTests(List<TransactionTests> transactionTests) {
+    public void setTransactionTests(TransactionTests transactionTests) {
         this.transactionTests = transactionTests;
     }
 
@@ -98,30 +108,19 @@ public class Ledger {
         this.description = description;
     }
 
-    public boolean isRecurring() {
-        return recurring;
+    public LocalDateTime getTime() {
+        return time;
     }
 
-    public void setRecurring(boolean recurring) {
-        this.recurring = recurring;
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 
-    public LocalDateTime getRecurringDate() {
-        return recurringDate;
+    public LedgerType getLedgerType() {
+        return ledgerType;
     }
 
-    public void setRecurringDate(LocalDateTime recurringDate) {
-        this.recurringDate = recurringDate;
-    }
-
-    public Ledger(double amount, boolean status, FinancialAccount financialAccount, Property property, List<TransactionTests> transactionTests, String description, boolean recurring, LocalDateTime recurringDate) {
-        this.amount = amount;
-        this.status = status;
-        this.financialAccount = financialAccount;
-        this.property = property;
-        this.transactionTests = transactionTests;
-        this.description = description;
-        this.recurring = recurring;
-        this.recurringDate = recurringDate;
+    public void setLedgerType(LedgerType ledgerType) {
+        this.ledgerType = ledgerType;
     }
 }

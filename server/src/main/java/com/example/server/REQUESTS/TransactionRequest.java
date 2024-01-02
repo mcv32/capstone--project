@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class TransactionRequest {
     private float amount;
     private Long financial_account_id;
-    private Long ledger_id;
+    private Long property_id;
     private PaymentType paymentType;
     private String cardNumber;
     private LocalDateTime time;

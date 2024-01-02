@@ -1,9 +1,6 @@
 package com.example.server.Services;
 
-import com.example.server.Models.FinancialAccount;
-import com.example.server.Models.Ledger;
-import com.example.server.Models.Property;
-import com.example.server.Models.TransactionTests;
+import com.example.server.Models.*;
 import com.example.server.REQUESTS.LedgerRequest;
 import com.example.server.Repositories.FinancialAccountRepository;
 import com.example.server.Repositories.LedgerRepository;
@@ -52,19 +49,73 @@ public class LedgerService {
         Optional<FinancialAccount> financialAccount = financialAccountRepository.findById(ledgerRequest.getFinancial_account_id());
         if(financialAccount.isPresent()){
             FinancialAccount fa = financialAccount.get();
-            newLedger.setAmount(ledgerRequest.getAmount());
-            newLedger.setDescription(ledgerRequest.getDescription());
-            System.out.println(ledgerRequest);
+            System.out.print(ledgerRequest);
+            System.out.print(ledgerRequest.getLedgerType());
+            System.out.println(LedgerType.valueOf(ledgerRequest.getLedgerType()));
             Optional<Property> property = propertyRepository.findById(ledgerRequest.getProperty_id());
             if(property.isPresent()){
-                fa.setAccount_balance(fa.getAccount_balance() + ledgerRequest.getAmount());
-                newLedger.setProperty(property.get());
+                Property prop = property.get();
+
+                LedgerType ledgerType;
+
+                // update financial account balance and property profit/loss
+                if(LedgerType.CHARGE.toString().equals("CHARGE")){
+                    ledgerType = LedgerType.CHARGE;
+                    fa.setAccount_balance(fa.getAccount_balance() + ledgerRequest.getAmount());
+                    // credit type
+                }else if(LedgerType.CREDIT.toString().equals("CREDIT")){
+                    ledgerType = LedgerType.CREDIT;
+                    fa.setAccount_balance(fa.getAccount_balance() - ledgerRequest.getAmount());
+
+                    // payment type
+                }else if(LedgerType.PAYMENT.toString().equals("PAYMENT")){
+                    ledgerType = LedgerType.PAYMENT;
+                    fa.setAccount_balance(fa.getAccount_balance() - ledgerRequest.getAmount());
+                    prop.setProperty_profit_and_loss(prop.getProperty_profit_and_loss() + ledgerRequest.getAmount());
+
+                    // expense payment type
+                }else if(LedgerType.EXPENSE.toString().equals("EXPENSE")){
+                    ledgerType = LedgerType.EXPENSE;
+                    prop.setProperty_profit_and_loss(prop.getProperty_profit_and_loss() - ledgerRequest.getAmount());
+                }else{
+                    return null;
+                }
+
+                // update financial account status
+                if(fa.getAccount_balance() <= 0){
+                    fa.setStatus("Good standing");
+                }else if(fa.getAccount_balance() > 0){
+                    if(LocalDateTime.now().isAfter(fa.getDue_date())){
+                        fa.setStatus("Overdue");
+                    }else{
+                        fa.setStatus("Payment due soon");
+                    }
+                }
+
+                // update property profit/loss
+                if(prop.getProperty_profit_and_loss() < 0){
+                    prop.setStatus("Loss");
+                }else if(prop.getProperty_profit_and_loss() == 0){
+                    prop.setStatus("Even");
+                }else{
+                    prop.setStatus("Profit");
+                }
+
+
+                // set ledger fields
+                newLedger.setAmount(ledgerRequest.getAmount());
+                newLedger.setDescription(ledgerRequest.getDescription());
+                newLedger.setProperty(prop);
                 newLedger.setFinancialAccount(fa);
-                newLedger.setRecurring(ledgerRequest.isRecurring());
-                newLedger.setRecurringDate(ledgerRequest.getRecurring_date());
-                newLedger.setStatus(ledgerRequest.isStatus());
+                newLedger.setTime(ledgerRequest.getTime());
+                newLedger.setLedgerType(ledgerType);
+                newLedger.setTime(LocalDateTime.now());
+
+                // save the changes to the repo & db
                 ledgerRepository.save(newLedger);
                 fa.getLedgers().add(newLedger);
+                financialAccountRepository.save(fa);
+                propertyRepository.save(prop);
                 return newLedger;
             }
 
@@ -73,15 +124,7 @@ public class LedgerService {
     }
 
     public Ledger updateLedger(Map<String, String> requestBody) {
-        ledgerRepository.updateLedger(Long.valueOf(requestBody.get("id")).longValue(),
-                Double.parseDouble(requestBody.get("amount")),
-                Boolean.valueOf(requestBody.get("status")),
-                Long.valueOf(requestBody.get("financial_account_id")).longValue(),
-                Long.valueOf(requestBody.get("property_id")).longValue(),
-                requestBody.get("description"),
-                Boolean.valueOf(requestBody.get("recurring")),
-                LocalDateTime.parse(requestBody.get("recurring_date"))
-                );
+
         Optional<Ledger> l = ledgerRepository.findById(Long.valueOf(requestBody.get("id")).longValue());
         if(l.isPresent()) {
             Ledger ledger = l.get();
@@ -89,6 +132,17 @@ public class LedgerService {
             if(prop.isPresent()){
                 Optional<FinancialAccount> fa = financialAccountRepository.findById(Long.valueOf(requestBody.get("financial_account_id")).longValue());
                 if(fa.isPresent()){
+
+
+                    ledgerRepository.updateLedger(Long.valueOf(requestBody.get("id")).longValue(),
+                            Double.parseDouble(requestBody.get("amount")),
+                            Long.valueOf(requestBody.get("financial_account_id")).longValue(),
+                            Long.valueOf(requestBody.get("property_id")).longValue(),
+                            requestBody.get("description"),
+                            LocalDateTime.parse(requestBody.get("time")),
+                            requestBody.get("ledger_type")
+                    );
+
                     ledger.setProperty(prop.get());
                     ledger.setFinancialAccount(fa.get());
                     return ledger;
@@ -128,7 +182,7 @@ public class LedgerService {
 
     }
 
-    public List<TransactionTests> getTransactionsByLedgerId(Long id){
+    public TransactionTests getTransactionsByLedgerId(Long id){
         Optional<Ledger> ledger=  ledgerRepository.findById(id);
         return ledger.get().getTransactionTests();
     }
@@ -143,7 +197,7 @@ public class LedgerService {
         List<Ledger> allLedgers = ledgerRepository.findAll();
         List<Ledger> overdueLedgers = new ArrayList<>();
         for(int i = 0; i < allLedgers.size(); i++){
-            if(allLedgers.get(i).getRecurringDate().isBefore(LocalDateTime.now())){
+            if(allLedgers.get(i).getTime().isBefore(LocalDateTime.now()) && allLedgers.get(i).getAmount() > 0){
                 overdueLedgers.add(allLedgers.get(i));
             }
         }

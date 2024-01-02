@@ -1,16 +1,15 @@
 package com.example.server.Services;
 
-import com.example.server.Models.FinancialAccount;
-import com.example.server.Models.Ledger;
-import com.example.server.Models.Property;
-import com.example.server.Models.TransactionTests;
+import com.example.server.Models.*;
 import com.example.server.REQUESTS.TransactionRequest;
 import com.example.server.Repositories.FinancialAccountRepository;
 import com.example.server.Repositories.LedgerRepository;
+import com.example.server.Repositories.PropertyRepository;
 import com.example.server.Repositories.TransactionTestsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,12 +19,14 @@ public class TransactionTestsService {
     @Autowired
     private final TransactionTestsRepository transactionTestsRepository;
     private final LedgerRepository ledgerRepository;
+    private final PropertyRepository propertyRepository;
     private final FinancialAccountRepository financialAccountRepository;
 
     @Autowired
-    public TransactionTestsService(TransactionTestsRepository transactionTestsRepository, LedgerRepository ledgerRepository, FinancialAccountRepository financialAccountRepository) {
+    public TransactionTestsService(TransactionTestsRepository transactionTestsRepository, LedgerRepository ledgerRepository, PropertyRepository propertyRepository, FinancialAccountRepository financialAccountRepository) {
         this.transactionTestsRepository = transactionTestsRepository;
         this.ledgerRepository = ledgerRepository;
+        this.propertyRepository = propertyRepository;
         this.financialAccountRepository = financialAccountRepository;
     }
 
@@ -37,52 +38,82 @@ public class TransactionTestsService {
         return null;
     }
 
-    public TransactionTests createTransactionTest(TransactionRequest transactionRequest) {
+    public String createTransactionTest(TransactionRequest transactionRequest) {
         Optional<FinancialAccount> financialAccount = financialAccountRepository.findById(transactionRequest.getFinancial_account_id());
-
-
 
             if(financialAccount.isPresent()){
                 FinancialAccount fa = financialAccount.get();
-                Long ledgerId = transactionRequest.getLedger_id(); // Extract ledger_id from the request body
+                Optional<Property> property = propertyRepository.findById(transactionRequest.getProperty_id());
+                if(property.isPresent()){
 
-                // Fetch Ledger based on the received ledgerId
-                Optional<Ledger> ledgerOptional = ledgerRepository.findById(ledgerId);
+                    Property prop = property.get();
+                    Ledger ledger = new Ledger();
 
-                if (ledgerOptional.isPresent()) {
+                    // change financial account balance
+                    double fin_acct_amt = fa.getAccount_balance() - transactionRequest.getAmount();
+                    fa.setAccount_balance(fin_acct_amt);
 
-                // change ledger balance
-                Ledger ledger = ledgerOptional.get();
-                double amount = ledger.getAmount() - transactionRequest.getAmount();
-                ledger.setAmount(amount);
+                    //change property balance
+                    prop.setProperty_profit_and_loss(prop.getProperty_profit_and_loss() + transactionRequest.getAmount());
 
-                // change financial account balance
-                double fin_amt = fa.getAccount_balance() - transactionRequest.getAmount();
-                fa.setAccount_balance(fin_amt);
+                    // update financial account status
+                    if(fa.getAccount_balance() <= 0){
+                        fa.setStatus("Good standing");
+                    }else if(fa.getAccount_balance() > 0){
+                        if(LocalDateTime.now().isAfter(fa.getDue_date())){
+                            fa.setStatus("Overdue");
+                        }else{
+                            fa.setStatus("Awaiting payment");
+                        }
+                    }
 
-                //change property balance
-                Property property = ledger.getProperty();
-                property.setProperty_balance(property.getProperty_balance() - transactionRequest.getAmount());
+                    // update property profit/loss
+                    if(prop.getProperty_profit_and_loss() < 0){
+                        prop.setStatus("Loss");
+                    }else if(prop.getProperty_profit_and_loss() == 0){
+                        prop.setStatus("Even");
+                    }else{
+                        prop.setStatus("Profit");
+                    }
 
-                // Create a new TransactionTests instance
-                TransactionTests transaction = new TransactionTests();
-                transaction.setAmount(transactionRequest.getAmount());
-                transaction.setAccount_id(transactionRequest.getFinancial_account_id());
-                transaction.setPaymentType(transactionRequest.getPaymentType());
-                transaction.setCardNumber(transactionRequest.getCardNumber());
-                transaction.setTime(transactionRequest.getTime());
-                transaction.setStatus(transactionRequest.isStatus());
-                transaction.setLedger(ledger); // Associate Ledger with TransactionTests
+                    // save property changes to db
+                    propertyRepository.save(prop);
 
-                // Save TransactionTests entity
-                transactionTestsRepository.save(transaction);
-                List<TransactionTests> ledgerTransactions = ledger.getTransactionTests();
-                ledgerTransactions.add(transaction);
-                ledger.setTransactionTests(ledgerTransactions);
-                return transaction;
+                    // set ledger fields and save to db
+                    ledger.setFinancialAccount(fa);
+                    ledger.setProperty(prop);
+                    ledger.setAmount(-1 * transactionRequest.getAmount());
+                    ledger.setTime(LocalDateTime.now());
+                    ledger.setDescription("Web Portal Payment");
+                    ledger.setStatus(true);
+                    ledger.setLedgerType(LedgerType.PAYMENT);
+                    ledgerRepository.save(ledger);
+
+
+                    // Create a new TransactionTests instance and save to db
+                    TransactionTests transaction = new TransactionTests();
+                    transaction.setAmount(transactionRequest.getAmount());
+                    transaction.setAccount_id(transactionRequest.getFinancial_account_id());
+                    transaction.setPaymentType(transactionRequest.getPaymentType());
+                    transaction.setCardNumber(transactionRequest.getCardNumber());
+                    transaction.setTime(transactionRequest.getTime());
+                    transaction.setStatus(transactionRequest.isStatus());
+                    transaction.setLedger(ledger); // Associate Ledger with TransactionTests
+                    transactionTestsRepository.save(transaction);
+
+                    // associate transaction with ledger, add ledger to fin acct ledgers list,
+                    // save fin acct changes to db
+                    ledger.setTransactionTests(transaction);
+                    List<Ledger> ledgers = fa.getLedgers();
+                    ledgers.add(ledger);
+                    fa.setLedgers(ledgers);
+                    financialAccountRepository.save(fa);
+                    return "successful";
+                }
+
+
             }
-        }
-        return null;
+        return "unsuccessful";
     }
 
 //    public TransactionTests updateTransactionTest(Long id, TransactionTests updatedTransactionTest) {
