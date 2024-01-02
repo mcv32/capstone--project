@@ -1410,7 +1410,7 @@ body::before {
 }
 
 
-.proppopoverClosed {
+.rightPopoverClosed {
   /* background-color: red; */
   /* display: none; */
   position: fixed;
@@ -1426,12 +1426,12 @@ body::before {
   box-sizing: border-box;
 }
 
-.proppopoverOpen {
+.rightPopoverOpen {
   /* background-color: red; */
   /* display: none; */
   position: fixed;
   top: 0;
-
+  right: -100px;
   width: 35%;
   height: 100%;
   background-color: rgb(255, 255, 255);

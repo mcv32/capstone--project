@@ -85,10 +85,11 @@ function Dashboard(){
 
     
     return(
-        auth?.roles === "MANAGER" ?
+        // auth?.roles === "MANAGER" ?
         <section className="dashboard">
             <div className="dashHead">
                 <h1>Welcome {userData?.f_name}</h1>
+                <button onClick={refreshData}>refresh</button>
             </div>
             <div className="dashBody">
                 <div className="dashColumn">
@@ -103,32 +104,32 @@ function Dashboard(){
                 </div>
             </div>
         </section>
-        :
-        <section className="dashboard">
-        {/* <div className="dashHead">
-        </div> */}
-            <div className="dashBody">
-                <div className="dashColumn">
-                <h1>Welcome Home, {userData?.f_name}</h1>
-                <button onClick={refreshData}>refresh</button>
-                <AccountID {...userData}/>
-                <HomeIDcard properties = {userProperties}/>
-                <TennantServiceTickets/>
+    //     :
+    //     <section className="dashboard">
+    //     {/* <div className="dashHead">
+    //     </div> */}
+    //         <div className="dashBody">
+    //             <div className="dashColumn">
+    //             <h1>Welcome Home, {userData?.f_name}</h1>
+    //             <button onClick={refreshData}>refresh</button>
+    //             <AccountID {...userData}/>
+    //             <HomeIDcard properties = {userProperties}/>
+    //             <TennantServiceTickets/>
 
-                </div>
-                <div className="dashCore">
-                    <AccountBalance {...userFinAcct}/>
-                    <Ledger ledgers={userLedgers}/> 
+    //             </div>
+    //             <div className="dashCore">
+    //                 <AccountBalance {...userFinAcct}/>
+    //                 <Ledger ledgers={userLedgers}/> 
 
-                </div>
-            </div>
-            <div className="userDash">
-                <div className="userDashItem4">
-                </div>
-                <div className="userDashItem5">
-                </div>
-        </div>
-    </section>
+    //             </div>
+    //         </div>
+    //         <div className="userDash">
+    //             <div className="userDashItem4">
+    //             </div>
+    //             <div className="userDashItem5">
+    //             </div>
+    //     </div>
+    // </section>
     );
 }
 

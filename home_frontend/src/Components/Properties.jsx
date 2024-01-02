@@ -144,7 +144,7 @@ function Properties(){
                 ))} 
                 </tbody>
             </table>
-            <div className={newPopped ? "proppopoverOpen" :"proppopoverClosed"} >
+            <div className={newPopped ? "rightPopoverOpen" :"rightPopoverClosed"} >
                 <div className="closepopover">
                     <button onClick={handleNewPop}>X</button>
                 </div>
