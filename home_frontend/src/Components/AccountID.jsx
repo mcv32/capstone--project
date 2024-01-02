@@ -33,17 +33,30 @@ function AccountID({...userData}){
         // console.log(newUserDetailsPayload);
     }
 
+    let userConfig = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:8080/users/update',
+        headers: { 
+          'Authorization': 'Bearer ' + auth?.accessToken
+        },
+        data : {
+            firstName: userDetailsPayload.firstName,
+            lastName: userDetailsPayload.lastName,
+            old_email: userData?.email,
+            new_email: userDetailsPayload.email,
+            phoneNumber: userDetailsPayload.telephone
+        }
+      };
+
     const saveDetails = async (form) => {
             try {
                 // console.log(loginPayload);
                 form.preventDefault();
-                const response = await Axios.post("post URL", {
-                    firstName: userDetailsPayload.firstName,
-                    lastName: userDetailsPayload.lastName,
-                    email: userDetailsPayload.email,
-                    phoneNumber: userDetailsPayload.telephone
-                })
-                    // console.log(response);
+                const response = await Axios.request(userConfig)
+                
+                console.log({...userConfig})
+                console.log("User Details Response", response);
     
                     //display success message
                     //refresh dashboard data

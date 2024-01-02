@@ -5,15 +5,14 @@ import useAuth from "../Hooks/useAuth";
 function NewProperty(){
     const { auth, setAuth } = useAuth();
     const [newPropertyPayload, setNewPropertyPayload] = useState({
-        address_street: "",
-        address_line_2: "",
-        balance: 0,
-        city: "",
-        state: "",
-        name: "",
-        property_balance: 0,
-        status: "",
-        zip: ""
+        address_street:"",
+        address_line_2:"",
+        city:"",
+        name:"",
+        property_profit_and_loss:0.00,
+        state:"",
+        zip:"",
+        status:""
     })
 
 
@@ -28,15 +27,14 @@ function NewProperty(){
           'Authorization': 'Bearer ' + auth?.accessToken
         },
         data : {
-            address_street: newPropertyPayload.address_street,
-            address_line_2: newPropertyPayload.address_line_2,
-            balance: newPropertyPayload.balance,
+            address_street:newPropertyPayload.address_street,
+            address_line_2:newPropertyPayload.address_line_2,
             city: newPropertyPayload.city,
-            state: newPropertyPayload.state,
             name: newPropertyPayload.name,
-            property_balance: newPropertyPayload.property_balance,
-            status: newPropertyPayload.status,
-            zip: newPropertyPayload.zip
+            property_profit_and_loss: newPropertyPayload.property_profit_and_loss,
+            state: newPropertyPayload.state,
+            zip: newPropertyPayload.zip,
+            status: newPropertyPayload.status
         }
       };
 
@@ -48,15 +46,14 @@ function NewProperty(){
                 console.log(response);         
                 setResMsg("Property Succesfully Added");
                 setNewPropertyPayload({
-                    address_street: "",
-                    address_line_2: "",
-                    balance: 0,
-                    city: "",
-                    state: "",
-                    name: "",
-                    property_balance: 0,
-                    status: "",
-                    zip: ""
+                    address_street:"",
+                    address_line_2:"",
+                    city:"",
+                    name:"",
+                    property_profit_and_loss:0.00,
+                    state:"",
+                    zip:"",
+                    status:""
                 });
                 setPopover(true);
                 setTimeout(resetPopover, 5000);
@@ -94,33 +91,37 @@ function NewProperty(){
     return(
         <div className="newProperty">
             <h2>Enter New Property Details</h2>
-            <form action="submit">
-                <label htmlFor="PropertyName">Property Name</label>
-                <input type="text" />
+            <form action="submit" onSubmit={(e) => submit(e)}>
                 
-                <label htmlFor="StreetAddress">Street Address</label>
-                <input type="text" />
-                <input type="text" />
+                <div class="labelInputPair">
+                    <label htmlFor="PropertyName">Property Name</label>
+                    <input onChange={(e) => handle(e)} value={newPropertyPayload.name} id="name" type="text" />
+                </div>
+                <div class="labelInputPair">
+                    <label htmlFor="StreetAddress">Street Address</label>
+                    <input onChange={(e) => handle(e)} value={newPropertyPayload.address_street} id="address_street" type="text" />
+                    <input onChange={(e) => handle(e)} value={newPropertyPayload.address_line_2} id="address_line_2" type="text"/>
+                </div>
 
-    <div class="labelInputPair">
-      <label>State</label>
-      <input onChange={(e) => handle(e)} value={newPropertyPayload.state} id="state" type="text"/>
-    </div>
+                <div class="labelInputPair">
+                <label>City</label>
+                <input onChange={(e) => handle(e)} value={newPropertyPayload.city} id="city" type="text"/>
+                </div>
 
-    <div class="labelInputPair">
-      <label>Postal Code</label>
-      <input onChange={(e) => handle(e)} value={newPropertyPayload.zip} id="zip" type="text"/>
-    </div>
+                <div class="labelInputPair">
+                <label>State</label>
+                <input onChange={(e) => handle(e)} value={newPropertyPayload.state} id="state" type="text"/>
+                </div>
 
-                <label>Status</label>
-                <select onChange={(e) => handle(e)} value={newPropertyPayload.status} id="status" type="text"  >
-                    <option value="OCCUPIED">OCCUPIED</option>
-                    <option value="VACANT">VACANT</option>
-                </select>
+                <div class="labelInputPair">
+                <label>Postal Code</label>
+                <input onChange={(e) => handle(e)} value={newPropertyPayload.zip} id="zip" type="text"/>
+                </div>
 
-    <button>Add New Property</button>
-  </form>
-</div>
+
+                <button>Add New Property</button>
+            </form>
+            </div>
 
 
     );

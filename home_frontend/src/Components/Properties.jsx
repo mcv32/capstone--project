@@ -76,7 +76,8 @@ function Properties(){
                 city: viewProperty.city,
                 state: viewProperty.state,
                 zip: viewProperty.zip,
-                status: viewProperty.status
+                status: viewProperty.status,
+                property_profit_and_loss: viewProperty.property_profit_and_loss
             })
                 // console.log(response);
 
@@ -136,7 +137,7 @@ function Properties(){
                     <tr key = {i} onClick={() => handlePropPop(propertyData[i])}>
                         <td>{propertyData[i]?.status.toUpperCase()}</td>
                         <td>{propertyData[i]?.name}</td>
-                        <td>${propertyData[i]?.property_balance.toFixed(2)}</td>
+                        <td>${propertyData[i]?.property_profit_and_loss?.toFixed(2)}</td>
                         <td>{propertyData[i]?.address_street} <br /> {propertyData[i]?.address_line_2}</td>
                         <td>{propertyData[i]?.city + ", " + propertyData[i]?.state}</td>
                         <td>Get request needs to fetch linked FinAccts</td>
