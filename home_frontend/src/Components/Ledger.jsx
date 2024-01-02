@@ -22,14 +22,13 @@ function Ledger(props){
     }
 
     const [newLedgerPayload, setNewLedgerPayload] = useState({
-        type: "",
-        amount: 0,
-        description: "",
-        financial_account_id: "",
-        property_id:"",
-        recurring: true,
-        recurring_date: "",
-        status: false
+        ledgerType:"CHARGE",
+        amount:0,
+        description:"",
+        time:"",
+        status:true,
+        financial_account_id: props.account_id,
+        property_id: props.ledgers[0]?.property?.property_id !== null ? props.ledgers[0]?.property?.property_id : propertyData[0]?.property_id
     })
     
     const [resMsg, setResMsg] = useState();
@@ -41,18 +40,18 @@ function Ledger(props){
           'Authorization': 'Bearer ' + auth?.accessToken
         },
         data : {
-            type: newLedgerPayload.type,
+            ledgerType: newLedgerPayload.ledgerType,
             amount: newLedgerPayload.amount,
             description: newLedgerPayload.description,
-            financial_account_id: props.account_id,
-            property_id: newLedgerPayload.property_id,
-            recurring: newLedgerPayload.recurring,
-            recurring_date: newLedgerPayload.recurring_date,
-            status: newLedgerPayload.status
+            time: newLedgerPayload.time,
+            status: newLedgerPayload.status,
+            financial_account_id: newLedgerPayload.financial_account_id,
+            property_id: newLedgerPayload.property_id
         }
       };
 
     const submit = async (e) => {
+        console.log(config)
         try {
             e.preventDefault();
             const response = await axios.request(config)
@@ -60,14 +59,13 @@ function Ledger(props){
                 console.log(response);         
                 setResMsg("Ledger Succesfully Added");
                 setNewLedgerPayload({
-                    type: "",
-                    amount: 0,
-                    description: "",
-                    financial_account_id: "",
-                    property_id:"",
-                    recurring: true,
-                    recurring_date: "",
-                    status: false
+                    ledgerType:"CHARGE",
+                    amount:0,
+                    description:"",
+                    time:"",
+                    status:true,
+                    financial_account_id: props.account_id,
+                    property_id:0
                 });
                 setPopover(true);
                 setTimeout(resetPopover, 5000);
@@ -108,12 +106,12 @@ function Ledger(props){
         setAllProps(!allProps);
     }
 
-    const [propertyData, setPropertyResponse] = useState([]);
-
+    
     // useEffect(() => {
-    //     console.log("view property state", viewProperty);
-    // }, [viewProperty]);
-
+        //     console.log("view property state", viewProperty);
+        // }, [viewProperty]);
+        
+    const [propertyData, setPropertyResponse] = useState([]);
     let getPropconfig = {
         method: 'get',
         maxBodyLength: Infinity,
@@ -128,7 +126,7 @@ function Ledger(props){
             try {
                 const response = await axios.request(getPropconfig)
 
-                console.log("Property Data Load", {...response?.data});
+                // console.log("Property Data Load", {...response?.data});
                 setPropertyResponse({...response?.data})
 
                 
@@ -140,8 +138,8 @@ function Ledger(props){
         }
 
         fetchProperties();
-        console.log("Property Data State", Object.keys(propertyData));
-      }, []);
+        console.log("Property Data State", propertyData);
+      }, [allProps]);
 
     return(
         <div>
@@ -178,9 +176,9 @@ function Ledger(props){
             </div>
             <div className="newLedger">
                 <h2>Enter New Ledger Details</h2>
-                <form action="submit" onSubmit="">
+                <form action="submit" onSubmit={(e) => submit(e)}>
                     <div>
-                        <select onChange={(e) => handle(e)} value={newLedgerPayload.type} id="type" type="text">
+                        <select onChange={(e) => handle(e)} value={newLedgerPayload.ledgerType} id="ledgerType" type="text">
                             <option value="CHARGE">CHARGE</option>
                             <option value="CREDIT">CREDIT</option>
                             <option value="EXPENSE">EXPENSE</option>
@@ -202,12 +200,12 @@ function Ledger(props){
                         <span className="label">{allProps ? "All Properties" : "Known Properties"}</span>
                     </div>
                     <select onChange={(e) => handle(e)} value={newLedgerPayload.property_id} id="property_id">
-                        {allProps ?
-                        Object.keys(propertyData).map((i) => {
+                        {allProps === true ?
+                        Object.keys(propertyData).map((i) => (
                             <option key={i} value={propertyData[i]?.property_id}>
-                                        {propertyData[i]?.name}
+                                {propertyData[i]?.name}
                             </option>
-                        })
+                        ))
                         :
                         Object.keys(props.ledgers).map((i) => {
                             const propertyId = props.ledgers[i]?.property?.property_id;
@@ -224,11 +222,11 @@ function Ledger(props){
                             }
 
                             return null; // Skip rendering for duplicates
-                            })
-                            }         
+                        }  
+                        )}
+                        
                     </select>
-
-                    <button type="submit">Submit Payment</button>
+                    <button type="submit">Submit Ledger</button>
                 </form>
                 <div className>
                     <h1>Response Message</h1>

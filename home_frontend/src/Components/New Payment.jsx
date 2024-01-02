@@ -1,7 +1,11 @@
 import React, {useState} from "react";
-import Axios from "axios";
+import axios from "axios";
+import useAuth from "../Hooks/useAuth";
 
-function NewPayment(){
+function NewPayment(props){
+    console.log("These are the payment form props", props);
+    
+    const { auth, setAuth } = useAuth();
     const urlPay = "http://localhost:8080/payments";
     const [paymentPayload, setPaymentPayload] = useState({
         paymentAmount:0,
@@ -17,15 +21,29 @@ function NewPayment(){
 
     const [resMsg, setResMsg] = useState();
 
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:8080/payments',
+        headers: { 
+          'Authorization': 'Bearer ' + auth?.accessToken
+        },
+        data : {
+            amount: paymentPayload.paymentAmount,
+            financial_account_id: props.finAcct_id,
+            property_id: props.ledgers[props.ledgers.length - 1]?.property.property_id,
+            paymentType: paymentPayload.paymentType,
+            number: paymentPayload.number,
+            accountingNumber: paymentPayload.accountingNumber,
+            status: true
+        }
+      };
+
     const submit = async (e) => {
         try {
-            console.log(paymentPayload);
+            console.log(config);
             e.preventDefault();
-            const response = await Axios.post(urlPay, {
-                paymentType: paymentPayload.paymentType,
-                number: paymentPayload.number,
-                accountingNumber: paymentPayload.accountingNumber
-            })
+            const response = await axios.request(config)
 
                 console.log(response);
                 setResMsg(response?.data);
@@ -94,13 +112,13 @@ function NewPayment(){
                     </select>
                 </div>
                 
-                    <label htmlFor="Postal Code">Payment Amount</label>
+                    <label >Payment Amount</label>
                     <input onChange={(e) => handle(e)} value={paymentPayload.paymentAmount} id="paymentAmount" type="text"  />
                 
-                    <label htmlFor="Account">Account Number</label>
+                    <label >Account Number</label>
                     <input onChange={(e) => handle(e)} value={paymentPayload.accountingNumber} id="accountingNumber" type="text" />
 
-                    <label htmlFor="Routing">Routing Number</label>
+                    <label >Routing Number</label>
                     <input onChange={(e) => handle(e)} value={paymentPayload.routingNumber} id="routingNumber" type="text" />
 
 

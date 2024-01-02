@@ -10,7 +10,7 @@ function AccountBalance(finAcct){
             setPopover(!isPopped);
     }
 
-    // console.log("This is the Account Balance", finAcct);
+    console.log("This is the Account Balance", finAcct);
 
     return(
         <div className="accountBalance">
@@ -24,7 +24,7 @@ function AccountBalance(finAcct){
                     <button onClick={handlePop}>X</button>
                 </div>
                 <div>
-                    <NewPayment/>
+                    <NewPayment finAcct_id = {finAcct.financial_account_id} ledgers = {finAcct.ledgers}/>
                 </div>
             </div>
         </div>
