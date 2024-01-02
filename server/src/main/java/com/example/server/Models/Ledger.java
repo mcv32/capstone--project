@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "ledger")
 public class Ledger {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ledger_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ledger_seq")
     @SequenceGenerator(name = "ledger_seq", sequenceName = "LEDGER_SEQUENCE", allocationSize = 1)
     private Long ledger_id;
     private double amount;

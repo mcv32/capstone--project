@@ -26,6 +26,7 @@ public class AppUserService implements UserDetailsService {
     private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
     @Autowired
     private final AppUserRepository appUserRepository;
+    private final FinancialAccountRepository financialAccountRepository;
     private final ConfirmationTokenService confirmationTokenService;
     @Autowired
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -84,10 +85,24 @@ public class AppUserService implements UserDetailsService {
     }
 
     public AppUser updateAppUser(String old_email, String new_email, String firstName, String lastName, String phoneNumber){
-        appUserRepository.updateAppUser(firstName, lastName, phoneNumber, new_email, old_email);
-        Optional<AppUser> appUser = appUserRepository.findByEmail(new_email);
-        if(appUser.isPresent()){
-            return appUser.get();
+        Optional<FinancialAccount> financialAccount = financialAccountRepository.findByEmail(old_email);
+        if(financialAccount.isPresent()) {
+            List<AppUser> appUsers = financialAccount.get().getAppUsers();
+            for(int i = 0; i < appUsers.size(); i++){
+                if(appUsers.get(i).getEmail().equals(old_email)){
+                    appUsers.remove(i);
+                }
+            }
+            appUserRepository.updateAppUser(firstName, lastName, phoneNumber, new_email, old_email);
+            Optional<AppUser> appUser = appUserRepository.findByEmail(new_email);
+
+            if (appUser.isPresent()) {
+                appUsers.add(appUser.get());
+                financialAccount.get().setAppUsers(appUsers);
+                financialAccount.get().setEmail(new_email);
+                financialAccountRepository.save(financialAccount.get());
+                return appUser.get();
+            }
         }
         return null;
     }

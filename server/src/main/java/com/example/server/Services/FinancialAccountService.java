@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -47,11 +48,16 @@ public class FinancialAccountService {
                     Month.of(LocalDateTime.now().getMonth().getValue() + 1),
                     LocalDateTime.now().getDayOfMonth(), 0, 0));
 
+            // add app user to be associated with financial account
             AppUser existingAppUser = appUser.get();
-            newFinancialAccount.getAppUsers().add(existingAppUser);
+            List<AppUser> appUsers = new ArrayList<>();
+            appUsers.add(existingAppUser);
+            financialAccount.setAppUsers(appUsers);
+
+            // update changes and save to db
+            financialAccountRepository.save(newFinancialAccount);
             appUserRepository.updateFinAcctId(newFinancialAccount.getFinancial_account_id(), financialAccount.getEmail());
             appUserRepository.save(existingAppUser);
-            financialAccountRepository.save(newFinancialAccount);
             return newFinancialAccount;
         }
         newFinancialAccount.setEmail(financialAccount.getEmail());
@@ -90,7 +96,9 @@ public class FinancialAccountService {
             if (appUser.isPresent()){
                 List<AppUser> appUsers = financialAccount.get().getAppUsers();
 
-                if(!appUsers.contains(appUser.get())) appUsers.add(appUser.get());
+                //add other app user if not already associated with fin acct
+                if(!appUsers.contains(appUser.get()))
+                    appUsers.add(appUser.get());
                 financialAccount.get().setAppUsers(appUsers);
                 return financialAccount.get();
             }
