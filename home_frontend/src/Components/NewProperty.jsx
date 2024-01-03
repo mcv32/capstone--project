@@ -97,12 +97,18 @@ function NewProperty(){
                     <label htmlFor="PropertyName">Property Name</label>
                     <input onChange={(e) => handle(e)} value={newPropertyPayload.name} id="name" type="text" />
                 </div>
+               
+               {/* M: separated the address/apt */}
                 <div class="labelInputPair">
                     <label htmlFor="StreetAddress">Street Address</label>
                     <input onChange={(e) => handle(e)} value={newPropertyPayload.address_street} id="address_street" type="text" />
-                    <input onChange={(e) => handle(e)} value={newPropertyPayload.address_line_2} id="address_line_2" type="text"/>
                 </div>
-
+                <div class="labelInputPair">
+                    <label htmlFor="AddressLine2">Apt. #</label>
+                    <input onChange={(e) => handle(e)} value={newPropertyPayload.address_line_2} id="address_line_2" type="text" />
+                </div>
+                
+                
                 <div class="labelInputPair">
                 <label>City</label>
                 <input onChange={(e) => handle(e)} value={newPropertyPayload.city} id="city" type="text"/>

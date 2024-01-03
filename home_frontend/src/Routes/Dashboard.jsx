@@ -86,6 +86,7 @@ function Dashboard(){
 
     
     return(
+        //comment line below
         // auth?.roles === "MANAGER" ?
         <section className="dashboard">
             <div className="dashHead">
@@ -115,7 +116,9 @@ function Dashboard(){
                 </div>
             </div>
         </section>
-    //     :
+      
+      //comment below to get rid
+    //   :
     //     <section className="dashboard">
     //     {/* <div className="dashHead">
     //     </div> */}

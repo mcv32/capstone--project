@@ -80,6 +80,7 @@ function Accounts(){
                     </tr>
                 </thead>
                 <tbody>
+
                 {Object.keys(accountData).map((i) => (
                     <tr key = {i} onClick={() => handleAcctPop(accountData[i])}>
                         <td>{accountData[i]?.status}</td>
