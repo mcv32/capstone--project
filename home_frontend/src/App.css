@@ -2303,7 +2303,10 @@ body {
 .detailsLedgerHeader {
   display: flex;
   justify-content: space-between;
+  justify-content: flex-end;
   margin: 10px 10px 0px 10px;
+  /* background-color: red; */
+  /* z-index: 5; */
 }
 
 .newLedger {

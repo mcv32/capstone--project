@@ -148,10 +148,10 @@ function Ledger(props){
         </div>
         <div className="ledger">
          
-            {auth?.userRoles === "ADMIN" || auth?.userRoles === "MANAGER" &&
+            {/* {auth?.userRoles === "ADMIN" || auth?.userRoles === "MANAGER" && */}
             <div className="detailsLedgerHeader">
                 <button className="openpopover" onClick={handleNewLedgPop}>+</button>
-            </div>}
+            </div>
         <table>
             <thead>
                 <tr>
