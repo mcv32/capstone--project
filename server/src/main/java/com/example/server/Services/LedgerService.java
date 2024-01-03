@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class LedgerService {
@@ -205,6 +202,20 @@ public class LedgerService {
         return overdueLedgers;
     }
 
+    public List<Ledger> getLedgersWithProperty(Map<String, Long> requestBody){
+        Long id = requestBody.get("id");
+        List<Ledger> allLedgers = ledgerRepository.findAll();
+        List<Ledger> propertyLedgers = new ArrayList<>();
+        for(int i = 0; i < allLedgers.size(); i++){
+            Ledger ledger = allLedgers.get(i);
+            if( (ledger.getProperty().getProperty_id() == id) &&
+                    (ledger.getLedgerType() == LedgerType.EXPENSE || ledger.getLedgerType() == LedgerType.PAYMENT)){
+                propertyLedgers.add(ledger);
+            }
+        }
+        return propertyLedgers;
+    }
+
     public List<Ledger> getOpenServiceTickets(){
 
         List<Ledger> allLedgers = ledgerRepository.findAll();
@@ -216,5 +227,22 @@ public class LedgerService {
             }
         }
         return openServiceLedgers;
+    }
+
+    public List<Ledger> getRecentPayments() {
+        List<Ledger> allLedgers = ledgerRepository.findAll();
+        List<Ledger> payments = new ArrayList<>();
+        // filter all payment ledgers
+        for(int i = 0; i < allLedgers.size(); i++){
+            Ledger curLedger = allLedgers.get(i);
+            if(curLedger.getLedgerType() == LedgerType.PAYMENT){
+                payments.add(curLedger);
+            }
+        }
+
+        // sort by most recent
+        payments.sort( (p1, p2) -> p2.getTime().compareTo(p1.getTime()) );
+
+        return payments;
     }
 }

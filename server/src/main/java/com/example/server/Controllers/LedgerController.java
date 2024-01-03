@@ -66,6 +66,16 @@ public class LedgerController {
         return ledgerService.getTransactionsByLedgerId(requestBody.get("id"));
     }
 
+    @GetMapping("/recentPayments")
+    public List<Ledger> getRecentPayments(){
+        return ledgerService.getRecentPayments();
+    }
+
+    @GetMapping("/getLedgersOfProperty")
+    public List<Ledger> getLedgersOfProperty(@RequestBody Map<String, Long> requestBody){
+        return ledgerService.getLedgersWithProperty(requestBody);
+    }
+
     @PostMapping("/property")
     public Property getPropertyByLedgerId(@RequestBody Map<String, Long> requestBody){
         return ledgerService.getPropertyByLedgerId(requestBody.get("id"));
