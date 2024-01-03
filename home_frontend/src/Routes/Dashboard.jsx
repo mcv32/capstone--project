@@ -87,7 +87,7 @@ function Dashboard(){
     
     return(
         //comment line below
-        auth?.roles === "MANAGER" ?
+        auth?.roles === "MANAGER" || auth?.roles === "ADMIN" ?
         <section className="dashboard">
             <div className="dashHead">
                 <h1>Welcome, {userData?.f_name}</h1>

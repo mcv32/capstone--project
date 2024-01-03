@@ -660,12 +660,15 @@ input:checked + .slider:before {
 
 
 .resmsg {
-  /* background-color: lightpink; */
-  color: red;
+  color: rgb(114, 223, 250);
   font-weight: bold;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
+  max-width: 100%; 
+  word-wrap: break-word; 
+  font-size: 15px;
 }
+
 
 html, body {
   height: 100%;
@@ -849,7 +852,12 @@ body {
   width: 100%;
 }
 
+.accountRight h2 {
+  font-size: 40px;
+}
+
 .accountRight h3,
+.accountRight h2,
 .accountRight p {
   margin: 0;
   padding: 0 1px;
@@ -893,6 +901,7 @@ body {
   border-width: 5px;
   border-radius: 10px;
   box-shadow: 1px 1px 10px 10px rgba(27, 7, 7, 0.2);
+  z-index:1000;
 }
 
 .accountDetails {
@@ -904,7 +913,7 @@ body {
 
 .accountDetails h1 {
   display: flex;
-  padding-top: 10px;
+  padding-top: 70px;
   flex-direction: center;
   text-align:center;
   font-weight:lighter;
@@ -1128,11 +1137,20 @@ body {
   flex-direction: column;
   border-color: #17475109;
   border-radius: 5px 5px 0 0;
-  overflow: scroll;
+  overflow-y: scroll;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
   height: 100%;
   margin: 10px 10px 10px 30px;
   background-color: rgba(255, 255, 255, 0.904);
+  scrollbar-width: thin;
+}
+
+.recentPayments::-webkit-scrollbar {
+  width: 0em;
+}
+
+.recentPayments::-webkit-scrollbar-thumb {
+  background-color: transparent;
 }
 
 .recentPayments table {
@@ -1192,11 +1210,20 @@ body {
   flex-direction: column;
   border-color: #17475109;
   border-radius: 5px 5px 0 0;
-  overflow: scroll;
+  overflow-y: scroll;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
   height: 100%;
   margin: 10px 10px 10px 30px;
   background-color: rgba(255, 255, 255, 0.904);
+  scrollbar-width: thin;
+}
+
+.openServiceTickets::-webkit-scrollbar {
+  width: 0em;
+}
+
+.openServiceTickets::-webkit-scrollbar-thumb {
+  background-color: transparent;
 }
 
 .openServiceTickets table {
