@@ -59,28 +59,29 @@ public class LedgerService {
                 LedgerType ledgerType;
 
                 // update financial account balance and property profit/loss
-                if(LedgerType.CHARGE.toString().equals("CHARGE")){
+                if(ledgerRequest.getLedgerType().equals("CHARGE")){
                     ledgerType = LedgerType.CHARGE;
                     fa.setAccount_balance(fa.getAccount_balance() + ledgerRequest.getAmount());
                     // credit type
-                }else if(LedgerType.CREDIT.toString().equals("CREDIT")){
+                }else if(ledgerRequest.getLedgerType().equals("CREDIT")){
                     ledgerType = LedgerType.CREDIT;
                     fa.setAccount_balance(fa.getAccount_balance() - ledgerRequest.getAmount());
 
                     // payment type
-                }else if(LedgerType.PAYMENT.toString().equals("PAYMENT")){
+                }else if(ledgerRequest.getLedgerType().equals("PAYMENT")){
                     ledgerType = LedgerType.PAYMENT;
                     fa.setAccount_balance(fa.getAccount_balance() - ledgerRequest.getAmount());
                     prop.setProperty_profit_and_loss(prop.getProperty_profit_and_loss() + ledgerRequest.getAmount());
 
                     // expense payment type
-                }else if(LedgerType.EXPENSE.toString().equals("EXPENSE")){
+                }else if(ledgerRequest.getLedgerType().equals("EXPENSE")){
                     ledgerType = LedgerType.EXPENSE;
                     prop.setProperty_profit_and_loss(prop.getProperty_profit_and_loss() - ledgerRequest.getAmount());
                 }else{
                     return null;
                 }
 
+                System.out.println(ledgerType);
                 // update financial account status
                 if(fa.getAccount_balance() <= 0){
                     fa.setStatus("Good standing");
