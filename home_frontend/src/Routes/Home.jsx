@@ -12,21 +12,34 @@ function Home() {
                 {/* <div className="media-scroller snaps-inline">
                 </div> */}
                 <div className="media-element homeHero" id="homeHero">
-                    <h1>This is our Hero Section</h1>
-                </div>
+      <div className="text-container">
+        <h1 className="homeherrosolo">
+        Welcome to our Easilease Application, Powered by ESJ INC.
+        </h1>
+        <h4>• Seamless Transactions</h4>
+        <h4>• Secure Processing</h4>
+        <h4>• User-Friendly</h4>
 
-                <div className="media-element homeDemo1" id="homeDemo1">
-                    <h1>This is for our first Demo</h1>
+      </div>
+      </div>
+
+      <div className="homeTeam" id="homeTeam">
+                    <div> </div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
                 </div>
 
                 <div className="homeFeatures">
+            <h1 className="features">
+            Our Goals
+            </h1>
             <div className="boxDiagram">
-                    <div className="box">Improved Security</div>
-                    <div className="box">Tenant / Dashboard Portal</div>
-                    <div className="box">Messaging Service</div>
-                    <div className="box">User Registration and Authentication</div>
-                    <div className="box">Transaction Processing</div>
-
+                <div className="box">Improved Security</div>
+                <div className="box">Tenant / Dashboard Portal</div>
+                <div className="box">User Registration and Authentication</div>
+                <div className="box">Transaction Processing / Payment Portal</div>
             </div>
             </div>
                
@@ -37,29 +50,15 @@ function Home() {
 
                 {/* <div className="media-element">
                 </div> */}
-                <div className="homeTeam" id="homeTeam">
-                    <div> </div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
 
                 <div className="media-element homeTechStack" id="homeTechStack">
                     {/* <Spline scene="https://prod.spline.design/jTj8tnjowJhFSwVa/scene.splinecode" /> */}
                 </div>
 
-                <div className="media-element homeDemo2" id="homeDemo2">
-                    <h1>This is for our second Demo</h1>
-                </div>
-
                 <div className="media-element homeERD" id="homeERD">
-                    <h1>Entity Relationship Diagram</h1>
+                    <h1 className="erd">
+                        Entity Relationship Diagram</h1>
                     <ImageMagnifier imgUrl={HomeERD} />
-                </div>
-
-                <div className="media-element homeDemo3" id="homeDemo3">
-                    <h1>This is for our third Demo</h1>
                 </div>
 
             </section>
