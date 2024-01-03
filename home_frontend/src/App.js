@@ -9,6 +9,7 @@ import Login from './Routes/Login';
 import Unauthorized from './Routes/Unauthorized';
 import Dashboard from './Routes/Dashboard';
 import Missing from './Routes/Missing';
+import Admin from './Routes/Admin';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="unauthorized" element={<Unauthorized />} />
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="admin" element={<Admin />} />
 
         {/* we want to protect these routes */}
         {/* <Route element={<RequireAuth allowedRoles={['USER', 'MANAGER']}/>}>

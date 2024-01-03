@@ -83,8 +83,8 @@ function NewAccount(){
                     <label >Initial Balance</label>
                     <input onChange={(e) => handle(e)} value={newAccountPayload.account_balance} id="account_balance" type="text"/>
                 </div>
-
-                <button>Create New Account</button>
+                 {/* M: shortened button name */}
+                <button>Create</button>
             </form>
             <div className={isPopped ? "payPopOpen" : "offscreen"}>
                     <h1>{resMsg}</h1>

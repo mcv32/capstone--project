@@ -51,7 +51,7 @@ function AccountID({...userData}){
 
     const saveDetails = async (form) => {
             try {
-                console.log(userConfig);
+                console.log("Save data config", userConfig);
                 form.preventDefault();
                 const response = await Axios.request(userConfig)
                 
@@ -88,7 +88,9 @@ function AccountID({...userData}){
             <div className="accountRight">
                 {auth?.roles === "MANAGER" ? <h2>MANAGER</h2> : null}
                 <h3>{fullName}</h3>
-                <p>Contact Information</p>
+               
+               {/* M: tweaked title */}
+                <p>Contact Information: </p>
                 <p>{userData?.phoneNumber}</p>
                 <p>{userData?.email}</p>
             </div>
@@ -100,7 +102,9 @@ function AccountID({...userData}){
                     <h1 style={{color:"black"}}>Personal Account Details</h1>
                     <form typeof="submit">
                     <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" alt="avatar" />
-                    <label className="labelInputPair">Avatar URL</label>
+                    
+                    {/* M: gave it a different class name */}
+                    <label className="accountIdPair">Avatar URL</label>
                     <input type="url" name="" id="" value="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" placeholder="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" />
 
                         <label >First Name</label>

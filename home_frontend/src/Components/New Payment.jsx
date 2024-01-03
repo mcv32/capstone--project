@@ -129,43 +129,57 @@ function NewPayment(props){
             </div>
             </div>
             :
-            <div className="newPayment">
-                <h2>Enter Payment Details</h2>
-                <form action="submit" onSubmit={(e) => submit(e)}>
-                    <div>
-                        {/* <label htmlFor="PaymentMethod">Payment Method</label> */}
-                        <select onChange={(e) => handle(e)} value={paymentPayload.paymentType} id="paymentType">
-                            <option value="CREDIT_DEBIT">Credit/Debit Card</option>
-                            <option value="ACH_ECHECK">ACH/eCheck</option>
-                            <option value="Fiserv Credit/Debit Card">Fiserv Credit/Debit Card</option>
-                            <option value="Clover Credit/Debit Card">Clover Credit/Debit Card</option>
-                        </select>
-                    </div>
+<div className="newPayment">
+  <h2>Enter Payment Details</h2>
+  <form action="submit" onSubmit={(e) => submit(e)}>
+    <div>
+      <select onChange={(e) => handle(e)} value={paymentPayload.paymentType} id="paymentType">
+        <option value="CREDIT_DEBIT">Credit/Debit Card</option>
+        <option value="ACH_ECHECK">ACH/eCheck</option>
+        <option value="Fiserv Credit/Debit Card">Fiserv Credit/Debit Card</option>
+        <option value="Clover Credit/Debit Card">Clover Credit/Debit Card</option>
+      </select>
+    </div>
 
-                    <label>Payment Amount</label>
-                    <input onChange={(e) => handle(e)} value={paymentPayload.paymentAmount} id="paymentAmount" type="text"  />
-                    
-                    <label>Name on Card</label>
-                    <input onChange={(e) => handle(e)} value={paymentPayload.name} id="name" type="text" />
+{/* M: wrapped each of em */}
+    <div className="labelInputPair">
+      <label>Payment Amount</label>
+      <input onChange={(e) => handle(e)} value={paymentPayload.paymentAmount} id="paymentAmount" type="text" />
+    </div>
 
-                    <label>Card Number</label>
-                    <input onChange={(e) => handle(e)} value={paymentPayload.number} id="number" type="text" />
+    <div className="labelInputPair">
+      <label>Name on Card</label>
+      <input onChange={(e) => handle(e)} value={paymentPayload.name} id="name" type="text" />
+    </div>
 
-                    <label>Expiration Month</label>
-                    <input onChange={(e) => handle(e)} value={paymentPayload.exMo} id="exMo" type="text" />
-                    <label>Year</label>
-                    <input onChange={(e) => handle(e)} value={paymentPayload.exYr} id="exYr" type="text" />
+    <div className="labelInputPair">
+      <label>Card Number</label>
+      <input onChange={(e) => handle(e)} value={paymentPayload.number} id="number" type="text" />
+    </div>
 
-                    <label>CVV Code</label>
-                    <input onChange={(e) => handle(e)} value={paymentPayload.CVV} id="CVV" type="text" />
+    <div className="labelInputPair">
+      <label>Expiration Month</label>
+      <input onChange={(e) => handle(e)} value={paymentPayload.exMo} id="exMo" type="text" />
+    </div>
 
+    <div className="labelInputPair">
+      <label>Year</label>
+      <input onChange={(e) => handle(e)} value={paymentPayload.exYr} id="exYr" type="text" />
+    </div>
 
-                    <button type="submit">Submit Payment</button>
-                </form>
-                <div className={isPopped ? "payPopOpen" : "offscreen"}>
-                    <h1>{resMsg}</h1>
-                </div>
-            </div>
+    <div className="labelInputPair">
+      <label>CVV Code</label>
+      <input onChange={(e) => handle(e)} value={paymentPayload.CVV} id="CVV" type="text" />
+    </div>
+
+    <button type="submit">Submit Payment</button>
+  </form>
+  
+  <div className={isPopped ? "payPopOpen" : "offscreen"}>
+    <h1>{resMsg}</h1>
+  </div>
+</div>
+
     );
 }
 

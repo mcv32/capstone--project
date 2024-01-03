@@ -133,6 +133,9 @@ function Properties(){
                     </tr>
                 </thead>
                 <tbody>
+
+              {/* M: Got rid of filler td */}
+
                 {Object.keys(propertyData).map((i) => (
                     <tr key = {i} onClick={() => handlePropPop(propertyData[i])}>
                         <td>{propertyData[i]?.status.toUpperCase()}</td>
@@ -200,7 +203,7 @@ function Properties(){
                                 value={viewProperty.zip}/>
                             </div>
                             <button >Save Property Details</button>
-                            <button>Save</button>
+                            {/* M: got rid of a button */}
                         </form>
                     <h1>Missing ledger returns on /properties get request</h1>
                     {/* <Ledger/> */}

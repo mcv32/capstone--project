@@ -683,6 +683,7 @@ html, body {
   align-items: center;
   justify-content: baseline;
   flex-direction: column;
+
 }
 
 .dashHead {
@@ -709,10 +710,10 @@ html, body {
   content: "";
   position: absolute;
   bottom: -15px;
-  left: 50%; /* Adjusted to center the line */
+  left: 50%; 
   width: 50%;
   height: 4px;
-  margin-left: -25%; /* Adjusted to center the line */
+  margin-left: -25%; 
   background-color: rgb(255, 255, 255); 
 }
 
@@ -810,7 +811,7 @@ body {
   border-color: #17475109;
   border-radius: 10px;
   box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.253);
-  margin: 10px 10px 0px 30px;
+  margin: 10px 10px -45px 30px;
   text-align: left;
   background-color: rgba(255, 255, 255, 0.945);
   padding: 20px 0px 0px 10px;
@@ -848,15 +849,26 @@ body {
   width: 100%;
 }
 
-.accountRight h2,
 .accountRight h3,
 .accountRight p {
   margin: 0;
-  padding: 0 30px;
+  padding: 0 1px;
 }
 
-.accountRight h2 {
-  font-size: 37px;
+.accountRight h3 {
+  color:rgba(47, 188, 223, 0.822);
+  font-size: 25px;
+  white-space: nowrap;
+  margin: 5px 0 5px;
+  line-height: 50px;
+  text-transform:capitalize;
+  font-weight: lighter;
+}
+
+.accountRight p {
+  color: black;
+  font-weight: bolder;
+  text-transform: uppercase;
 }
 
 .accountBlock img {
@@ -867,119 +879,76 @@ body {
   object-fit: cover;
 }
 
-
 .accountDetailsOpen {
   display: flex;
   position: fixed;
   left: 50%;
   top: 50%;
-  height: 85%;
-  width: 40%; /* Adjust the width as needed */
+  height: 100%;
+  width: 40%;
   transform: translate(-50%, -50%);
   background-color: white;
   border: solid;
   border-color: #56c2f5;
   border-width: 5px;
   border-radius: 10px;
-  box-shadow: 1px 1px 10px 10px rgba(27, 7, 7, 0.322);
+  box-shadow: 1px 1px 10px 10px rgba(27, 7, 7, 0.2);
 }
 
 .accountDetails {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 20px;
+  padding: 0px;
 }
 
-.labelInputPair {
+.accountDetails h1 {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+  padding-top: 10px;
+  flex-direction: center;
+  text-align:center;
+  font-weight:lighter;
+  font-size: 65px;
+  margin-left:15px;
 }
-
-.labelInputPair label {
-  margin-right: 10px;
+.accountDetails label {
+  margin: 10px;
+  font-size: 1.2rem;
+  font-weight: bold; 
+  text-align: right; /* Change to right alignment */
+  margin-right: 20px; /* Adjust the margin-right as needed */
+  width: 100%;
   text-transform: uppercase;
-  font-size: 18px;
-  font-weight: bold;
-  min-width: 120px; /* Adjust as needed for label width */
 }
 
 .accountDetails input {
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  text-align: right;
   border-width: 1px;
-  background-image: linear-gradient(#55dbec, #5fcdf8a8);
-  flex: 1;
-  padding: 8px;
-  border-radius: 5px;
+  background-image: linear-gradient(#55dbec,rgba(47, 188, 223, 0.822));
+  width: 60%;
+  box-sizing: border-box;
+  margin-right: 50px;
 }
 
 
 .accountDetails img {
-  border-style: solid;
-  border-radius: 100px;
-  border-width: 4px;
-  height: 150px;
-  width: 150px;
+  border-style: dashed;
+  border-radius: 5px;
+  border-width: 9px;
+  border-color:rgba(47, 188, 223, 0.822);
+  height: 200px;
+  width: 270px;
   object-fit: cover;
   color: #000000;
-  margin: 0 auto 20px; /* Center the image horizontally and add margin at the bottom */
-}
-
-
-.accountDetails button {
-  appearance: none;
-  outline: 0;
-  background-color: #fff;
-  border: 4px solid #55dbec;
-  padding: 10px 20px;
-  color: #000000;
-  border-radius: 15px;
-  width: 245px;
-  height: 70px;
-  font-size: 36px;
-  display: flex;
-  align-items: center;
-  /* align-self: center; */
-  margin-top: 20px;
-  font-weight: lighter;
-  text-transform: uppercase;
-  line-height: 60px; /* Adjust line-height for vertical centering */
-}
-
-.accountDetails button:hover {
-  background-image: linear-gradient(#55dbec, #5fcdf8);
-  color: white;
-  box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-
-.labelInputContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-right: 40px;
-}
-
-.labelInputPair {
-  display: flex;
-  margin-bottom: 10px; 
-  margin-right: 10px; 
-  align-items: center;
-}
-
-.labelInputPair label {
-  margin-right: 10px; 
-  text-transform: uppercase;
-  font-size:18px;
-  font-weight: bold;
+  margin: 20px 220px 35px;
 }
 
 .accountDetails button {
   appearance: none;
   outline: 0;
   background-color: #fff;
-  border: 4px solid #55dbec;
+  border: 4px solid rgba(47, 188, 223, 0.822);
   padding: 10px 20px; 
   color: #000000;
   border-radius: 15px;
@@ -990,7 +959,7 @@ body {
   align-items: center; 
   align-self: center;
   justify-content: center;
-  margin: 10px;
+  margin: 40px auto;
   font-weight: lighter;
   text-transform: uppercase;
   line-height: 60px; /* Adjust line-height for vertical centering */
@@ -1002,9 +971,6 @@ body {
   color: white;
   box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.1);
 }
-
-
-
 
 .homeIDBlock{
   display: grid;
@@ -1083,8 +1049,16 @@ body {
   margin: 5px 10px 60px 30px;
   max-height: 300px;
   background-color: rgb(255, 255, 255);
-  overflow: hidden;
-  transition: transform 0.3s ease;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.overdueAccounts::-webkit-scrollbar {
+  width: 0em;
+}
+
+.overdueAccounts::-webkit-scrollbar-thumb {
+  background-color: transparent;
 }
 
 .overdueAccounts table {
@@ -1102,6 +1076,7 @@ body {
   height: 20px;
   padding: 10px 30px 10px 30px;
   text-align: left;
+  /* font-size: 14px; */
 }
 
 .overdueAccounts td {
@@ -1116,6 +1091,8 @@ body {
 
 .overdueAccounts tr:last-of-type {
   border-bottom: 5px solid rgba(223, 47, 47, 0.89);
+  top: 0;
+  position: sticky;
 }
 
 .overdueAccounts tr:hover {
@@ -1127,7 +1104,7 @@ body {
 
 /* overdueAccounts categories titles */
 .overdueAccounts th {
-  background-color: rgba(223, 47, 47, 0.822);
+  background-color: rgb(223, 47, 47);
   color: rgb(255, 255, 255);
   border-style: hidden;
   border-right-color: rgba(128, 128, 128, 0.377);
@@ -1138,6 +1115,9 @@ body {
   margin-bottom: 10px; 
   line-height: 1.1;
   white-space: normal;
+  white-space: normal;
+  position:sticky;
+  top: 0;
 }
 
 
@@ -1148,7 +1128,7 @@ body {
   flex-direction: column;
   border-color: #17475109;
   border-radius: 5px 5px 0 0;
-  overflow: hidden;
+  overflow: scroll;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
   height: 100%;
   margin: 10px 10px 10px 30px;
@@ -1193,7 +1173,7 @@ body {
 }
 
 .recentPayments th {
-  background-color: rgba(47, 188, 223, 0.822);
+  background-color: rgb(47, 188, 223);
   color: rgb(255, 255, 255);
   border-style: hidden;
   border-right-color: rgba(128, 128, 128, 0.377);
@@ -1202,6 +1182,8 @@ body {
   font-size: 17px;
   padding: 10px 30px;
   line-height: 10px;
+  position: sticky;
+  top: 0;
 }
  
 .openServiceTickets {
@@ -1210,7 +1192,7 @@ body {
   flex-direction: column;
   border-color: #17475109;
   border-radius: 5px 5px 0 0;
-  overflow: hidden;
+  overflow: scroll;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
   height: 100%;
   margin: 10px 10px 10px 30px;
@@ -1255,7 +1237,7 @@ body {
 }
 
 .openServiceTickets th {
-  background-color: rgba(47, 188, 223, 0.822);
+  background-color: rgb(47, 188, 223);
   color: rgb(255, 255, 255);
   border-style: hidden;
   border-right-color: rgba(128, 128, 128, 0.377);
@@ -1265,6 +1247,8 @@ body {
   padding: 10px 30px;
   line-height: 10px;
   white-space: nowrap;
+  position: sticky;
+  top: 0;
 }
 
  
@@ -1315,13 +1299,14 @@ body {
   display: flex;
   flex-direction: column;
   max-width: 40%;
+  height:40%;
   /* max-height: 1000px;  */
   border-style:dashed;
   border-width: 10px;
   border-color:rgba(47, 188, 223, 0.822);
   background-color: rgba(255, 255, 255, 0.918);
   border-radius: 10px;
-  margin: 10px 0 0 30%; /* Adjust the margin to move it more towards the right */
+  margin: 170px 0 0 30%; /* Adjust the margin to move it more towards the right */
   padding: 20px;
 }
 
@@ -1332,20 +1317,23 @@ body {
   margin-bottom: 0px;
   font-size: 42px;
   white-space: nowrap;
+  
 }
 
 .accountBalance p {
-  font-size: 3rem;
+  font-size: 5rem;
   margin: 2px;
+  line-height: 130px;
 }
 
 .accountBalance h3 {
   margin: 0;
+  font-size: 25px;
 }
 
 .accountBalance button {
   width: 50%;
-  height: 30px;
+  height: 50px;
   font-size: 1rem;
   align-self: center;
   margin: 10px;
@@ -1359,8 +1347,9 @@ body {
 }
 
 .accountBalance button:hover{
-  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
-  color: rgba(128, 128, 128, 0.473);
+  background-image: linear-gradient(#55dbec, #5fcdf8);
+  color: white;
+  box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .ledger {
@@ -1374,7 +1363,7 @@ body {
   margin: 5px 20px 60px 20px;
   max-height: 300px;
   background-color: rgb(255, 255, 255);
-  overflow: hidden;
+  /* overflow: scroll; */
 }
 
 .ledger table {
@@ -1385,6 +1374,7 @@ body {
   text-align: left;
   width: 100%;
   padding: 0;
+  overflow: scroll;
 }
 
 .ledger tr {
@@ -1428,14 +1418,11 @@ body {
 }
 
 .newPaymentClosed {
-  /* background-color: red; */
-  /* display: none; */
   position: fixed;
   top: 0;
   right: -100%;
   width: 35%;
   height: 100%;
-  /* background-color: rgba(0, 0, 0, 0.5); */
   background-color: white;
   padding: 20px;
   overflow-x: hidden;
@@ -1467,16 +1454,25 @@ body {
   border-radius: 5px 5px 0 0;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
   height: 100%;
-  margin: 5px 20px 60px 20px;
+  margin: 5px 20px 90px 20px;
   max-height: 300px;
   background-color: rgb(255, 255, 255);
-  overflow: scroll;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.Properties::-webkit-scrollbar {
+  width: 0em; 
+}
+
+.Properties::-webkit-scrollbar-thumb {
+  background-color: transparent;
 }
 
 .propertiesHeader {
   display: flex;
   justify-content: space-between;
-  margin: 0px 10px 0px 10px;
+  margin: 20px 10px 0px 10px;
   
 }
 
@@ -1512,6 +1508,8 @@ body {
 
 .Properties tr:last-of-type {
   border-bottom: 5px solid rgba(47, 188, 223, 0.822);
+  position: sticky;
+  top:0;
 }
 
 .Properties tr:hover {
@@ -1524,7 +1522,7 @@ body {
 
 /*properties categories titles */
 .Properties th {
-  background-color: rgba(47, 188, 223, 0.822);
+  background-color: rgb(47, 188, 223);
   color: rgb(255, 255, 255);
   border-style: hidden;
   border-right-color: rgba(128, 128, 128, 0.377);
@@ -1534,6 +1532,8 @@ body {
   padding: 20px 30px; 
   line-height: 1.1;
   white-space: normal;
+  position:sticky;
+  top: 0;
 }
 
 .propertiesHeader h2 { /*also accountsHeader */
@@ -1550,7 +1550,7 @@ body {
 
   position: fixed;
   top: 50%;
-  right: -100%; /* Move it off the screen to the right */
+  right: -100%; 
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.404);
@@ -1588,6 +1588,7 @@ body {
   justify-content: space-between;
   margin-bottom: 15px;
 }
+
 
 .proppopoverOpen label {
   flex: 0 0 30%; /* Adjust the width of the labels */
@@ -1680,13 +1681,19 @@ body {
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
 }
 
+.labelInputPair {
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  margin-bottom: 10px;
+}
+
 .newProperty {
   margin-top: 100px;
   display: flex;
   flex-direction: column;
-  justify-content: left;
+  align-items: center; 
   color: black;
-
 }
 
 .newProperty h2{
@@ -1695,6 +1702,7 @@ body {
   color: black;
   font-size: 50px;
   font-weight: lighter;
+  padding-right:90px;
 }
 
 .newProperty form{
@@ -1704,25 +1712,32 @@ body {
   align-content: left;
   flex-direction: column;
   color: black;
-  
+  padding-right:90px;
 }
 
-.newProperty label{
-  text-align: flex-end;
+.newProperty label {
   margin: 10px;
   font-size: 1.2rem;
   font-weight: bold;
+  margin-bottom: 5px;
+  text-align: right;
+  margin-right: 70px; 
+  width:100%;
+  text-transform: uppercase;
 }
 
-.newProperty input{
+
+.newProperty input {
   color: rgb(255, 255, 255);
   text-align: left;
-  align-self: left;
-  /* border: solid; */
   border-width: 1px;
   background-image: linear-gradient(#55dbec, #5fcdf8a8);
+  width: 100%;
+  box-sizing: border-box;
+  padding-right:150px;
+  margin-left:-50px;
+  margin-right: 30px;
 }
-
 
 .newProperty select {
   margin: 10px;
@@ -1757,6 +1772,8 @@ body {
   box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+
+
 .propertyDetailsOpen {
   position: fixed;
   left: 50%;
@@ -1775,7 +1792,7 @@ body {
   border-color: #55dbec;
   border-radius: 10px;
   box-shadow: 1px 1px 10px 10px rgba(0, 0, 0, 0.356);
-  background-image: url("https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg");
+  background-image: url("https://www.thewoodlands.com/wp-content/uploads/2022/01/The-Grove-at-Creekside-Park-2843.jpg");
   backdrop-filter: blur(5px);
   z-index: 1;
   overflow: hidden;
@@ -1797,25 +1814,20 @@ body {
   color: black;
 }
 
-.propertyDetails h1{
-  margin: 10px;
-  text-align: left;
-  color: black;
-  text-shadow:0px 0px 20px rgb(0, 0, 0);
-}
+
 
 .propertyDetails img{
   border-style: solid;
   border-radius: 10px;
   border-color:#55dbec;
   height: 90%;
-  width: 93%;
+  width: 92%;
   object-fit:cover;
   margin: 20px;
-  align-self: center;
-  justify-self: center;
+  align-self: left;
+  justify-self: left;
   overflow:hidden;
-  box-shadow:0px 0px 20px rgb(0, 0, 0)
+  box-shadow:0px 0px 0px rgb(0, 0, 0)
 }
 
 .propertyDetails form{
@@ -1858,10 +1870,10 @@ body {
 /* Style for the 'X' button */
 .closeRecord button {
   background-color: rgb(255, 255, 255); 
-  color: rgb(109, 209, 255);
+  color: rgba(47, 188, 223, 0.822);
   border-radius: 10px;
   border: solid;
-  border-color:#55dbec;
+  border-color:rgba(47, 188, 223, 0.822);
   width: 60px; 
   height:50px;
   margin-top: 10px;
@@ -1891,119 +1903,59 @@ body {
   margin-top: 100px;
   display: flex;
   flex-direction: column;
-  justify-content: left;
-  color: black;
-
-}
-
-.newAccount h2{
-  margin-bottom: 20px;
-  /* margin-left: 20px; */
-  align-self: baseline;
+  align-items: center;
   color: black;
 }
 
-.newAccount form{
+.newAccount h2 {
+  margin-bottom: 60px;
+  align-self: center;
+  color: black;
+  font-size: 50px;
+  font-weight: lighter;
+  padding-right: 90px;
+}
+
+.newAccount form {
   display: flex;
   align-items: left;
   justify-content: left;
   align-content: left;
   flex-direction: column;
   color: black;
-  
+  padding-right: 90px;
 }
 
-.newAccount label{
-  text-align: left;
+.newAccount label {
   margin: 10px;
   font-size: 1.2rem;
   font-weight: bold;
+  margin-bottom: 5px;
+  text-align: right;
+  margin-right: 70px; 
+  width: 100%;
+  text-transform: uppercase;
 }
 
-.newAccount input{
-  background-color: rgba(255, 255, 255, 0);
-  border-style: solid;
-  border-color: black;
-  align-self: left;
+.newAccount input {
+  color: rgb(255, 255, 255);
   text-align: left;
-  color: black;
+  border-width: 1px;
+  background-image: linear-gradient(#55dbec, #5fcdf8a8);
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 150px;
+  margin-left: -50px;
+  margin-right: 30px;
 }
 
 .newAccount select {
   margin: 10px;
   font-size: 1.5rem;
   align-self: left;
-  width: 100%;
 }
 
-.newAccount button{
-  appearance: none;
-  outline: 0;
-  background-color: white;
-  border: 1;
-  padding: 10px 15px;
-  color: black;
-  border-radius: 10px;
-  width: 250px;
-  height: auto;
-  font-size: 20px;
-  align-self: center;
-}
-
-.newAccount button:hover{
-  background-image: linear-gradient(#000000, #5a42a8);
-  color: white;
-  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
-}
-
-.newPayment {
-  margin-top: 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  color: black;
-}
-
-.newPayment h2 {
-  margin-bottom: 60px;
-  align-self: center;
-  color: black;
-  font-size: 50px;
-  font-weight: lighter;
-}
-
-.newPayment form {
-  display: flex;
-  align-items: left;
-  justify-content: left;
-  align-content: left;
-  flex-direction: column;
-  color: black;
-}
-
-.newPayment label {
-  text-align: flex-end; 
-  margin: 10px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.newPayment input {
-  color: rgb(255, 255, 255);
-  text-align: left;
-  align-self: left;
-  border-width: 1px;
-  background-image: linear-gradient(#55dbec, #5fcdf8a8);
-}
-
-.newPayment select {
-  margin: 10px;
-  font-size: 1.5rem;
-  align-self: left;
-}
-
-.newPayment button {
+.newAccount button {
   appearance: none;
   outline: 0;
   background-color: #fff;
@@ -2024,12 +1976,94 @@ body {
   line-height: 60px; /* Adjust line-height for vertical centering */
 }
 
-.newPayment button:hover {
+.newAccount button:hover {
   background-image: linear-gradient(#55dbec, #5fcdf8);
   color: white;
   box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+.newPayment {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  color: black;
+}
+
+.newPayment h2 {
+  margin-bottom: 60px;
+  align-self: center;
+  color: black;
+  font-size: 47px;
+  font-weight: lighter;
+  padding-right: 90px; /* Adjust padding-right as needed */
+}
+
+.newPayment form {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  align-content: left;
+  flex-direction: column;
+  color: black;
+  padding-right: 90px; /* Adjust padding-right as needed */
+}
+
+.newPayment label {
+  margin: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: right;
+  margin-right: 70px; 
+  width: 100%;
+  text-transform: uppercase;
+}
+
+.newPayment input {
+  color: rgb(255, 255, 255);
+  text-align: left;
+  border-width: 1px;
+  background-image: linear-gradient(#55dbec, #5fcdf8a8);
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 150px; /* Adjust padding-right as needed */
+  margin-left: -50px;
+  margin-right: 30px;
+}
+
+.newPayment select {
+  margin: 10px;
+  font-size: 1.5rem;
+  align-self: left;
+}
+
+.newPayment button {
+  appearance: none;
+  outline: 0;
+  background-color: #fff;
+  border: 4px solid #55dbec;
+  padding: 10px 20px; 
+  color: #000000;
+  border-radius: 15px;
+  width: 245px;
+  height: 70px;
+  font-size: 17.5px;
+  display: flex; 
+  align-items: center; 
+  align-self: center;
+  justify-content: center;
+  margin: 10px;
+  font-weight: lighter;
+  text-transform: uppercase;
+  line-height: 60px; /* Adjust line-height for vertical centering */
+}
+
+.newPayment button:hover {
+  background-image: linear-gradient(#55dbec, #5fcdf8);
+  color: white;
+  box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.1);
+}
 
 .payPopOpen {
   position: fixed;
@@ -2054,6 +2088,78 @@ body {
   color: black;
 }
 
+.Admin {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: start;
+  border-color: #17475109;
+  border-radius: 5px 5px 0 0;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
+  height: 100%;
+  margin: 5px 20px 180px 20px; /* 3rd one vertically moves accounts table */
+  max-height: 300px;
+  background-color: rgb(255, 255, 255);
+  /* overflow: hidden; */
+}
+
+.AdminHeader {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 10px 0px 10px;
+}
+
+.Admin table {
+  margin: 0;
+  max-height: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  width: 100%;
+  padding: 0;
+}
+
+.Admin tr {
+  border-bottom: 1px solid rgb(192, 206, 231);
+  height: 20px;
+  padding: 10px 30px 10px 30px;
+  text-align: left;
+}
+
+.Admin tr td {
+  text-align: left;
+  padding: 10px 30px;
+}
+
+.Admin tr:nth-of-type(even) {
+  background-color: #d9dcdfb4;
+}
+
+.Admin tr:last-of-type {
+  border-bottom: 5px solid rgba(47, 188, 223, 0.822);
+}
+
+.Admin tr:hover {
+  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+  font-weight: bold;
+  color: #178b8f6c;
+  cursor: pointer;
+}
+
+/* Accounts Categories Titles */
+.Admin th {
+  background-color: rgba(47, 188, 223, 0.822);
+  color: rgb(255, 255, 255);
+  border-style: hidden;
+  border-right-color: rgba(128, 128, 128, 0.377);
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 17px;
+  padding: 20px 30px; /* Adjusted padding */
+  line-height: 1.1;
+  white-space: normal;
+}
+
 .Accounts {
   display: flex;
   justify-content: center;
@@ -2066,7 +2172,16 @@ body {
   margin: 5px 20px 180px 20px; /* 3rd one vertically moves accounts table */
   max-height: 300px;
   background-color: rgb(255, 255, 255);
-  overflow: hidden;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.Accounts::-webkit-scrollbar {
+  width: 0em; /* Adjust as needed */
+}
+
+.Accounts::-webkit-scrollbar-thumb {
+  background-color: transparent;
 }
 
 .AccountsHeader {
@@ -2103,6 +2218,8 @@ body {
 
 .Accounts tr:last-of-type {
   border-bottom: 5px solid rgba(47, 188, 223, 0.822);
+  position: sticky;
+  top: 0;
 }
 
 .Accounts tr:hover {
@@ -2114,7 +2231,7 @@ body {
 
 /* Accounts Categories Titles */
 .Accounts th {
-  background-color: rgba(47, 188, 223, 0.822);
+  background-color: rgb(47, 188, 223);
   color: rgb(255, 255, 255);
   border-style: hidden;
   border-right-color: rgba(128, 128, 128, 0.377);
@@ -2124,6 +2241,9 @@ body {
   padding: 20px 30px; /* Adjusted padding */
   line-height: 1.1;
   white-space: normal;
+  white-space: normal;
+  position:sticky;
+  top: 0;
 }
 
 
@@ -2168,7 +2288,7 @@ body {
   border-width: 5px;
   border-radius: 10px;
   box-shadow: 1px 1px 10px 10px rgba(128, 128, 128, 0.61);
-  
+  font-size:20px;
 }
 
 
@@ -2177,6 +2297,7 @@ body {
   align-content: baseline;
   vertical-align: top;
   padding-bottom: 30px;
+  overflow: scroll;
 }
 
 .detailsLedgerHeader {
