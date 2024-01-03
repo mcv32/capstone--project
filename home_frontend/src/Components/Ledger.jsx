@@ -10,7 +10,7 @@ function Ledger(props){
             setPropPopover(!propPopped);
     }
 
-    console.log("Ledger accountID import", props);
+    console.log("Ledger props import", props);
     // console.log("Ledger amount import", ledgers[0].amount);
     // console.log("Ledge import", ledge[0]);
     // console.log("new ledger log", Object.keys(ledgers));
@@ -27,8 +27,9 @@ function Ledger(props){
         description:"",
         time:"",
         status:true,
-        financial_account_id: props.account_id,
-        property_id: props.ledgers[0]?.property?.property_id !== null ? props.ledgers[0]?.property?.property_id : propertyData[0]?.property_id
+        financial_account_id: props.account_id !== null ? props.account_id : null,
+        property_id: props.ledgers[0]?.property?.property_id !== null ? props.ledgers[0]?.property?.property_id : 
+        propertyData[0]?.property_id !== null ? propertyData[0]?.property_id: props?.property_id
     })
     
     const [resMsg, setResMsg] = useState();
@@ -51,7 +52,7 @@ function Ledger(props){
       };
 
     const submit = async (e) => {
-        console.log(config)
+        // console.log(config)
         try {
             e.preventDefault();
             const response = await axios.request(config)
@@ -176,11 +177,16 @@ function Ledger(props){
                 <h2>Enter New Ledger Details</h2>
                 <form action="submit" onSubmit={(e) => submit(e)}>
                     <div>
+                        {props.parent_component === "properties" ?
+                        <select onChange={(e) => handle(e)} value={newLedgerPayload.ledgerType} id="ledgerType" type="text">
+                            <option value="EXPENSE">EXPENSE</option>
+                        </select>
+                        :
                         <select onChange={(e) => handle(e)} value={newLedgerPayload.ledgerType} id="ledgerType" type="text">
                             <option value="CHARGE">CHARGE</option>
                             <option value="CREDIT">CREDIT</option>
-                            <option value="EXPENSE">EXPENSE</option>
-                        </select>
+                    </select>
+                        }
                     </div>
 
                     <label>Amount</label>

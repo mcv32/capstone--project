@@ -118,7 +118,7 @@ function Accounts(){
                 </form>
                 <div className="billingAccountLedger">
                     {Object.keys(viewAccount).length > 0 &&
-                        (<Ledger account_id={viewAccount.financial_account_id} ledgers={viewAccount.ledgers}/>)
+                        (<Ledger parent_component = "accounts" account_id={viewAccount.financial_account_id} ledgers={viewAccount.ledgers}/>)
                     }
                 </div>
                 </div>

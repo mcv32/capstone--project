@@ -5,6 +5,8 @@ import Axios from "axios";
 
 function AccountID({...userData}){
 
+    console.log("AccountID userData prop pass",{...userData});
+
     const { auth, setAuth } = useAuth();
     const fullName = userData?.f_name + " " + userData?.l_name;
     const [isPopped, setIsPopped] = useState(false); 
@@ -86,7 +88,7 @@ function AccountID({...userData}){
                 {auth?.email === userData?.email && <Link onClick={handlePop}>Edit Account</Link>}
             </div>
             <div className="accountRight">
-            {userData?.appUserRole === "MANAGER" && <h2>MANAGER</h2>}
+                {userData?.appUserRole === "MANAGER" && <h2>MANAGER</h2>}
                 {userData?.appUserRole === "ADMIN" && <h2>MANAGER</h2>}
                 <h3>{fullName}</h3>
                

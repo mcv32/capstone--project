@@ -121,7 +121,7 @@ function Dashboard(){
                 </div>
                 <div className="dashCore">
                     <AccountBalance {...userFinAcct}/>
-                    <Ledger account_id={userFinAcct} ledgers={userLedgers}/> 
+                    <Ledger parent_component = "dashboard" account_id={userFinAcct} ledgers={userLedgers}/> 
 
                 </div>
             </div>

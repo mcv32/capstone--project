@@ -56,6 +56,7 @@ function Properties(){
     function handlePropPop(prop){
             setPropPopover(!propPopped);
             setViewProperty(prop);
+            console.log("view property ledgers", viewPropertyLedgers)
     }
 
     function handlePropDetailsInput(e){
@@ -100,6 +101,46 @@ function Properties(){
         }      
 
     }
+
+    //Methods for handling prop click ledgers
+    let ledgerConfig = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:8080/ledgers/getLedgersOfProperty',
+        headers: { 
+          'Authorization': 'Bearer ' + auth?.accessToken
+        },
+        data : {
+            id: viewProperty?.property_id
+        }
+      };
+
+    const [viewPropertyLedgers, setViewPropertyLedgers] = useState();
+
+    useEffect (() => {
+        // get ledgers by property ID
+        const fetchLedgers = async () => {
+            try {
+                console.log("Property get ledger config", ledgerConfig)
+                const response = await axios.request(ledgerConfig)
+
+                console.log("Prop Ledger Response", {...response?.data});
+                setViewPropertyLedgers({...response?.data})
+                // console.log("Account Data State", Object.keys(accountData));
+
+                
+
+            } catch (err) {
+                console.log(err?.response);
+
+            }
+        }
+
+        fetchLedgers();
+
+        // pass ledger array into Ledger component
+
+    }, [viewProperty])
     
     // Methods for handling new ledgers
     const [isLedgPop, setLedgPop] = useState(false);
@@ -205,8 +246,7 @@ function Properties(){
                             <button >Save Property Details</button>
                             {/* M: got rid of a button */}
                         </form>
-                    <h1>Missing ledger returns on /properties get request</h1>
-                    {/* <Ledger/> */}
+                    <   Ledger parent_component = "properties" account_id={{}} property_id={{}} ledgers={{}}/>
                     </div>
                 </div>
             </div>
