@@ -141,17 +141,15 @@ function Ledger(props){
         console.log("Property Data State", propertyData);
       }, [allProps]);
 
-    return(
+      return (
         <div>
         <div className="propertiesHeader">
-            <h2>LEDGERS</h2>
+          <h2>LEDGERS</h2>
+          <button className="openpopover" onClick={handleNewLedgPop}>+</button>
         </div>
         <div className="ledger">
-         
-            {/* {auth?.userRoles === "ADMIN" || auth?.userRoles === "MANAGER" && */}
-            <div className="detailsLedgerHeader">
-                <button className="openpopover" onClick={handleNewLedgPop}>+</button>
-            </div>
+          {/* {auth?.userRoles === "ADMIN" || auth?.userRoles === "MANAGER" && */}
+        <div className="detailsLedgerHeader">
         <table>
             <thead>
                 <tr>
@@ -246,6 +244,7 @@ function Ledger(props){
                 <p>Status: Approved</p>
             </div>
         </div> 
+    </div>
     </div>
     </div>
     );

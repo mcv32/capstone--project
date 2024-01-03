@@ -86,7 +86,8 @@ function AccountID({...userData}){
                 {auth?.email === userData?.email && <Link onClick={handlePop}>Edit Account</Link>}
             </div>
             <div className="accountRight">
-                {auth?.roles === "MANAGER" ? <h2>MANAGER</h2> : null}
+            {userData?.appUserRole === "MANAGER" && <h2>MANAGER</h2>}
+                {userData?.appUserRole === "ADMIN" && <h2>MANAGER</h2>}
                 <h3>{fullName}</h3>
                
                {/* M: tweaked title */}

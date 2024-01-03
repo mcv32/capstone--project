@@ -636,7 +636,7 @@ input:checked + .slider:before {
 }
 
 .loginForm{
-  padding: 20px;
+  padding: 60px;
   margin-bottom: 10px;
   border-style: solid;
   border-width: 1px;
@@ -750,8 +750,8 @@ position: fixed;
 top: 0;
 left: 0;
 height: 100vh; 
-max-width: 615px;
-width: 37.5vw; 
+/* max-width: 615px; */
+width: 32vw; 
 background: linear-gradient(rgba(0, 0, 0, 0.829), rgba(47, 188, 223, 0.884)); 
 z-index: -1; 
 box-shadow: 0px 0px 20px 7px rgba(0, 0, 0, 0.747);
@@ -843,6 +843,16 @@ body {
   /* z-index: 1; */
 }
 
+.accountLeft img {
+  margin-right: 28px;
+}
+
+.accountLeft a {
+  margin-right: 28px;
+  text-transform: uppercase;
+  color:#2f6c88;
+}
+
 .accountRight {
   display: flex;
   flex-direction: column;
@@ -907,8 +917,10 @@ body {
 .accountDetails {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 100%;
   padding: 0px;
+  
 }
 
 .accountDetails h1 {
@@ -921,18 +933,18 @@ body {
   margin-left:15px;
 }
 .accountDetails label {
-  margin: 10px;
+  margin: 70px;
   font-size: 1.2rem;
   font-weight: bold; 
-  text-align: right; /* Change to right alignment */
-  margin-right: 20px; /* Adjust the margin-right as needed */
+  text-align: right; 
+  margin-right: 20px; 
   width: 100%;
   text-transform: uppercase;
 }
 
 .accountDetails input {
   color: rgb(255, 255, 255);
-  text-align: right;
+  text-align: left;
   border-width: 1px;
   background-image: linear-gradient(#55dbec,rgba(47, 188, 223, 0.822));
   width: 60%;
@@ -950,7 +962,7 @@ body {
   width: 270px;
   object-fit: cover;
   color: #000000;
-  margin: 20px 220px 35px;
+  margin: 20px 265px 35px;
 }
 
 .accountDetails button {
@@ -1380,40 +1392,63 @@ body {
 }
 
 .ledger {
-  display: flex;
+  display:flex;
   justify-content: center;
   flex-direction: column;
+  justify-content: start;
   border-color: #17475109;
   border-radius: 5px 5px 0 0;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
   height: 100%;
-  margin: 5px 20px 60px 20px;
-  max-height: 300px;
+  margin: 5px 20px 90px 20px;
+  /* max-height: 300px; */
   background-color: rgb(255, 255, 255);
-  /* overflow: scroll; */
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.ledger::-webkit-scrollbar {
+  width: 0em;
+}
+
+.ledger::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+.detailsLedgerHeader {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 10px 0px 10px;
 }
 
 .ledger table {
   margin: 0;
   max-height: 100%;
   height: 100%;
+  width: 100%;
   border-collapse: collapse;
   text-align: left;
   width: 100%;
   padding: 0;
-  overflow: scroll;
 }
 
-.ledger tr {
+
+.ledger td {
   border-bottom: 1px solid rgb(192, 206, 231);
-  height: 20px;
-  padding: 10px 30px 10px 30px;
-  text-align: left;
+  padding:30px 30px;
 }
 
-.ledger tr td {
+.ledger th {
+  background-color: rgb(47, 188, 223);
+  color: white;
   text-align: left;
-  padding: 10px 30px;
+  text-transform: uppercase;
+  font-size: 17px;
+  padding: 20px 30px;
+  line-height: 1.1;
+  white-space: normal;
+  position: sticky;
+  top: 0;
 }
 
 .ledger tr:nth-of-type(even) {
@@ -1422,27 +1457,17 @@ body {
 
 .ledger tr:last-of-type {
   border-bottom: 5px solid rgba(47, 188, 223, 0.822);
+  position: sticky;
+  top: 0;
 }
 
 .ledger tr:hover {
-  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+  box-shadow: 0px 2px 5px rgba(128, 128, 128, 0.3);
   font-weight: bold;
   color: #178b8f6c;
   cursor: pointer;
 }
 
-/* Ledger categories titles */
-.ledger th {
-  background-color: rgba(47, 188, 223, 0.822);
-  color: rgb(255, 255, 255);
-  border-style: hidden;
-  border-right-color: rgba(128, 128, 128, 0.377);
-  text-align: left;
-  text-transform: uppercase;
-  font-size: 17px;
-  padding: 10px 30px;
-  line-height: 10px;
-}
 
 .newPaymentClosed {
   position: fixed;
@@ -1504,14 +1529,13 @@ body {
 }
 
 .Properties table {
-  margin: 0; /* Adjusted margin to 0 */
-  max-height: 100%; /* Change max-height to 100% */
+  margin: 0; 
+  max-height: 100%; 
   height: 100%;
   border-collapse: collapse;
   text-align: left;
   width: 100%;
   padding: 0;
-  
 }
 
 .Properties tr {
@@ -1526,11 +1550,8 @@ body {
   padding: 10px 30px;
 }
 
-
-
 .Properties tr:nth-of-type(even) {
   background-color: #d9dcdfb4;
-  
 }
 
 .Properties tr:last-of-type {
@@ -1580,12 +1601,12 @@ body {
   right: -100%; 
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.404);
+  background-color: rgba(255, 255, 255, 0.66);
   padding: 20px;
   overflow-x: hidden;
   box-sizing: border-box;
   box-shadow: 10px 15px 100px 10px rgba(128, 128, 128, 0.61);
-  transition: left 1s cubic-bezier(.36, -0.01, 0, .77); 
+  /* transition: left 1s cubic-bezier(.36, -0.01, 0, .77);  */
 }
 
 .rightPopoverOpen {
@@ -1599,7 +1620,6 @@ body {
   padding: 20px;
   height: 100%;
   overflow-x: hidden;
-
   box-sizing: border-box;
   box-shadow: -10px 15px 100px 10px rgba(128, 128, 128, 0.61);
   transition: right 1s cubic-bezier(.36, -0.01, 0, .77);
@@ -1869,7 +1889,7 @@ body {
   align-content: center;
   margin-right: 15px;
   column-gap: 0px;
-  background-color: rgba(255, 255, 255, 0.925);
+  background-color: rgb(255, 255, 255);
   margin-bottom: 20px;
   margin-top: 20px;
   box-shadow:0px 0px 20px rgb(0, 0, 0)
@@ -2108,11 +2128,11 @@ body {
   border: solid;
   border-radius: 10px;
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
-
 }
 
 .payPopOpen h1 {
   color: black;
+  font-size: 20px;
 }
 
 .Admin {
@@ -2299,8 +2319,8 @@ body {
 
 .transactionRecordOpen {
   position: fixed;
-  left: 50%; /* Set left to 50% */
-  top: 50%; /* Set top to 50% */
+  left: 50%; 
+  top: 50%; 
   height: 40%;
   width: 50%;
   transform: translate(-50%, -50%); /* Center the element */
@@ -2315,7 +2335,8 @@ body {
   border-width: 5px;
   border-radius: 10px;
   box-shadow: 1px 1px 10px 10px rgba(128, 128, 128, 0.61);
-  font-size:20px;
+  font-size:30px;
+  z-index: 1000;
 }
 
 
@@ -2330,90 +2351,91 @@ body {
 .detailsLedgerHeader {
   display: flex;
   justify-content: space-between;
-  justify-content: flex-end;
-  margin: 10px 10px 0px 10px;
+  justify-content: flex-start;
+  margin: 0;
   /* background-color: red; */
   /* z-index: 5; */
 }
-
 .newLedger {
   margin-top: 100px;
   display: flex;
   flex-direction: column;
-  justify-content: left;
-
+  align-items: center;
+  color: black;
 }
 
-.newLedger h2{
-  margin-bottom: 20px;
-  /* margin-left: 20px; */
-  align-self: baseline;
+.newLedger h2 {
+  margin-bottom: 60px;
+  align-self: center;
+  color: black;
+  font-size: 50px;
+  font-weight: lighter;
+  padding-right:90px;
 }
 
-.newLedger form{
+.newLedger form {
   display: flex;
-  align-items: left;
-  justify-content: left;
-  align-content: left;
+  align-items: flex-start; /* Align form items at the start (top) of the flex container */
   flex-direction: column;
   color: black;
-  
 }
 
-.newLedger label{
-  text-align: left;
-  margin: 10px;
+.newLedger label {
+  margin: 10px 0; /* Adjusted margin for better spacing */
   font-size: 1.2rem;
   font-weight: bold;
 }
 
-.newLedger input{
-  background-color: rgba(255, 255, 255, 0);
+.newLedger select,
+.newLedger textarea {
+  margin: 10px 0;
   border-style: solid;
   border-color: black;
-  justify-self: left;
-  align-self: left;
+  width: 100%;
+  box-sizing: border-box;
+  color: black; /* Input text color */
+}
+
+.newLedger input {
+  color: rgb(255, 255, 255);
   text-align: left;
-  color: black;
-}
-
-.newLedger select {
-  margin: 10px;
-  margin-right: 20%;
-  font-size: 1.5rem;
-  align-self: left;
-  border-style: solid;
   border-width: 1px;
+  background-image: linear-gradient(#55dbec, #5fcdf8a8);
+  width: 100%;
+  box-sizing: border-box;
+  padding-right:150px;
+  margin-left:-50px;
+  margin-right: 30px;
 }
 
-.newLedger textarea {
-  margin: 10px;
-  margin-right: 20%;
-  font-size: 1rem;
-  align-self: left;
-  border-style: solid;
-  border-width: 1px;
-}
-
-.newLedger button{
+.newLedger button {
   appearance: none;
   outline: 0;
-  background-color: white;
-  border: 1;
-  padding: 10px 15px;
-  color: black;
-  border-radius: 3px;
-  width: 250px;
-  height: auto;
-  font-size: 20px;
+  background-color: #fff;
+  border: 4px solid #55dbec;
+  padding: 10px 20px; 
+  color: #000000;
+  border-radius: 15px;
+  width: 245px;
+  height: 70px;
+  font-size: 17.5px;
+  display: flex; 
+  align-items: center; 
   align-self: center;
+  justify-content: center;
+  margin: 10px;
+  font-weight: lighter;
+  text-transform: uppercase;
+  line-height: 60px; 
 }
 
-.newLedger button:hover{
-  background-image: linear-gradient(#000000, #5a42a8);
+.newLedger button:hover {
+  background-image: linear-gradient(#55dbec, #5fcdf8);
   color: white;
-  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+  box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.1);
 }
+
+
 
 .billingAccountRecordOpen img{
   border-style: solid;
