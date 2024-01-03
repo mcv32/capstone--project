@@ -47,7 +47,7 @@ function Footing() {
           </NavLink>
         </ul>
       </div>
-      <p>Copyright {new Date().getUTCFullYear()}</p>
+      <p>@Copyright {new Date().getUTCFullYear()}</p>
       {/* Add the Contact Us title in the center */}
       <div className="centered-title">
         <h3>Contact Us</h3>
