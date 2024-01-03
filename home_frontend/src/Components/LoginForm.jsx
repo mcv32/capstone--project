@@ -109,7 +109,7 @@ function LoginForm(props){
                     password: registerPayload.password
                 })
                     setSuccess(true);
-                    setResMsg("Successful Registration! Proceed to inbox to confirm email and enable login.");
+                    setResMsg("Successful Registration! Confirmation sent to email.");
                     resetRegisterPayload();
                     setTimeout(resetResMsg, 5000);
             } catch (err) {

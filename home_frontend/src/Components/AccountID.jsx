@@ -91,8 +91,8 @@ function AccountID({...userData}){
                
                {/* M: tweaked title */}
                 <p>Contact Information: </p>
-                <p>{userData?.phoneNumber}</p>
-                <p>{userData?.email}</p>
+                <p style={{ fontWeight: 'lighter' }}>{userData?.phoneNumber}</p>
+                <p style={{ fontWeight: 'lighter' }}>{userData?.email}</p>
             </div>
             <div className={isPopped ? "accountDetailsOpen" :"offscreen"} >
                 <div className="closeRecord">

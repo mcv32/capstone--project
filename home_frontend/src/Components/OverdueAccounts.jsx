@@ -16,7 +16,7 @@ function OverdueAccounts(){
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/financialAccounts',
+        url: 'http://localhost:8080/financialAccounts/overdue',
         headers: { 
           'Authorization': 'Bearer ' + auth?.accessToken
         }
