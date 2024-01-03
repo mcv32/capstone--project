@@ -46,7 +46,7 @@ function Home() {
                 </div>
 
                 <div className="media-element homeTechStack" id="homeTechStack">
-                    <Spline scene="https://prod.spline.design/jTj8tnjowJhFSwVa/scene.splinecode" />
+                    {/* <Spline scene="https://prod.spline.design/jTj8tnjowJhFSwVa/scene.splinecode" /> */}
                 </div>
 
                 <div className="media-element homeDemo2" id="homeDemo2">

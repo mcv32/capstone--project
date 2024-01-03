@@ -147,9 +147,9 @@ function Ledger(props){
             <h2>LEDGERS</h2>
         </div>
         <div className="ledger">
-        {auth?.roles === "ADMIN" || auth?.roles === "MANAGER" || auth?.roles === "USER" && 
+         
+            {auth?.userRoles === "ADMIN" || auth?.userRoles === "MANAGER" &&
             <div className="detailsLedgerHeader">
-                <h2>LEDGERS</h2>
                 <button className="openpopover" onClick={handleNewLedgPop}>+</button>
             </div>}
         <table>
@@ -200,6 +200,7 @@ function Ledger(props){
                         <span className="label">{allProps ? "All Properties" : "Known Properties"}</span>
                     </div>
                     <select onChange={(e) => handle(e)} value={newLedgerPayload.property_id} id="property_id">
+                        <option value="">Select a Property</option>
                         {allProps === true ?
                         Object.keys(propertyData).map((i) => (
                             <option key={i} value={propertyData[i]?.property_id}>

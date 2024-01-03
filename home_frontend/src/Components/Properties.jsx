@@ -133,17 +133,9 @@ function Properties(){
                     </tr>
                 </thead>
                 <tbody>
-                
-                <tr onClick={() => handlePropPop({})}>
-        
-                <td>Status</td>
-                <td>Name</td>
-                <td>Balance</td>
-                <td>Address</td>
-                <td>City, State</td>
-                <td>Financial Account</td>
-                
-                </tr>
+
+              {/* M: Got rid of filler td */}
+
                 {Object.keys(propertyData).map((i) => (
                     <tr key = {i} onClick={() => handlePropPop(propertyData[i])}>
                         <td>{propertyData[i]?.status.toUpperCase()}</td>

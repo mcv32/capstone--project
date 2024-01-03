@@ -51,7 +51,7 @@ function AccountID({...userData}){
 
     const saveDetails = async (form) => {
             try {
-                console.log(userConfig);
+                console.log("Save data config", userConfig);
                 form.preventDefault();
                 const response = await Axios.request(userConfig)
                 

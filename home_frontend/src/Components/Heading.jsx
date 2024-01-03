@@ -55,6 +55,12 @@ function Heading(){
                                                                         textDecoration: isActive ? 'underline' : 'none',
                                                                     })} to="/dashboard">MY DASHBOARD</NavLink>
                     : null}
+                {auth?.roles === "USER" || auth?.roles === "MANAGER" || auth?.roles === "ADMIN" ? 
+                <NavLink className="Navlink" style={({ isActive }) => ({
+                                                                        color: isActive ? 'white' : 'white',
+                                                                        textDecoration: isActive ? 'underline' : 'none',
+                                                                    })} to="/admin">ADMIN</NavLink>
+                    : null}
                 {auth?.roles === "USER" || auth?.roles === "MANAGER" || auth?.roles === "ADMIN" ?
                     <button className="Navbutton" onClick={logout}>Logout</button>
                     :<NavLink className="Navbutton" to="/login">
