@@ -108,7 +108,6 @@ public class LedgerService {
                 newLedger.setDescription(ledgerRequest.getDescription());
                 newLedger.setProperty(prop);
                 newLedger.setFinancialAccount(fa);
-                newLedger.setTime(ledgerRequest.getTime());
                 newLedger.setLedgerType(ledgerType);
                 newLedger.setTime(LocalDateTime.now());
 
@@ -199,7 +198,7 @@ public class LedgerService {
         List<Ledger> overdueLedgers = new ArrayList<>();
         for(int i = 0; i < allLedgers.size(); i++){
             FinancialAccount financialAccount = allLedgers.get(i).getFinancialAccount();
-            if(financialAccount.getDue_date().isBefore(LocalDateTime.now()) && allLedgers.get(i).getAmount() > 0){
+            if(financialAccount.getDue_date().isBefore(LocalDateTime.now()) && financialAccount.getAccount_balance() > 0){
                 overdueLedgers.add(allLedgers.get(i));
             }
         }
@@ -211,7 +210,8 @@ public class LedgerService {
         List<Ledger> allLedgers = ledgerRepository.findAll();
         List<Ledger> openServiceLedgers = new ArrayList<>();
         for(int i = 0; i < allLedgers.size(); i++){
-            if(allLedgers.get(i).getAmount() > 0){
+            FinancialAccount financialAccount = allLedgers.get(i).getFinancialAccount();
+            if(financialAccount.getAccount_balance() > 0.0){
                 openServiceLedgers.add(allLedgers.get(i));
             }
         }

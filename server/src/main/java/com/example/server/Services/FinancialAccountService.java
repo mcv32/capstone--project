@@ -60,7 +60,17 @@ public class FinancialAccountService {
             appUserRepository.save(existingAppUser);
             return newFinancialAccount;
         }
+        //set financial account details
         newFinancialAccount.setEmail(financialAccount.getEmail());
+        newFinancialAccount.setAccount_balance(financialAccount.getAccount_balance());
+        newFinancialAccount.setStatus(financialAccount.getStatus());
+        newFinancialAccount.setDue_date(
+                LocalDateTime.of(
+                        LocalDateTime.now().getYear(),
+                        Month.of(LocalDateTime.now().getMonth().getValue() + 1),
+                        LocalDateTime.now().getDayOfMonth(), 0, 0));
+
+        financialAccountRepository.save(newFinancialAccount);
         return newFinancialAccount;
     }
 
@@ -88,6 +98,34 @@ public class FinancialAccountService {
         return financialAccountRepository.findLedgersByFinancialAccountId(id);
     }
 
+    public FinancialAccount updateFinancialAccountDueDate(Map<String, String> requestBody){
+        Optional<FinancialAccount> financialAccount = financialAccountRepository.findById(Long.valueOf(requestBody.get("id")).longValue());
+        if(financialAccount.isPresent()){
+            FinancialAccount fa = financialAccount.get();
+            int year = Integer.parseInt(requestBody.get("year"));
+            Month month = Month.of(Integer.parseInt(requestBody.get("month")));
+            int day = Integer.parseInt(requestBody.get("day"));
+            int hour = Integer.parseInt(requestBody.get("hour"));
+            int minute = Integer.parseInt(requestBody.get("minute"));
+            int second = Integer.parseInt(requestBody.get("second"));
+            fa.setDue_date(LocalDateTime.of(year, month, day, hour, minute, second));
+            if(fa.getAccount_balance() <= 0){
+                fa.setStatus("Good standing");
+            }else if(fa.getAccount_balance() > 0){
+                if(LocalDateTime.now().isAfter(fa.getDue_date())){
+                    fa.setStatus("Overdue");
+                }else{
+                    fa.setStatus("Payment due soon");
+                }
+            }
+            financialAccountRepository.save(fa);
+            return fa;
+        }
+        return financialAccount.get();
+    }
+
+
+
     public FinancialAccount addAnotherUser(Map<String, String> requestBody) {
         Optional<FinancialAccount> financialAccount = financialAccountRepository.findById(Long.valueOf(requestBody.get("id")).longValue());
         if (financialAccount.isPresent()){
@@ -105,4 +143,30 @@ public class FinancialAccountService {
         }
         return null;
     }
+
+    public List<FinancialAccount> getOverdueAccounts() {
+        List<FinancialAccount> allAccounts = financialAccountRepository.findAll();
+        List<FinancialAccount> overdueAccounts = new ArrayList<>();
+        for(int i = 0; i < allAccounts.size(); i++){
+            FinancialAccount financialAccount = allAccounts.get(i);
+            if (financialAccount.getAccount_balance() > 0 && financialAccount.getDue_date().isBefore(LocalDateTime.now())) {
+                overdueAccounts.add(financialAccount);
+            }
+        }
+        return overdueAccounts;
+    }
+
+    public List<FinancialAccount> getOpenServiceTickets() {
+        List<FinancialAccount> allAccounts = financialAccountRepository.findAll();
+        List<FinancialAccount> openServiceTickets = new ArrayList<>();
+        for(int i = 0; i < allAccounts.size(); i++){
+            FinancialAccount financialAccount = allAccounts.get(i);
+            if (financialAccount.getAccount_balance() > 0) {
+                openServiceTickets.add(financialAccount);
+            }
+        }
+        return openServiceTickets;
+    }
+
+
 }

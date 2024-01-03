@@ -61,6 +61,21 @@ public class FinancialAccountController {
         return financialAccountService.getLedgersByFinancialAccountId(requestBody.get("id"));
     }
 
+    @GetMapping("/overdue")
+    public List<FinancialAccount> getOverdue(){
+        return financialAccountService.getOverdueAccounts();
+    }
+
+    @GetMapping("/openServiceTickets")
+    public List<FinancialAccount> getOpenServiceTickets(){
+        return financialAccountService.getOpenServiceTickets();
+    }
+
+    @PostMapping("/updateFinancialAccountDueDate")
+    public FinancialAccount updateFinancialAccountDueDate(@RequestBody Map<String, String> requestBody){
+        return financialAccountService.updateFinancialAccountDueDate(requestBody);
+    }
+
     @GetMapping
     public List<FinancialAccount> getAllFinancialAccounts(){
         return financialAccountService.getAllAccounts();

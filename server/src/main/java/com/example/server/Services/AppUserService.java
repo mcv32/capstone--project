@@ -53,7 +53,34 @@ public class AppUserService implements UserDetailsService {
 
         appUser.setPassword(encodedPassword);
 
-        appUserRepository.save(appUser);
+        boolean foundFinAcct = false;
+        List<FinancialAccount> financialAccounts = financialAccountRepository.findAll();
+        FinancialAccount financialAccount = null;
+        // check all financial accounts if one has an email already associated with the app user
+        // and if so save app user with that fin acct and add app user to financial account
+        // only save both entities to db if a fin acct with the email of app user is found
+        for(int i = 0; i < financialAccounts.size(); i++){
+            if(financialAccounts.get(i).getEmail().equals(appUser.getEmail())){
+                financialAccount = financialAccounts.get(i);
+                appUser.setFinancialAccount(financialAccount);
+                List<AppUser> appUsers = financialAccount.getAppUsers();
+                appUsers.add(appUser);
+                financialAccount.setAppUsers(appUsers);
+                appUserRepository.save(appUser);
+                financialAccountRepository.save(financialAccount);
+                foundFinAcct = true;
+                System.out.println("found account");
+            }
+        }
+
+
+        // check if found financial account in db already created for user (fin acct has the same email)
+        // if not save user to db
+        if(foundFinAcct == false){
+            appUserRepository.save(appUser);
+            System.out.println("no account found");
+        }
+
 
         String token = UUID.randomUUID().toString();
 //        Generate confirmation Token
