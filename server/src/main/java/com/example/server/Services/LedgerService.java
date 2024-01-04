@@ -43,79 +43,111 @@ public class LedgerService {
 
     public Ledger createLedger(LedgerRequest ledgerRequest) {
         Ledger newLedger = new Ledger();
-        Optional<FinancialAccount> financialAccount = financialAccountRepository.findById(ledgerRequest.getFinancial_account_id());
-        if(financialAccount.isPresent()){
-            FinancialAccount fa = financialAccount.get();
-            System.out.print(ledgerRequest);
-            System.out.print(ledgerRequest.getLedgerType());
-            System.out.println(LedgerType.valueOf(ledgerRequest.getLedgerType()));
+        System.out.println(ledgerRequest.getProperty_id());
+        System.out.println(ledgerRequest);
+        System.out.println("is expense: " + ledgerRequest.getLedgerType().equals("EXPENSE"));
             Optional<Property> property = propertyRepository.findById(ledgerRequest.getProperty_id());
+        System.out.println(property);
             if(property.isPresent()){
+                System.out.println("present");
                 Property prop = property.get();
 
                 LedgerType ledgerType;
+                if(ledgerRequest.getFinancial_account_id() != null) {
+                    Optional<FinancialAccount> financialAccount = financialAccountRepository.findById(ledgerRequest.getFinancial_account_id());
+                    if (financialAccount.isPresent()) {
+                        System.out.println("fin account");
+                        FinancialAccount fa = financialAccount.get();
+                        // update financial account balance and property profit/loss
+                        if (ledgerRequest.getLedgerType().equals("CHARGE")) {
+                            ledgerType = LedgerType.CHARGE;
+                            fa.setAccount_balance(fa.getAccount_balance() + ledgerRequest.getAmount());
+                            // credit type
+                        } else if (ledgerRequest.getLedgerType().equals("CREDIT")) {
+                            ledgerType = LedgerType.CREDIT;
+                            fa.setAccount_balance(fa.getAccount_balance() - ledgerRequest.getAmount());
 
-                // update financial account balance and property profit/loss
-                if(ledgerRequest.getLedgerType().equals("CHARGE")){
-                    ledgerType = LedgerType.CHARGE;
-                    fa.setAccount_balance(fa.getAccount_balance() + ledgerRequest.getAmount());
-                    // credit type
-                }else if(ledgerRequest.getLedgerType().equals("CREDIT")){
-                    ledgerType = LedgerType.CREDIT;
-                    fa.setAccount_balance(fa.getAccount_balance() - ledgerRequest.getAmount());
+                            // payment type
+                        } else if (ledgerRequest.getLedgerType().equals("PAYMENT")) {
+                            ledgerType = LedgerType.PAYMENT;
+                            fa.setAccount_balance(fa.getAccount_balance() - ledgerRequest.getAmount());
+                            prop.setProperty_profit_and_loss(prop.getProperty_profit_and_loss() + ledgerRequest.getAmount());
 
-                    // payment type
-                }else if(ledgerRequest.getLedgerType().equals("PAYMENT")){
-                    ledgerType = LedgerType.PAYMENT;
-                    fa.setAccount_balance(fa.getAccount_balance() - ledgerRequest.getAmount());
-                    prop.setProperty_profit_and_loss(prop.getProperty_profit_and_loss() + ledgerRequest.getAmount());
+                            // expense payment type
+                        } else {
+                            return null;
+                        }
 
-                    // expense payment type
-                }else if(ledgerRequest.getLedgerType().equals("EXPENSE")){
+                        System.out.println(ledgerType);
+                        // update financial account status
+                        if (fa.getAccount_balance() <= 0) {
+                            fa.setStatus("Good standing");
+                        } else if (fa.getAccount_balance() > 0) {
+                            if (LocalDateTime.now().isAfter(fa.getDue_date())) {
+                                fa.setStatus("Overdue");
+                            } else {
+                                fa.setStatus("Payment due soon");
+                            }
+                        }
+
+                        // update property profit/loss
+                        if (prop.getProperty_profit_and_loss() < 0) {
+                            prop.setStatus("Loss");
+                        } else if (prop.getProperty_profit_and_loss() == 0) {
+                            prop.setStatus("Even");
+                        } else {
+                            prop.setStatus("Profit");
+                        }
+
+
+                        // set ledger fields
+                        newLedger.setAmount(ledgerRequest.getAmount());
+                        newLedger.setDescription(ledgerRequest.getDescription());
+                        newLedger.setProperty(prop);
+                        newLedger.setFinancialAccount(fa);
+                        newLedger.setLedgerType(ledgerType);
+                        newLedger.setTime(LocalDateTime.now());
+                        newLedger.setStatus(true);
+
+                        // save the changes to the repo & db
+                        ledgerRepository.save(newLedger);
+                        fa.getLedgers().add(newLedger);
+                        financialAccountRepository.save(fa);
+                        propertyRepository.save(prop);
+                        return newLedger;
+                    }
+                }
+                System.out.println("expense");
+                // if no financial account this is an expense
+                if(ledgerRequest.getLedgerType().equals("EXPENSE")){
                     ledgerType = LedgerType.EXPENSE;
                     prop.setProperty_profit_and_loss(prop.getProperty_profit_and_loss() - ledgerRequest.getAmount());
+
+                    // update property profit/loss
+                    if(prop.getProperty_profit_and_loss() < 0){
+                        prop.setStatus("Loss");
+                    }else if(prop.getProperty_profit_and_loss() == 0){
+                        prop.setStatus("Even");
+                    }else{
+                        prop.setStatus("Profit");
+                    }
+
+                    // set ledger fields
+                    newLedger.setAmount(ledgerRequest.getAmount());
+                    newLedger.setDescription(ledgerRequest.getDescription());
+                    newLedger.setFinancialAccount(null);
+                    newLedger.setProperty(prop);
+                    newLedger.setLedgerType(ledgerType);
+                    newLedger.setTime(LocalDateTime.now());
+                    newLedger.setStatus(true);
+
+                    // save the changes to the repo & db
+                    ledgerRepository.save(newLedger);
+                    propertyRepository.save(prop);
+                    return newLedger;
                 }else{
                     return null;
                 }
-
-                System.out.println(ledgerType);
-                // update financial account status
-                if(fa.getAccount_balance() <= 0){
-                    fa.setStatus("Good standing");
-                }else if(fa.getAccount_balance() > 0){
-                    if(LocalDateTime.now().isAfter(fa.getDue_date())){
-                        fa.setStatus("Overdue");
-                    }else{
-                        fa.setStatus("Payment due soon");
-                    }
-                }
-
-                // update property profit/loss
-                if(prop.getProperty_profit_and_loss() < 0){
-                    prop.setStatus("Loss");
-                }else if(prop.getProperty_profit_and_loss() == 0){
-                    prop.setStatus("Even");
-                }else{
-                    prop.setStatus("Profit");
-                }
-
-
-                // set ledger fields
-                newLedger.setAmount(ledgerRequest.getAmount());
-                newLedger.setDescription(ledgerRequest.getDescription());
-                newLedger.setProperty(prop);
-                newLedger.setFinancialAccount(fa);
-                newLedger.setLedgerType(ledgerType);
-                newLedger.setTime(LocalDateTime.now());
-
-                // save the changes to the repo & db
-                ledgerRepository.save(newLedger);
-                fa.getLedgers().add(newLedger);
-                financialAccountRepository.save(fa);
-                propertyRepository.save(prop);
-                return newLedger;
-            }
-
         }
         return null;
     }
