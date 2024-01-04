@@ -3,10 +3,10 @@ import React from "react";
 function TennantServiceTickets(){
     return(
         <div> 
-        <div className="columnHeader">
+        <div className="tenantHeader">
             <h2>MY SERVICE TICKETS</h2>
         </div>
-        <div className="openServiceTickets">
+        <div className="tenantServiceTickets">
             <table>
                 <tr>
                     <th>Request Date</th>

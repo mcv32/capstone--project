@@ -880,7 +880,7 @@ body {
   border-color: #17475109;
   border-radius: 10px;
   box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.253);
-  margin: 33px 10px -45px 30px;
+  margin: 90px 10px -35px 30px;
   text-align: left;
   background-color: rgba(255, 255, 255, 0.945);
   padding: 20px 0px 0px 10px;
@@ -1078,7 +1078,7 @@ body {
   border: 4px solid rgba(47, 188, 223, 0.822);
   border-radius: 10px;
   box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.253);
-  margin: 20px 10px 0px 30px;
+  margin: 60px 10px 0px 30px;
   text-align: left;
   background-color: rgb(255, 255, 255);
 }
@@ -1160,11 +1160,12 @@ body {
   border-radius: 5px 5px 0 0;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
   height: 100%;
-  margin: 5px 10px 60px 30px;
-  max-height: 300px;
+  margin: 10px 10px 10px 30px;
+  /* max-height: 300px; */
   background-color: rgb(255, 255, 255);
   overflow-y: scroll;
   scrollbar-width: thin;
+  overflow: hidden;
 }
 
 .overdueAccounts::-webkit-scrollbar {
@@ -1190,13 +1191,12 @@ body {
   height: 20px;
   padding: 10px 30px 10px 30px;
   text-align: left;
-  /* font-size: 14px; */
 }
 
-.overdueAccounts td {
+.overdueAccounts tr td {
   text-align: left;
   padding: 10px 30px;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
 .overdueAccounts tr:nth-of-type(even) {
@@ -1205,8 +1205,9 @@ body {
 
 .overdueAccounts tr:last-of-type {
   border-bottom: 5px solid rgba(223, 47, 47, 0.89);
-  top: 0;
-  position: sticky;
+  margin: 10px;
+  /* top: 0;
+  position: sticky; */
 }
 
 .overdueAccounts tr:hover {
@@ -1225,15 +1226,12 @@ body {
   text-align: left;
   text-transform: uppercase;
   font-size: 17px;
-  padding: 20px 30px;
-  margin-bottom: 10px; 
+  padding: 10px 30px;
+  /* margin-bottom: 10px;  */
   line-height: 1.1;
-  white-space: normal;
-  white-space: normal;
   position:sticky;
   top: 0;
 }
-
 
 
 .recentPayments {
@@ -1304,7 +1302,7 @@ body {
   text-transform: uppercase;
   font-size: 17px;
   padding: 10px 30px;
-  line-height: 10px;
+  line-height: 20px;
   position: sticky;
   top: 0;
 }
@@ -1388,46 +1386,87 @@ body {
 
 .tenantServiceTickets {
   display: flex;
-  justify-content: baseline;
+  justify-content: center;
   flex-direction: column;
-  border-style: solid;
-  border-width: 1px;
   border-color: #17475109;
-  border-radius: 10px;
-  box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
-  height: 100%;
-  margin: 10px;
-  padding: 20px 10px 0px 10px;
-  background-color: rgba(255, 255, 255, 0.685);
+  border-radius: 5px 5px 0 0;
+  overflow-y: scroll;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
+  height: 71%;
+  margin: 10px 10px 180px 30px;
+  background-color: rgba(255, 255, 255, 0.904);
+  scrollbar-width: thin;
+  overflow: hidden;
+}
+
+.tenantServiceTickets::-webkit-scrollbar {
+  width: 0em;
+}
+
+.tenantServiceTickets::-webkit-scrollbar-thumb {
+  background-color: transparent;
 }
 
 .tenantServiceTickets table {
-  margin: 5px;
+  margin: 0;
+  max-height: 100%;
+  height: 100%;
   border-collapse: collapse;
   text-align: left;
+  width: 100%;
+  padding: 0;
 }
 
 .tenantServiceTickets tr {
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
+  border-bottom: 1px solid rgba(47, 188, 223, 0.822);
+  height: 10px;
+  padding: 0px 30px 10px 30px;
+  text-align: left;
+}
+
+.tenantServiceTickets tr td {
+  text-align: left;
+  padding: 0px 30px;
+}
+
+.tenantServiceTickets tr:nth-of-type(even) {
+  background-color: #d9dcdfb4;
+}
+
+.tenantServiceTickets tr:last-of-type {
+  border-bottom: 5px solid rgba(47, 188, 223, 0.822);
 }
 
 .tenantServiceTickets tr:hover {
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
+  font-weight: bold;
+  color: #178b8f6c;
+  cursor: pointer;
 }
 
 .tenantServiceTickets th {
-  background-color: rgba(128, 128, 128, 0.377);
-  border-style:hidden;
+  background-color: rgb(47, 188, 223);
+  color: rgb(255, 255, 255);
+  border-style: hidden;
   border-right-color: rgba(128, 128, 128, 0.377);
-}
- 
-.tenantServiceTickets h2 {
-  color: black;
-  text-align: center;
-  margin: 0px 0px 10px 0px;
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 17px;
+  padding: 10px 30px;
+  line-height: 10px;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
 }
 
+.tenantHeader {
+  color: rgb(255, 255, 255);
+  margin: 10px 0 0 30px;
+  text-shadow:0px 0px 20px rgb(0, 0, 0);
+  font-size: 25px;
+  text-align: left;
+}
+ 
 .accountBalance {
   display: flex;
   flex-direction: column;
@@ -1495,8 +1534,8 @@ body {
   border-color: #17475109;
   border-radius: 5px 5px 0 0;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.774);
-  height: 100%;
-  margin: 5px 20px 90px 20px;
+  height: 80%;
+  margin: 5px 20px -45px 20px;
   /* max-height: 300px; */
   background-color: rgb(255, 255, 255);
   overflow-y: scroll;
@@ -1522,7 +1561,6 @@ body {
   margin: 0;
   max-height: 100%;
   height: 100%;
-  width: 100%;
   border-collapse: collapse;
   text-align: left;
   width: 100%;
@@ -1530,9 +1568,16 @@ body {
 }
 
 
-.ledger td {
+.ledger tr {
   border-bottom: 1px solid rgb(192, 206, 231);
-  padding:30px 30px;
+  height:40px;
+  padding: 10px 40px 40px 30px;
+  text-align: left;
+}
+
+.ledger tr td {
+  text-align: left;
+  padding: 30px 30px;
 }
 
 .ledger th {
@@ -1577,6 +1622,7 @@ body {
   overflow-x: hidden;
   transition: 1s cubic-bezier(.36,-0.01,0,.77);
   box-sizing: border-box;
+  z-index: 1000;
 }
 
 .newPaymentOpen {
@@ -1693,14 +1739,16 @@ body {
 .rightPopoverClosed {
   position: fixed;
   top: 0;
-  right: -100%;
-  width: 35%;
+  right: -100%;  
+  width: -100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0);
   overflow-x: hidden;
   transition: 1s cubic-bezier(.36,-0.01,0,.77);
   box-sizing: border-box;
 }
+
+
 
 .rightPopoverOpen {
   position: fixed;
@@ -1807,7 +1855,7 @@ body {
 
 .recordClosed {
   position: absolute;
-  left: -300%;
+  left: -100%;
   left: 50%;
   top: 50%;
 }
