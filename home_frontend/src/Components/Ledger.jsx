@@ -13,7 +13,7 @@ function Ledger(props){
         // console.log("Ledger Click View", ledgeClickView)
     }
 
-    console.log("Ledger props import", props);
+    console.log("Ledger propproperty_ID import", props);
     // console.log("Ledger amount import", ledgers[0].amount);
     // console.log("Ledge import", ledge[0]);
     // console.log("new ledger log", Object.keys(ledgers));
@@ -31,7 +31,7 @@ function Ledger(props){
         time:"",
         status:true,
         financial_account_id: props.account_id !== null ? props.account_id : null,
-        property_id: props.ledgers[0]?.property?.property_id !== null ? props.ledgers[0]?.property?.property_id : 
+        property_id: props?.ledgers[0]?.property?.property_id !== null ? props.ledgers[0]?.property?.property_id : 
         propertyData[0]?.property_id !== null ? propertyData[0]?.property_id: props?.property_id
     })
     
@@ -44,22 +44,22 @@ function Ledger(props){
           'Authorization': 'Bearer ' + auth?.accessToken
         },
         data : {
-            ledgerType: newLedgerPayload.ledgerType,
+            ledgerType: props.parent_component === "properties" ? "EXPENSE" : newLedgerPayload.ledgerType,
             amount: newLedgerPayload.amount,
             description: newLedgerPayload.description,
             time: newLedgerPayload.time,
             status: newLedgerPayload.status,
-            financial_account_id: newLedgerPayload.financial_account_id,
-            property_id: newLedgerPayload.property_id
+            financial_account_id: props.parent_component === "properties" ? null : newLedgerPayload.financial_account_id,
+            property_id: props.parent_component === "properties" ? props.property_id : newLedgerPayload.property_id
         }
       };
 
     const submit = async (e) => {
         // console.log(config)
         try {
+            console.log("New Ledger Config", config);    
             e.preventDefault();
             const response = await axios.request(config)
-                console.log("New Ledger Config", config);    
                 console.log("New Ledger Response", response);         
                 setResMsg("Ledger Succesfully Added");
                 setNewLedgerPayload({
@@ -164,13 +164,24 @@ function Ledger(props){
                 </tr>
             </thead>
             <tbody>
-                {Object.keys(props.ledgers).map((i) => (
-                    <tr key = {i} onClick={props.ledgers[i]?.ledgerType === "PAYMENT" ? () => handleLedgeClick(props.ledgers[i]):null}>
-                        <td>${props.ledgers[i]?.amount?.toFixed(2)}</td>
-                        <td>{props.ledgers[i]?.description}</td>
-                        <td>{props.ledgers[i]?.property?.name}</td>
+                {
+                props?.parent_component === "properties" && props?.ledgers !== null ?
+                Object.keys(props?.ledgers?.viewPropertyLedgers).map((i) => (
+                    <tr key = {i} onClick={props?.ledgers?.viewPropertyLedgers[i]?.ledgerType === "PAYMENT" ? () => handleLedgeClick(props?.ledgers?.viewPropertyLedgers[i]):null}>
+                        <td>${props?.ledgers?.viewPropertyLedgers[i]?.amount?.toFixed(2)}</td>
+                        <td>{props?.ledgers?.viewPropertyLedgers[i]?.description}</td>
+                        <td>{props?.ledgers?.viewPropertyLedgers[i]?.property?.name}</td>
                     </tr>
-                ))}              
+                ))
+                :
+                Object.keys(props?.ledgers).map((i) => (
+                    <tr key = {i} onClick={props.ledgers[i]?.ledgerType === "PAYMENT" ? () => handleLedgeClick(props?.ledgers[i]):null}>
+                        <td>${props?.ledgers[i]?.amount?.toFixed(2)}</td>
+                        <td>{props?.ledgers[i]?.description}</td>
+                        <td>{props?.ledgers[i]?.property?.name}</td>
+                    </tr>
+                ))
+                }              
             </tbody>
         </table>
         <div className={isNewLedgPop ? "rightPopoverOpen" :"rightPopoverClosed"} >
@@ -199,14 +210,19 @@ function Ledger(props){
                     <label>Description</label>
                     <textarea onChange={(e) => handle(e)} value={newLedgerPayload.description} id="description" type="text" rows="3"/>
                     
-                    <label>Associated Property</label>
-                    <div className="toggle">
-                        <label className="switch">
-                        <input id="toggleRegister" type="checkbox" onClick={handleToggle}></input>
-                        <span className="slider round"></span>
-                        </label>
-                        <span className="label">{allProps ? "All Properties" : "Known Properties"}</span>
+                    {props.parent_component !== "properties" &&
+                    <div>
+                        <label>Associated Property</label>
+                        <div className="toggle">
+                            <label className="switch">
+                            <input id="toggleRegister" type="checkbox" onClick={handleToggle}></input>
+                            <span className="slider round"></span>
+                            </label>
+                            <span className="label">{allProps ? "All Properties" : "Known Properties"}</span>
+                        </div>
                     </div>
+                    }
+                    {props.parent_component !== "properties" &&
                     <select onChange={(e) => handle(e)} value={newLedgerPayload.property_id} id="property_id">
                         <option value="">Select a Property</option>
                         {allProps === true ?
@@ -235,6 +251,7 @@ function Ledger(props){
                         )}
                         
                     </select>
+                    }
                     <button type="submit">Submit Ledger</button>
                 </form>
                 <div className>

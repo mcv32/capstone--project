@@ -246,7 +246,9 @@ function Properties(){
                             <button >Save Property Details</button>
                             {/* M: got rid of a button */}
                         </form>
-                    <   Ledger parent_component = "properties" account_id={{}} property_id={{}} ledgers={{}}/>
+{viewPropertyLedgers !== null && viewPropertyLedgers !== undefined &&
+                    <   Ledger parent_component = "properties" account_id={{}} property_id={viewProperty.property_id} ledgers={{viewPropertyLedgers}}/>
+                    }
                     </div>
                 </div>
             </div>
