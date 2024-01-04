@@ -17,7 +17,7 @@ function AccountBalance(props){
             <div></div>
             <h2>ACCOUNT BALANCE</h2>
             <p>${props.userFinAcct?.account_balance?.toFixed(2)}</p>
-            {props.userFinAcct?.due_date[0] !== null && typeof props.userFinAcct?.due_date[0] !== undefined ? <h3>Due on {props.userFinAcct?.due_date[1]}/{props.userFinAcct?.due_date[2]}/{props.userFinAcct?.due_date[0]}</h3>:null}
+            {/* {props.userFinAcct?.due_date[0] !== null && typeof props.userFinAcct?.due_date[0] !== undefined ? <h3>Due on {props.userFinAcct?.due_date[1]}/{props.userFinAcct?.due_date[2]}/{props.userFinAcct?.due_date[0]}</h3>:null} */}
             <button onClick={handlePop}>Make Payment</button>
             <div className={isPopped ? "newPaymentOpen" :"newPaymentClosed"} >
                 <div className="closepopover">

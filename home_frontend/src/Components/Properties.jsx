@@ -66,21 +66,32 @@ function Properties(){
         // console.log(newPropDetailsPayload);
     }
 
+    let updatePropConfig = {
+        method: 'put',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:8080/properties/update',
+        headers: { 
+          'Authorization': 'Bearer ' + auth?.accessToken
+        },
+        data : {
+            id: viewProperty.property_id,
+            name: viewProperty.name,
+            address_street: viewProperty.address_street,
+            address_line_2: viewProperty.address_line_2,
+            city: viewProperty.city,
+            state: viewProperty.state,
+            zip: viewProperty.zip,
+            status: viewProperty.status,
+            property_profit_and_loss: viewProperty.property_profit_and_loss
+        }
+      };
+    
     const savePropDetails = async (form) => {
+        console.log("update Prop Config", updatePropConfig);
         try {
-            // console.log(loginPayload);
             form.preventDefault();
-            const response = await axios.post("post URL", {
-                name: viewProperty.name,
-                address_street: viewProperty.address_street,
-                address_line_2: viewProperty.address_line_2,
-                city: viewProperty.city,
-                state: viewProperty.state,
-                zip: viewProperty.zip,
-                status: viewProperty.status,
-                property_profit_and_loss: viewProperty.property_profit_and_loss
-            })
-                // console.log(response);
+            const response = await axios.request(updatePropConfig)
+                console.log("update prop response", response);
 
                 //display success message
                 //refresh dashboard data
@@ -205,7 +216,7 @@ function Properties(){
                         <button onClick={() => handlePropPop({})}>X</button>
                     </div>
                         <img src="https://hips.hearstapps.com/hmg-prod/images/over-the-top-apartments-main-1512422328.jpg?crop=1.00xw:0.502xh;0,0.263xh&resize=1200:*"/>
-                        <form typeof="submit">
+                        <form typeof="submit" onSubmit={(e) => savePropDetails(e)}>
                             <div>
                                 <label >Thumbnail URL</label>
                                 <input type="url" name="" id="" value="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" placeholder="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"/>

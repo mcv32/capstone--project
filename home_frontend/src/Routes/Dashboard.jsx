@@ -84,7 +84,14 @@ function Dashboard(){
         fetchDash();
       }, [refresh]);
 
-    
+    // if (userData === null || userData === undefined || userData === {}){
+    //     return (
+    //         <div>
+
+    //         </div>
+    //     );
+
+    // }
     return(
         //comment line below
         auth?.roles === "MANAGER" || auth?.roles === "ADMIN" ?
@@ -119,11 +126,14 @@ function Dashboard(){
                 <TennantServiceTickets/>
 
                 </div>
-                <div className="dashCore">
-                    {userFinAcct !== null && userFinAcct !== undefined && <AccountBalance refresh={refreshData} userFinAcct={userFinAcct}/>}
-                    <Ledger parent_component = "dashboard" account_id={userFinAcct} ledgers={userLedgers}/> 
+                {
+                    userFinAcct !== null && userFinAcct !== undefined && userFinAcct !== {} &&
+                    <div className="dashCore">
+                        <AccountBalance refresh={refreshData} userFinAcct={userFinAcct}/>
+                        <Ledger parent_component = "dashboard" account_id={userFinAcct} ledgers={userLedgers}/>
 
-                </div>
+                    </div>
+                }
             </div>
             <div className="userDash">
                 <div className="userDashItem4">
