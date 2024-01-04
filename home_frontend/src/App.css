@@ -106,6 +106,63 @@
   scroll-snap-align: start;
 }
 
+.cavemanMeme {
+  position: relative;
+  height: 65vh;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around; /* Align content to the bottom */
+  font-size: 2rem;
+  min-height: 65vh;
+  width: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.cavemanMeme img {
+  height: 100%;
+  margin: 0;
+}
+
+.cavemanImage {
+  max-width: 40%; /* Adjust the width of the image as needed */
+  height: 40vh;
+  min-height: 40vh;
+  margin-right: 20px; /* Add spacing between the image and text */
+  width: 40%;
+  border-style: solid;
+  border-color: white;
+  margin: 40px;
+}
+
+.cavemanText {
+  display: flex;
+  flex-direction: column; /* Take up the remaining space */
+  justify-content: left;
+  color: white;
+  width: 50%;
+  background: linear-gradient(to bottom, #3498db, #dbdbdb); /* Gradient from light to dark blue */
+  border-radius: 15px;
+  padding: 2%;
+}
+
+.cavemanText h1 {
+  text-align: left;
+}
+
+#upper_quote{
+  align-self: left;
+}
+
+#lower_quote{
+  text-align: right;
+}
+
+
 .homeHero {
   position: relative;
   height: 65vh;
@@ -178,7 +235,6 @@ h1 {
 .features {
   margin-bottom: 60px;
   color: white;
-  color: rgb(255, 255, 255); /* Set the text color */
   padding-left: 10px;
   background-color: black;
   padding-right: 10px;
@@ -386,8 +442,9 @@ h1 {
 }
 
 .magnifier-img {
-  width: auto;
+  width: auto;;
   height: 50vh;
+  justify-content: center;
   border-style: solid;
   border-color: white;
 }
@@ -397,6 +454,63 @@ h1 {
   height: 300px;
   border: 2px solid #ffffff;
   background-size: 800%;
+}
+
+.problemStatement {
+  height: 65vh;
+  display: flex;
+  font-size: 2rem;
+  flex-direction: column;
+  align-items: center;
+  border-bottom-color: white;
+  border-bottom-width: 10px;
+  border-bottom-style: solid;
+  justify-content: center;
+  /*background-image: url("https://s3.amazonaws.com/architecture-org/files/pages/201307-twilight-cruise-089.jpg");*/
+  background: linear-gradient(to bottom, #3498db, #f3f3f3); /* Gradient from light to dark blue */
+  min-height: 65vh;
+  width: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.problem {
+  margin-bottom: 10%;
+  border-style: solid;
+  border-color: black;
+  border-width: 10px;
+  background-color: white;
+}
+
+.problemDiagram {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.problemBox {
+  width: 200px;
+  height: 100px;
+  background-color: #ffffff;
+  display: flex;
+  border-style: solid;
+  border-color: rgba(81, 154, 248, 0.822);
+  border-width: 20px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 50px;
+  border-radius: 5px;
+  font-size: 25px;
+  transition: background-color 0.3s, color 0.3s, font-weight 0.3s;
+}
+
+.problemBox:hover {
+  background-color: rgb(47, 188, 223);
+  color: white;
+  font-weight: bolder;
+  border-color: transparent;
 }
 
 .heading {
