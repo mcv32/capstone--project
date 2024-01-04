@@ -68,7 +68,7 @@ public class FinancialAccountService {
                 LocalDateTime.of(
                         LocalDateTime.now().getYear(),
                         Month.of(LocalDateTime.now().getMonth().getValue() + 1),
-                        LocalDateTime.now().getDayOfMonth(), 0, 0));
+                        1, 0, 0));
 
         financialAccountRepository.save(newFinancialAccount);
         return newFinancialAccount;
@@ -135,11 +135,15 @@ public class FinancialAccountService {
                 List<AppUser> appUsers = financialAccount.get().getAppUsers();
 
                 //add other app user if not already associated with fin acct
-                if(!appUsers.contains(appUser.get()))
-                    appUsers.add(appUser.get());
-                financialAccount.get().setAppUsers(appUsers);
-                financialAccountRepository.save(financialAccount.get());
-                return financialAccount.get();
+                if(!appUsers.contains(appUser.get())) {
+                    AppUser appUser1 = appUser.get();
+                    appUser1.setFinancialAccount(financialAccount.get());
+                    appUsers.add(appUser1);
+                    appUserRepository.save(appUser1);
+                    financialAccount.get().setAppUsers(appUsers);
+                    financialAccountRepository.save(financialAccount.get());
+                    return financialAccount.get();
+                }
             }
         }
         return null;

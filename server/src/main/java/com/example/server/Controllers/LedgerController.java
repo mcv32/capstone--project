@@ -28,7 +28,7 @@ public class LedgerController {
         return ledgerService.getAllLedgers();
     }
 
-    @GetMapping("/getLedger")
+    @PostMapping("/getLedger")
     public Ledger getLedgerById(@RequestBody Map<String, Long> requestBody) {
         Ledger ledger = ledgerService.getLedgerById(requestBody.get("id"));
         return ledger;
@@ -72,7 +72,7 @@ public class LedgerController {
         return ledgerService.getRecentPayments();
     }
 
-    @GetMapping("/getLedgersOfProperty")
+    @PostMapping("/getLedgersOfProperty")
     public List<Ledger> getLedgersOfProperty(@RequestBody Map<String, Long> requestBody){
         return ledgerService.getLedgersWithProperty(requestBody);
     }

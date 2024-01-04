@@ -170,7 +170,7 @@ function Properties(){
                         <th>Balance</th>
                         <th>Address</th>
                         <th>City, State</th>
-                        <th>Financial Account</th>
+                        {/* <th>Financial Account</th> */}
                     </tr>
                 </thead>
                 <tbody>
@@ -184,7 +184,7 @@ function Properties(){
                         <td>${propertyData[i]?.property_profit_and_loss?.toFixed(2)}</td>
                         <td>{propertyData[i]?.address_street} <br /> {propertyData[i]?.address_line_2}</td>
                         <td>{propertyData[i]?.city + ", " + propertyData[i]?.state}</td>
-                        <td>Get request needs to fetch linked FinAccts</td>
+                        {/* <td>Get request needs to fetch linked FinAccts</td> */}
                     </tr>
                 ))} 
                 </tbody>

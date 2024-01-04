@@ -86,7 +86,7 @@ function Accounts(){
                         <td>{accountData[i]?.status}</td>
                         <td>{accountData[i]?.appUsers[0]?.f_name}</td>
                         <td>{accountData[i]?.appUsers[0]?.l_name}</td>
-                        <td>{accountData[i]?.appUsers[0]?.email}</td>
+                        <td>{accountData[i]?.email}</td>
                         <td>${accountData[i]?.account_balance.toFixed(2)}</td>
                     </tr>
                 ))} 
