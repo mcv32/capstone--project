@@ -12,28 +12,28 @@ import Ledger from "../Components/Ledger";
 import useAuth from "../Hooks/useAuth";
 import axios from "axios";
 import { useLocation } from 'react-router-dom';
-
-
+ 
+ 
 function Dashboard(){
     const location = useLocation();
     const { auth, setAuth } = useAuth();
-
+ 
     const [dash, setDash] = useState(null);
-
+ 
     const [responseData, setResponse] = useState();
     const [userData, setUserData] = useState();
     const [userFinAcct, setUserFinAcct] = useState();
     const [userLedgers, setUserLedgers] = useState([]);
     const [userProperties, setUserProperties] = useState([]);
     const [userTransactions, setUserTransactions] = useState([]);
-
+ 
     const [refresh, setRefresh] = useState(true);
-
+ 
     function refreshData(){
         setRefresh(!refresh);
         console.log(refresh);
     }
-
+ 
     useEffect(() => {
         const fetchDash = async () => {
             try {
@@ -41,48 +41,49 @@ function Dashboard(){
                 {
                     email: auth?.email
                 },
-                { headers: { 
+                { headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + auth?.accessToken
-                    } 
+                    }
                 }
                 );
-
+ 
                 // console.log("Response Data Load", {...response.data});
                 setResponse({...response.data});
                 console.log("Set Reponse Data", responseData);
-                
+               
                 // console.log("Response User Data: ", {...response.data.appUser});
                 setUserData({...response.data.appUser});
                 console.log("Set User Data", userData);
-
-                
+ 
+               
                 // console.log("Response Financial Account", {...response.data.financialAccount});
                 setUserFinAcct({...response.data.financialAccount});
                 console.log("Set Financial Account", userFinAcct);
-                
+               
                 // console.log("Response Ledgers", [...response.data.ledgers]);
                 setUserLedgers({...response.data.ledgers});
                 // console.log("Set User Ledgers", userLedgers);
                 // console.log("Set User Ledgers", userLedgers[0]);
-                
+               
                 // console.log("Response Properties", {...response.data.properties});
                 setUserProperties({...response.data.properties});
                 // console.log("Set User Properties", userProperties);
-                
+               
                 // console.log("Response Transactions", {...response.data.transactions});
                 setUserTransactions({...response.data.transactions});
                 // console.log("Set User Transactions", userTransactions);
-                
-
+               
+ 
             } catch (err) {
                 console.log(err.response);
-
+ 
             }
         }
-
+ 
         fetchDash();
       }, [refresh]);
+<<<<<<< Updated upstream
 
     // if (userData === null || userData === undefined || userData === {}){
     //     return (
@@ -92,6 +93,10 @@ function Dashboard(){
     //     );
 
     // }
+=======
+ 
+   
+>>>>>>> Stashed changes
     return(
         //comment line below
         auth?.roles === "MANAGER" || auth?.roles === "ADMIN" ?
@@ -124,7 +129,7 @@ function Dashboard(){
                 <AccountID refresh={refreshData} userData={userData}/>
                 <HomeIDcard properties = {userProperties}/>
                 <TennantServiceTickets/>
-
+ 
                 </div>
                 {
                     userFinAcct !== null && userFinAcct !== undefined && userFinAcct !== {} &&
@@ -143,7 +148,7 @@ function Dashboard(){
         </div>
     </section>
     );
-    
+   
 }
-
+ 
 export default Dashboard;
