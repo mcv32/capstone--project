@@ -100,7 +100,7 @@ function Dashboard(){
             <div className="dashHead">
                 {/* M: Changed header title */}
                 <h1>Admin {userData?.f_name}</h1>
-                <button onClick={refreshData}>refresh</button>
+                {/* <button onClick={refreshData}>refresh</button> */}
             </div>
             <div className="dashBody">
                 <div className="Admin">

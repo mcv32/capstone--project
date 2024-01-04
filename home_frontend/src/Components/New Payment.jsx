@@ -67,6 +67,9 @@ function NewPayment(props){
                 setPopover(true);
                 setTimeout(resetPopover, 5000);
             
+                if(response.status === 400){setResMsg("Unsuccessful Transaction");
+                setPopover(true);
+                setTimeout(resetPopover, 5000);}
             }catch (err){
                 console.log(err.response);
                 console.log(err.response.data.errorDesc);

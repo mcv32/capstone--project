@@ -83,27 +83,15 @@ function Dashboard(){
  
         fetchDash();
       }, [refresh]);
-<<<<<<< Updated upstream
-
-    // if (userData === null || userData === undefined || userData === {}){
-    //     return (
-    //         <div>
-
-    //         </div>
-    //     );
-
-    // }
-=======
  
    
->>>>>>> Stashed changes
     return(
         //comment line below
         auth?.roles === "MANAGER" || auth?.roles === "ADMIN" ?
         <section className="dashboard">
             <div className="dashHead">
                 <h1>Welcome, {userData?.f_name}</h1>
-                <button onClick={refreshData}>refresh</button>
+                {/* <button onClick={refreshData}>refresh</button> */}
             </div>
             <div className="dashBody">
                 <div className="dashColumn">
@@ -125,7 +113,7 @@ function Dashboard(){
             <div className="dashBody">
                 <div className="dashColumn">
                 <h1>Welcome, {userData?.f_name}</h1>
-                <button onClick={refreshData}>refresh</button>
+                {/* <button onClick={refreshData}>refresh</button> */}
                 <AccountID refresh={refreshData} userData={userData}/>
                 <HomeIDcard properties = {userProperties}/>
                 <TennantServiceTickets/>

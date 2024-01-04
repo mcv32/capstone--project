@@ -1319,9 +1319,8 @@ body {
 
 .overdueAccounts tr:last-of-type {
   border-bottom: 5px solid rgba(223, 47, 47, 0.89);
-  margin: 10px;
-  /* top: 0;
-  position: sticky; */
+  top: 0;
+  position: sticky;
 }
 
 .overdueAccounts tr:hover {
@@ -1343,6 +1342,8 @@ body {
   padding: 10px 30px;
   /* margin-bottom: 10px;  */
   line-height: 1.1;
+  white-space: normal;
+  white-space: normal;
   position:sticky;
   top: 0;
 }
@@ -1496,8 +1497,6 @@ body {
   top: 0;
 }
 
- 
-
 .tenantServiceTickets {
   display: flex;
   justify-content: center;
@@ -1510,17 +1509,17 @@ body {
   margin: 10px 10px 180px 30px;
   background-color: rgba(255, 255, 255, 0.904);
   scrollbar-width: thin;
-  overflow: hidden;
+  overflow: hidden;   
 }
-
+ 
 .tenantServiceTickets::-webkit-scrollbar {
   width: 0em;
 }
-
+ 
 .tenantServiceTickets::-webkit-scrollbar-thumb {
   background-color: transparent;
 }
-
+ 
 .tenantServiceTickets table {
   margin: 0;
   max-height: 100%;
@@ -1530,34 +1529,34 @@ body {
   width: 100%;
   padding: 0;
 }
-
+ 
 .tenantServiceTickets tr {
   border-bottom: 1px solid rgba(47, 188, 223, 0.822);
   height: 10px;
   padding: 0px 30px 10px 30px;
   text-align: left;
 }
-
+ 
 .tenantServiceTickets tr td {
   text-align: left;
   padding: 0px 30px;
 }
-
+ 
 .tenantServiceTickets tr:nth-of-type(even) {
   background-color: #d9dcdfb4;
 }
-
+ 
 .tenantServiceTickets tr:last-of-type {
   border-bottom: 5px solid rgba(47, 188, 223, 0.822);
 }
-
+ 
 .tenantServiceTickets tr:hover {
   box-shadow: 2px 2px 1px rgba(128, 128, 128, 0.61);
   font-weight: bold;
   color: #178b8f6c;
   cursor: pointer;
 }
-
+ 
 .tenantServiceTickets th {
   background-color: rgb(47, 188, 223);
   color: rgb(255, 255, 255);
@@ -1572,7 +1571,7 @@ body {
   position: sticky;
   top: 0;
 }
-
+ 
 .tenantHeader {
   color: rgb(255, 255, 255);
   margin: 10px 0 0 30px;
@@ -1655,22 +1654,22 @@ body {
   overflow-y: scroll;
   scrollbar-width: thin;
 }
-
+ 
 .ledger::-webkit-scrollbar {
   width: 0em;
 }
-
+ 
 .ledger::-webkit-scrollbar-thumb {
   background-color: transparent;
 }
-
+ 
 .detailsLedgerHeader {
   display: flex;
   justify-content: space-between;
   margin: 20px 10px 0px 10px;
   z-index:0;
 }
-
+ 
 .ledger table {
   margin: 0;
   max-height: 100%;
@@ -1680,20 +1679,20 @@ body {
   width: 100%;
   padding: 0;
 }
-
-
+ 
+ 
 .ledger tr {
   border-bottom: 1px solid rgb(192, 206, 231);
   height:40px;
   padding: 10px 40px 40px 30px;
   text-align: left;
 }
-
+ 
 .ledger tr td {
   text-align: left;
   padding: 30px 30px;
 }
-
+ 
 .ledger th {
   background-color: rgb(47, 188, 223);
   color: white;
@@ -1706,17 +1705,17 @@ body {
   position: sticky;
   top: 0;
 }
-
+ 
 .ledger tr:nth-of-type(even) {
   background-color: #d9dcdfb4;
 }
-
+ 
 .ledger tr:last-of-type {
   border-bottom: 5px solid rgba(47, 188, 223, 0.822);
   position: sticky;
   top: 0;
 }
-
+ 
 .ledger tr:hover {
   box-shadow: 0px 2px 5px rgba(128, 128, 128, 0.3);
   font-weight: bold;
@@ -1853,8 +1852,8 @@ body {
 .rightPopoverClosed {
   position: fixed;
   top: 0;
-  right: -100%;  
-  width: -100%;
+  right: -100%;
+  width: 35%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0);
   overflow-x: hidden;

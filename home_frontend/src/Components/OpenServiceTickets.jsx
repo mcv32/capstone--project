@@ -16,12 +16,12 @@ function OpenServiceTickets(){
                 <tr>
                     <td>December 10, 2023</td>
                     <td>Broken sink</td>
-                    <td>Henry March</td>
+                    <td>Cody Phelan</td>
                 </tr>
                 <tr>
                     <td>December 15, 2023</td>
                     <td>New doorbell install</td>
-                    <td>George Washington</td>
+                    <td>Cody Phelan</td>
                 </tr>
             </table>
         </div>

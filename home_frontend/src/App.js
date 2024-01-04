@@ -22,12 +22,15 @@ function App() {
         <Route path="contact" element={<Contact />} />
         <Route path="login" element={<Login />} />
         <Route path="unauthorized" element={<Unauthorized />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="admin" element={<Admin />} />
 
         {/* we want to protect these routes */}
-        {/* <Route element={<RequireAuth allowedRoles={['USER', 'MANAGER']}/>}>
-        </Route> */}
+        <Route element={<RequireAuth allowedRoles={['USER', 'MANAGER', 'ADMIN']}/>}>
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={['ADMIN']}/>}>
+          <Route path="admin" element={<Admin />} />
+        </Route>
 
         {/* catch all */}
         <Route path="*" element={<Missing />} />
