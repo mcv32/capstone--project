@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:3000/"}, allowedHeaders = {"Authorization"})
 @RequestMapping(path= "/financialAccounts")
 public class FinancialAccountController {
     private final FinancialAccountService financialAccountService;

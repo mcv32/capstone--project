@@ -138,6 +138,7 @@ public class FinancialAccountService {
                 if(!appUsers.contains(appUser.get()))
                     appUsers.add(appUser.get());
                 financialAccount.get().setAppUsers(appUsers);
+                financialAccountRepository.save(financialAccount.get());
                 return financialAccount.get();
             }
         }

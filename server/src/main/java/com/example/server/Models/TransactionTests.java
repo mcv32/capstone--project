@@ -22,7 +22,8 @@ public class TransactionTests {
     private Long account_id;
     @Enumerated(EnumType.STRING)
     private PaymentType paymentType;
-    private String cardNumber;
+    private String last_four_digits;
+    private String encrypted_number;
     private LocalDateTime time;
     private boolean status;
     @OneToOne
@@ -30,14 +31,14 @@ public class TransactionTests {
     @JsonBackReference
     private Ledger ledger;
 
-    public TransactionTests(double amount, Long account_id, PaymentType paymentType, String cardNumber, LocalDateTime time, boolean status, Ledger ledger) {
+    public TransactionTests(double amount, Long account_id, PaymentType paymentType, String last_four_digits, String encrypted_number, LocalDateTime time, boolean status) {
         this.amount = amount;
         this.account_id = account_id;
         this.paymentType = paymentType;
-        this.cardNumber = cardNumber;
+        this.last_four_digits = last_four_digits;
+        this.encrypted_number = encrypted_number;
         this.time = time;
         this.status = status;
-        this.ledger = ledger;
     }
 
     public Long getTransaction_id() {
@@ -72,12 +73,20 @@ public class TransactionTests {
         this.paymentType = paymentType;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
+    public String getLast_four_digits() {
+        return last_four_digits;
     }
 
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setLast_four_digits(String last_four_digits) {
+        this.last_four_digits = last_four_digits;
+    }
+
+    public String getEncrypted_number() {
+        return encrypted_number;
+    }
+
+    public void setEncrypted_number(String encrypted_number) {
+        this.encrypted_number = encrypted_number;
     }
 
     public LocalDateTime getTime() {

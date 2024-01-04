@@ -23,7 +23,7 @@ public class Ledger {
     private boolean status;
     @ManyToOne
     @JoinColumn(
-            nullable = false,
+            nullable = true,
             name = "financial_account_id"
     )
     @JsonBackReference

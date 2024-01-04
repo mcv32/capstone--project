@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:3000/"}, allowedHeaders = {"Authorization"})
 @RequestMapping(path= "/transactions")
 public class TransactionTestsController {
 

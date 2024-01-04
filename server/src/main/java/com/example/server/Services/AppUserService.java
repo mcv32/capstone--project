@@ -112,24 +112,33 @@ public class AppUserService implements UserDetailsService {
     }
 
     public AppUser updateAppUser(String old_email, String new_email, String firstName, String lastName, String phoneNumber){
-        Optional<FinancialAccount> financialAccount = financialAccountRepository.findByEmail(old_email);
-        if(financialAccount.isPresent()) {
-            List<AppUser> appUsers = financialAccount.get().getAppUsers();
-            for(int i = 0; i < appUsers.size(); i++){
-                if(appUsers.get(i).getEmail().equals(old_email)){
-                    appUsers.remove(i);
-                }
-            }
-            appUserRepository.updateAppUser(firstName, lastName, phoneNumber, new_email, old_email);
+
+//            appUserRepository.updateAppUser(firstName, lastName, phoneNumber, new_email, old_email);
             Optional<AppUser> appUser = appUserRepository.findByEmail(new_email);
 
             if (appUser.isPresent()) {
-                appUsers.add(appUser.get());
-                financialAccount.get().setAppUsers(appUsers);
-                financialAccount.get().setEmail(new_email);
-                financialAccountRepository.save(financialAccount.get());
-                return appUser.get();
+                AppUser user = appUser.get();
+                user.setF_name(firstName);
+                user.setL_name(lastName);
+                user.setEmail(new_email);
+                user.setPhone_number(phoneNumber);
+                appUserRepository.save(user);
+
+                Optional<FinancialAccount> financialAccount = financialAccountRepository.findByEmail(old_email);
+                if(financialAccount.isPresent()) {
+                    List<AppUser> appUsers = financialAccount.get().getAppUsers();
+                    for(int i = 0; i < appUsers.size(); i++){
+                        if(appUsers.get(i).getEmail().equals(old_email)){
+                            appUsers.remove(i);
+                        }
+                    }
+                    appUsers.add(user);
+                    financialAccount.get().setAppUsers(appUsers);
+                    financialAccount.get().setEmail(new_email);
+                    financialAccountRepository.save(financialAccount.get());
+                    return user;
             }
+                return user;
         }
         return null;
     }

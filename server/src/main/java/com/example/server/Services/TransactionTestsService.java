@@ -7,6 +7,7 @@ import com.example.server.Repositories.LedgerRepository;
 import com.example.server.Repositories.PropertyRepository;
 import com.example.server.Repositories.TransactionTestsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,13 +22,15 @@ public class TransactionTestsService {
     private final LedgerRepository ledgerRepository;
     private final PropertyRepository propertyRepository;
     private final FinancialAccountRepository financialAccountRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public TransactionTestsService(TransactionTestsRepository transactionTestsRepository, LedgerRepository ledgerRepository, PropertyRepository propertyRepository, FinancialAccountRepository financialAccountRepository) {
+    public TransactionTestsService(TransactionTestsRepository transactionTestsRepository, LedgerRepository ledgerRepository, PropertyRepository propertyRepository, FinancialAccountRepository financialAccountRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.transactionTestsRepository = transactionTestsRepository;
         this.ledgerRepository = ledgerRepository;
         this.propertyRepository = propertyRepository;
         this.financialAccountRepository = financialAccountRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
 
@@ -45,6 +48,9 @@ public class TransactionTestsService {
                 FinancialAccount fa = financialAccount.get();
                 Optional<Property> property = propertyRepository.findById(transactionRequest.getProperty_id());
                 if(property.isPresent()){
+
+                    String sentCardNumber = transactionRequest.getCardNumber();
+                    String cardNumber = sentCardNumber.substring(sentCardNumber.length() - 4, sentCardNumber.length());
 
                     Property prop = property.get();
                     Ledger ledger = new Ledger();
@@ -95,7 +101,9 @@ public class TransactionTestsService {
                     transaction.setAmount(transactionRequest.getAmount());
                     transaction.setAccount_id(transactionRequest.getFinancial_account_id());
                     transaction.setPaymentType(transactionRequest.getPaymentType());
-                    transaction.setCardNumber(transactionRequest.getCardNumber());
+//                    transaction.setCardNumber(bCryptPasswordEncoder.encode(transactionRequest.getCardNumber()));
+                    transaction.setLast_four_digits(cardNumber);
+                    transaction.setEncrypted_number(bCryptPasswordEncoder.encode(transactionRequest.getCardNumber()));
                     transaction.setTime(transactionRequest.getTime());
                     transaction.setStatus(transactionRequest.isStatus());
                     transaction.setLedger(ledger); // Associate Ledger with TransactionTests
