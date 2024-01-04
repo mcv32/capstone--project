@@ -98,9 +98,9 @@ function Dashboard(){
         // auth?.roles === "ADMIN" ?
         <section className="dashboard">
             <div className="dashHead">
-                <h1>Welcome, {userData?.f_name}</h1>
+                {/* M: Changed header title */}
+                <h1>Admin {userData?.f_name}</h1>
                 <button onClick={refreshData}>refresh</button>
-
             </div>
             <div className="dashBody">
                 <div className="Admin">

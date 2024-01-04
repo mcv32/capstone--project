@@ -5,16 +5,17 @@ import '../App.css';
 
 function Footing() {
         const location = useLocation();
-      
+        // M: got rid of footer on admin page
         const isLoginPage = location.pathname === '/login';
         const isDashboardPage = location.pathname === '/dashboard';
+        const isAdminPage = location.pathname === '/admin';
       
         // If it's the login page, don't render the footer
-        if (isLoginPage || isDashboardPage) {
+        if (isLoginPage || isDashboardPage || isAdminPage) {
           return null;
         }
 
-        const isTransparent = isLoginPage || isDashboardPage;
+        const isTransparent = isLoginPage || isDashboardPage || isAdminPage;
         const footerClassName = `footing${isTransparent ? ' transparent' : ''}`
 
   return (

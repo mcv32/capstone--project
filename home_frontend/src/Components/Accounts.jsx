@@ -110,7 +110,7 @@ function Accounts(props){
                     </div>
                 </div>
             <div className={isAcctPop ? "billingAccountRecordOpen" : "offscreen"}>
-                <h1 style={{ color: "black" }}>Billing Account Details</h1>
+                <h1 style={{ color: "white" }}>Billing Account Details</h1>
                 <div className="closeRecord">
                     <button onClick={() => handleAcctPop({})}>X</button>
                 </div>
@@ -118,7 +118,7 @@ function Accounts(props){
                     <AccountID userData={viewAccount.appUsers[i]}/>)
                 ))}
 
-                <form typeof="submit">
+                <form className="accountDetailsForm" typeof="submit">
                     <select name="" id="" multiple>
                         <option value="User Account 1">User Account 1</option>
                         <option value="User Account 2">User Account 2</option>
