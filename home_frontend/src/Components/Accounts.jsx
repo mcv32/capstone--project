@@ -7,10 +7,15 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import useAuth from "../Hooks/useAuth";
 
-function Accounts(){
+function Accounts(props){
     const { auth, setAuth } = useAuth();
     const [accountData, setAccountResponse] = useState([]);
     const [viewAccount, setViewAccount] = useState([]);
+    const [refreshAccounts, setRefreshAccounts] = useState(false);
+
+    function handleAccountRefresh(){
+        this.forceUpdate();
+    }
 
     useEffect(() => {
         console.log("view account state", viewAccount.financial_account_id);
@@ -56,6 +61,10 @@ function Accounts(){
     function handleAcctPop(acct){
         setAcctPop(!isAcctPop);
         setViewAccount(acct);
+    }
+
+    function closeAcctModal(){
+        setAccountResponse(!isAcctPop);
     }
 
     function handleDetailsPop(){
@@ -106,7 +115,7 @@ function Accounts(){
                     <button onClick={() => handleAcctPop({})}>X</button>
                 </div>
                 {Object.keys(viewAccount).length > 0 && (Object.keys(viewAccount.appUsers).map((i) => (
-                    <AccountID {...viewAccount.appUsers[i]}/>)
+                    <AccountID userData={viewAccount.appUsers[i]}/>)
                 ))}
 
                 <form typeof="submit">
@@ -118,7 +127,12 @@ function Accounts(){
                 </form>
                 <div className="billingAccountLedger">
                     {Object.keys(viewAccount).length > 0 &&
-                        (<Ledger parent_component = "accounts" account_id={viewAccount.financial_account_id} ledgers={viewAccount.ledgers}/>)
+                        (<Ledger 
+                            close_account ={() => handleAcctPop({})}
+                            refresh_accounts = {handleAccountRefresh}
+                            parent_component = "accounts" 
+                            account_id={viewAccount.financial_account_id} 
+                            ledgers={viewAccount.ledgers}/>)
                     }
                 </div>
                 </div>

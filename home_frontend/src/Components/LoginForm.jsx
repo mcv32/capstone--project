@@ -83,7 +83,7 @@ function LoginForm(props){
                 // console.log(password);
                 // console.log(roles);
                 // console.log(accessToken);
-                setAuth({email, password, roles, accessToken });
+                setAuth({email, password, roles, accessToken});
                 resetLoginPayload();
                 navigate(from, {replace:true});
             

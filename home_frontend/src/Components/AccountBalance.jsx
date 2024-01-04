@@ -1,8 +1,7 @@
-import React, {useState} from "react";
-import { NavLink, Link } from "react-router-dom";
+import React, {useState, useEffect} from "react";
 import NewPayment from "./New Payment";
 
-function AccountBalance(finAcct){
+function AccountBalance(props){
 
     const [isPopped, setPopover] = useState(false);
 
@@ -10,21 +9,22 @@ function AccountBalance(finAcct){
             setPopover(!isPopped);
     }
 
-    console.log("This is the Account Balance", finAcct);
-
+    console.log("Account Balance Props", props);
+    
     return(
+        
         <div className="accountBalance">
             <div></div>
             <h2>ACCOUNT BALANCE</h2>
-            <p>${finAcct?.account_balance?.toFixed(2)}</p>
-            <h3>Due on 12/23/2023</h3>
+            <p>${props.userFinAcct?.account_balance?.toFixed(2)}</p>
+            {props.userFinAcct?.due_date[0] !== null && typeof props.userFinAcct?.due_date[0] !== undefined ? <h3>Due on {props.userFinAcct?.due_date[1]}/{props.userFinAcct?.due_date[2]}/{props.userFinAcct?.due_date[0]}</h3>:null}
             <button onClick={handlePop}>Make Payment</button>
             <div className={isPopped ? "newPaymentOpen" :"newPaymentClosed"} >
                 <div className="closepopover">
                     <button onClick={handlePop}>X</button>
                 </div>
                 <div>
-                    <NewPayment finAcct_id = {finAcct.financial_account_id} ledgers = {finAcct.ledgers}/>
+                    <NewPayment close={handlePop} refresh={props.refresh} finAcct_id = {props.userFinAcct.financial_account_id} ledgers = {props.userFinAcct.ledgers}/>
                 </div>
             </div>
         </div>

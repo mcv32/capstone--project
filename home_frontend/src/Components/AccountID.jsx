@@ -3,12 +3,12 @@ import { NavLink, Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import Axios from "axios";
 
-function AccountID({...userData}){
+function AccountID(props){
 
-    console.log("AccountID userData prop pass",{...userData});
+    console.log("AccountID userData prop pass", props);
 
     const { auth, setAuth } = useAuth();
-    const fullName = userData?.f_name + " " + userData?.l_name;
+    const fullName = props.userData?.f_name + " " + props.userData?.l_name;
     const [isPopped, setIsPopped] = useState(false); 
     const [userDetailsPayload, setUserDetailsPayload] = useState({
         firstName: "",
@@ -21,10 +21,10 @@ function AccountID({...userData}){
     function handlePop(){
         setIsPopped(!isPopped);
         setUserDetailsPayload({
-            firstName: userData?.f_name,
-            lastName: userData?.l_name,
-            email: userData?.email,
-            telephone: userData?.phone_number
+            firstName: props.userData?.f_name,
+            lastName: props.userData?.l_name,
+            email: props.userData?.email,
+            telephone: props.userData?.phone_number
         });
     }
 
@@ -45,7 +45,7 @@ function AccountID({...userData}){
         data : {
             firstName: userDetailsPayload.firstName,
             lastName: userDetailsPayload.lastName,
-            old_email: userData?.email,
+            old_email: props.userData?.email,
             new_email: userDetailsPayload.email,
             phoneNumber: userDetailsPayload.telephone
         }
@@ -59,6 +59,9 @@ function AccountID({...userData}){
                 
                 console.log({...userConfig})
                 console.log("User Details Response", response);
+                props.refresh();
+                handlePop();
+
     
                     //display success message
                     //refresh dashboard data
@@ -85,17 +88,17 @@ function AccountID({...userData}){
         <div className="accountBlock">
             <div className="accountLeft">
                 <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"/>
-                {auth?.email === userData?.email && <Link onClick={handlePop}>Edit Account</Link>}
+                {auth?.email === props.userData?.email && <Link onClick={handlePop}>Edit Account</Link>}
             </div>
             <div className="accountRight">
-                {userData?.appUserRole === "MANAGER" && <h2>MANAGER</h2>}
-                {userData?.appUserRole === "ADMIN" && <h2>MANAGER</h2>}
+                {props.userData?.appUserRole === "MANAGER" && <h2>MANAGER</h2>}
+                {props.userData?.appUserRole === "ADMIN" && <h2>MANAGER</h2>}
                 <h3>{fullName}</h3>
                
                {/* M: tweaked title */}
                 <p>Contact Information: </p>
-                <p style={{ fontWeight: 'lighter' }}>{userData?.phoneNumber}</p>
-                <p style={{ fontWeight: 'lighter' }}>{userData?.email}</p>
+                <p style={{ fontWeight: 'lighter' }}>{props.userData?.phoneNumber}</p>
+                <p style={{ fontWeight: 'lighter' }}>{props.userData?.email}</p>
             </div>
             <div className={isPopped ? "accountDetailsOpen" :"offscreen"} >
                 <div className="closeRecord">

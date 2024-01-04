@@ -60,7 +60,8 @@ function NewPayment(props){
                         exYr: "",
                         CVV: ""
                     })
-    
+                    props.refresh();
+                    props.close();
                 } 
                 
                 setPopover(true);

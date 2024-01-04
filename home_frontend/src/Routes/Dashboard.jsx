@@ -95,14 +95,14 @@ function Dashboard(){
             </div>
             <div className="dashBody">
                 <div className="dashColumn">
-                    <AccountID {...userData}/>
+                    <AccountID refresh={refreshData} userData={userData}/>
                     <OverdueAccounts/>
                     <RecentPayments/>
                     <OpenServiceTickets/>
                 </div>
                 <div className= "dashCore">
                     <Properties/>
-                    <Accounts/>
+                    <Accounts refresh={refreshData}/>
                 </div>
             </div>
         </section>
@@ -114,13 +114,13 @@ function Dashboard(){
                 <div className="dashColumn">
                 <h1>Welcome, {userData?.f_name}</h1>
                 <button onClick={refreshData}>refresh</button>
-                <AccountID {...userData}/>
+                <AccountID refresh={refreshData} userData={userData}/>
                 <HomeIDcard properties = {userProperties}/>
                 <TennantServiceTickets/>
 
                 </div>
                 <div className="dashCore">
-                    <AccountBalance {...userFinAcct}/>
+                    {userFinAcct !== null && userFinAcct !== undefined && <AccountBalance refresh={refreshData} userFinAcct={userFinAcct}/>}
                     <Ledger parent_component = "dashboard" account_id={userFinAcct} ledgers={userLedgers}/> 
 
                 </div>

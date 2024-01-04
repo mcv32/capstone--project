@@ -4,10 +4,13 @@ import axios from "axios";
 
 function Ledger(props){
     const { auth, setAuth } = useAuth();
-    const [propPopped, setPropPopover] = useState(false);
+    const [ledgePopped, setLedgePopover] = useState(false);
+    const [ledgeClickView, setLedgeClickView] = useState();
 
-    function handlePropPop(){
-            setPropPopover(!propPopped);
+    function handleLedgeClick(ledge){
+        setLedgePopover(!ledgePopped);
+        setLedgeClickView(ledge);
+        // console.log("Ledger Click View", ledgeClickView)
     }
 
     console.log("Ledger props import", props);
@@ -68,12 +71,14 @@ function Ledger(props){
                     financial_account_id: props.account_id,
                     property_id:0
                 });
+                props.close_modal();
+                props.refresh_accounts();
                 setPopover(true);
                 setTimeout(resetPopover, 5000);
             
             }catch (err){
-                console.log(err.response);
-                console.log(err.response.data.errorDesc);
+                console.log(err?.response);
+                console.log(err?.response?.data?.errorDesc);
                 if (!err.response){
                     console.log ("No Server Response");
                     setResMsg("No Server Response")
@@ -108,9 +113,9 @@ function Ledger(props){
     }
 
     
-    // useEffect(() => {
-        //     console.log("view property state", viewProperty);
-        // }, [viewProperty]);
+    useEffect(() => {
+            console.log("set view ledger click", ledgeClickView);
+        }, [ledgeClickView]);
         
     const [propertyData, setPropertyResponse] = useState([]);
     let getPropconfig = {
@@ -146,10 +151,9 @@ function Ledger(props){
         <div>
         <div className="propertiesHeader">
           <h2>LEDGERS</h2>
-          <button className="openpopover" onClick={handleNewLedgPop}>+</button>
+          {auth?.roles === "ADMIN" || auth?.roles === "MANAGER" && <button className="openpopover" onClick={handleNewLedgPop}>+</button>}
         </div>
         <div className="ledger">
-          {/* {auth?.userRoles === "ADMIN" || auth?.userRoles === "MANAGER" && */}
         <div className="detailsLedgerHeader">
         <table>
             <thead>
@@ -161,7 +165,7 @@ function Ledger(props){
             </thead>
             <tbody>
                 {Object.keys(props.ledgers).map((i) => (
-                    <tr key = {i} onClick={props.ledgers[i]?.amount > 0 ? handlePropPop:null}>
+                    <tr key = {i} onClick={props.ledgers[i]?.ledgerType === "PAYMENT" ? () => handleLedgeClick(props.ledgers[i]):null}>
                         <td>${props.ledgers[i]?.amount?.toFixed(2)}</td>
                         <td>{props.ledgers[i]?.description}</td>
                         <td>{props.ledgers[i]?.property?.name}</td>
@@ -238,16 +242,21 @@ function Ledger(props){
                 </div>
             </div>
         </div>
-        <div className={propPopped ? "transactionRecordOpen" :"offscreen"} >
+        <div className={ledgePopped ? "transactionRecordOpen" :"offscreen"} >
             <div className="closeRecord">
-                <button onClick={handlePropPop}>X</button>
+                <button onClick={handleLedgeClick}>X</button>
             </div>
             <div>
-                <p>Type: Credit Card</p>
-                <p>Transaction ID: ###-####</p>
-                <p>Card: **** **** **** **** 1234</p>
-                <p>Date Time Posted: 1/2/2024 13:32 EST</p>
-                <p>Status: Approved</p>
+                <p>Transaction Type: {ledgeClickView?.transactionTests?.paymentType}</p>
+                <p>Transaction ID#: {ledgeClickView?.transactionTests?.transaction_id}</p>
+                <p>Transaction Amount: ${ledgeClickView?.transactionTests?.amount.toFixed(2)}</p>
+                {ledgeClickView?.transactionTests?.paymentType === "CREDIT_DEBIT" ?
+                <p>Card number ending in **** {ledgeClickView?.transactionTests?.last_four_digits}</p>
+                :
+                <p>Account number ending in **** {ledgeClickView?.transactionTests?.last_four_digits}</p>
+                }
+                <p>Date Time Posted: {ledgeClickView?.transactionTests?.time[1]}/{ledgeClickView?.transactionTests?.time[2]}/{ledgeClickView?.transactionTests?.time[0]} {ledgeClickView?.transactionTests?.time[3]}:{ledgeClickView?.transactionTests?.time[4]} EST</p>
+                <p>Status: {ledgeClickView?.transactionTests?.status === true ? "APPROVED" : "FAILED"}</p>
             </div>
         </div> 
     </div>

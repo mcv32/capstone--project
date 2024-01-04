@@ -99,10 +99,10 @@
 } */
 
 .snaps-inline{
-  scroll-snap-type: y proximity;
+  scroll-snap-type: y mandatory;
 }
 
-.snaps-inline > * {
+.snaps-inline_child {
   scroll-snap-align: start;
 }
 
